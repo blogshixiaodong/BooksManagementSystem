@@ -1,9 +1,9 @@
 package com.bms.dao.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.bms.bean.Book;
-import com.bms.dao.IBaseDao;
 import com.bms.dao.IBookDao;
 
 /*
@@ -13,9 +13,12 @@ import com.bms.dao.IBookDao;
 public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
-	public boolean addBook(Book book) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addBook(Book book) throws SQLException {
+		String sql = "INSERT INTO BOOK VALUES(?, ?, ?, ?)";
+		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setString(1, book.getField1());
+		pstmt.setString(2, book.getField2());
+		return pstmt.executeUpdate() == 1;
 	}
 
 	@Override

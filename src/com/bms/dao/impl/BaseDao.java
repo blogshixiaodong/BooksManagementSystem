@@ -3,9 +3,12 @@ package com.bms.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.bms.dao.IBaseDao;
+import com.sxd.util.jdbc.IDataBase;
+import com.sxd.util.jdbc.JdbcUtils;
 
 /*
  * date:   2018年3月23日 下午11:39:28
@@ -16,24 +19,66 @@ public class BaseDao implements IBaseDao {
 	protected Statement stmt;
 	protected PreparedStatement pstmt;
 	protected ResultSet rs;
+	private IDataBase dataBase;
 	
+	public synchronized Connection getConnection() {
+		try {
+			if(connection != null && !connection.isClosed()) {
+				return connection;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dataBase = JdbcUtils.newInstance();
+		return dataBase.getConnection();
+		
+	}
 	
-	@Override
-	public Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
+	public void closeConnection() throws SQLException {
+		if(connection != null && !connection.isClosed()) {
+			connection.close();
+		}
+	}
+	
+	public void closeStatement() throws SQLException {
+		if(stmt != null && !stmt.isClosed()) {
+			stmt.close();
+		}
+	}
+	
+	public void closePrepareStatement() throws SQLException {
+		if(pstmt != null && !pstmt.isClosed()) {
+			pstmt.close();
+		}
+	}
+	
+	//com.mysql.jdbc.ResultSet没有实现isClose接口
+	public void closeResultSet() throws SQLException {
+		if(rs != null) {
+			rs.close();
+		}
 	}
 
 	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-		
+	public void close() throws SQLException {
+		closeResultSet();
+		closeStatement();
+		closePrepareStatement();
+		closeConnection();
 	}
 
 	@Override
 	public void closeQuickly() {
-		// TODO Auto-generated method stub
+		try {
+			closeResultSet();
+			closeStatement();
+			closePrepareStatement();
+			closeConnection();
+		} catch (SQLException e) {
 		
+		}
 	}
+
+	
 	
 }
