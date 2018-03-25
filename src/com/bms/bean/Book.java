@@ -3,9 +3,10 @@ package com.bms.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-/*
- * date:   
- * author: jiamin
+/**
+ *  date : 2018年3月25日	
+ * author: jiangjiamin
+ * 
  */
 public class Book implements Serializable{
 	private Integer bid;

@@ -3,9 +3,41 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>中文</title>
 </head>
 <body>
+	<h3>添加图书信息</h3>
+
+	<form action = "${pageContext.request.contextPath}/BookAddController" method = "POST">
+		<table>
+			<tr>
+				<td>书名:</td>
+				<td><input type = "text" name = "bname" ></td>
+			</tr>
+			
+			<tr>
+				<td>作者:</td>
+				<td><input type = "text" name = "author"></td>
+			</tr>
+			
+			<tr>
+				<td>出版社:</td>
+				<td><input type = "text" name = "press"></td>
+			</tr>
+			
+			<tr>
+				<td>出版时间:</td>
+				<td><input type = "text" name = "publishTime" value = "2015-01-12"></td>
+			</tr>
+			
+			<tr>
+				<td><input type = "submit" value = "提交"></td>
+				<td><input type = "reset" value = "重置"></td>
+			</tr>
+			
+		</table>
+	</form>
+	
 
 </body>
 </html>

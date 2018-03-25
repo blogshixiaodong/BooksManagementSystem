@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.bms.bean.Record;
 
+/**
+ *  date : 2018Äê3ÔÂ25ÈÕ	
+ * author: jiangjiamin
+ * 
+ */
 public interface IRecordServer {
 	boolean addRecord(Record record) throws SQLException;
 	
