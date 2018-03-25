@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /*
- * date:   2018年3月23日 下午11:39:57
+ * date:   2018骞�3鏈�23鏃� 涓嬪崍11:39:57
  * author: Shixiaodong
  */
 public interface IBaseDao {
