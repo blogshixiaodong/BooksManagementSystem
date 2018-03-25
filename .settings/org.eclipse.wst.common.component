@@ -2,6 +2,9 @@
     <wb-module deploy-name="BooksManagementSystem">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="JdbcUtils.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/JdbcUtils/JdbcUtils">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="BooksManagementSystem"/>
         <property name="java-output-path" value="/BooksManagementSystem/build/classes"/>
     </wb-module>

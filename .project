@@ -3,6 +3,7 @@
 	<name>BooksManagementSystem</name>
 	<comment></comment>
 	<projects>
+		<project>JdbcUtils</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
