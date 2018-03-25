@@ -5,13 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import com.bms.dao.IBaseDao;
 import com.sxd.util.jdbc.IDataBase;
 import com.sxd.util.jdbc.JdbcUtils;
 
 /*
- * date:   2018年3月23日 下午11:39:28
+ * date:   2018骞�3鏈�23鏃� 涓嬪崍11:39:28
  * author: Shixiaodong
  */
 public class BaseDao implements IBaseDao {
@@ -52,7 +51,7 @@ public class BaseDao implements IBaseDao {
 		}
 	}
 	
-	//com.mysql.jdbc.ResultSet没有实现isClose接口
+	//com.mysql.jdbc.ResultSet娌℃湁瀹炵幇isClose鎺ュ彛
 	public void closeResultSet() throws SQLException {
 		if(rs != null) {
 			rs.close();

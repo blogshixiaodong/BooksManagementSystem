@@ -1,22 +1,51 @@
 package com.bms.bean;
+
+import java.io.Serializable;
+import java.util.Date;
+
 /*
- * date:   2018年3月23日 下午11:50:24
- * author: Shixiaodong
+ * date:   
+ * author: jiamin
  */
-public class Book {
-	private String field1;
-	private String field2;
-	public String getField1() {
-		return field1;
+public class Book implements Serializable{
+	private Integer bid;
+	private String bname;
+	private String author;
+	private String press;     //出版社
+	private Date publishTime; //出版时间
+	
+	
+	public Integer getBid() {
+		return bid;
 	}
-	public void setField1(String field1) {
-		this.field1 = field1;
+	public void setBid(Integer bid) {
+		this.bid = bid;
 	}
-	public String getField2() {
-		return field2;
+	public String getBname() {
+		return bname;
 	}
-	public void setField2(String field2) {
-		this.field2 = field2;
+	public void setBname(String bname) {
+		this.bname = bname;
 	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getPress() {
+		return press;
+	}
+	public void setPress(String press) {
+		this.press = press;
+	}
+	public Date getPublishTime() {
+		return publishTime;
+	}
+	public void setPublishTime(Date publishTime) {
+		this.publishTime = publishTime;
+	}
+	
+	
 	
 }

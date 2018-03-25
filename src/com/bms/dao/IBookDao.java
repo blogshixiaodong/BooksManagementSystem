@@ -6,7 +6,7 @@ import java.util.List;
 import com.bms.bean.Book;
 
 /*
- * date:   2018年3月23日 下午11:47:33
+ * date:   2018骞�3鏈�23鏃� 涓嬪崍11:47:33
  * author: Shixiaodong
  */
 public interface IBookDao {
@@ -14,7 +14,7 @@ public interface IBookDao {
 
 	boolean deleteBook(String id) throws SQLException;
 
-	boolean updateBook(String id) throws SQLException;
+	boolean updateBook(Book book) throws SQLException;
 	
 	boolean isExistBook(String id) throws SQLException;
 

@@ -6,7 +6,7 @@ import com.bms.bean.User;
 import com.bms.dao.IUserDao;
 
 /*
- * date:   2018年3月24日 上午12:16:48
+ * date:   2018骞�3鏈�24鏃� 涓婂崍12:16:48
  * author: Shixiaodong
  */
 public class UserDaoImpl implements IUserDao {
@@ -18,19 +18,19 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public boolean deleteUser(String id) {
+	public boolean deleteUser(Integer id) {
 		
 		return false;
 	}
 
 	@Override
-	public boolean updateUser(String id) {
+	public boolean updateUser(User user) {
 		
 		return false;
 	}
 
 	@Override
-	public boolean isExistUser(String id) {
+	public boolean isExistUser(Integer id) {
 		
 		return false;
 	}
