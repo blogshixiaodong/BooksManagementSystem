@@ -5,9 +5,11 @@ import java.util.List;
 import com.bms.bean.User;
 import com.bms.dao.IUserDao;
 
-/*
- * date:   2018骞�3鏈�24鏃� 涓婂崍12:16:48
- * author: Shixiaodong
+
+/**
+ *  date : 2018年3月25日	
+ * author: jiangjiamin
+ * 
  */
 public class UserDaoImpl implements IUserDao {
 

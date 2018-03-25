@@ -2,9 +2,10 @@ package com.bms.bean;
 
 import java.io.Serializable;
 
-/*
- * date:   
- * author: jiamin
+/**
+ *  date : 2018Äê3ÔÂ25ÈÕ	
+ * author: jiangjiamin
+ * 
  */
 public class User implements Serializable{
 	private Integer uid;

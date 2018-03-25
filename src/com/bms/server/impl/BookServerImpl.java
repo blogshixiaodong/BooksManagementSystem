@@ -5,9 +5,11 @@ import com.bms.bean.Book;
 import com.bms.dao.impl.BookDaoImpl;
 import com.bms.server.IBookServer;
 
-/*
- * date:   
- * author: jiamin
+
+/**
+ *  date : 2018Äê3ÔÂ25ÈÕ	
+ * author: jiangjiamin
+ * 
  */
 public class BookServerImpl implements IBookServer {
 	private BookDaoImpl bookDaoImpl = new BookDaoImpl();
@@ -15,6 +17,10 @@ public class BookServerImpl implements IBookServer {
 	@Override
 	public boolean addBook(Book book) {
 		boolean result = false;
+		if(book == null) {
+			return result;
+		}
+		
 		try {
 			result =  bookDaoImpl.addBook(book);
 			
@@ -26,10 +32,10 @@ public class BookServerImpl implements IBookServer {
 	}
 
 	@Override
-	public boolean deleteBook(String id) {
+	public boolean deleteBook(Integer uid) {
 		boolean result = false;
 		try {
-			result = bookDaoImpl.deleteBook(id);
+			result = bookDaoImpl.deleteBook(uid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,13 +43,18 @@ public class BookServerImpl implements IBookServer {
 	}
 
 	@Override
-	public boolean updateBook(String id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateBook(Book book) {
+		boolean result = false;
+		try {
+			result = bookDaoImpl.updateBook(book);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
-	public boolean isExistBook(String id) {
+	public boolean isExistBook(Integer id) {
 		boolean result = false;
 		try {
 			result = bookDaoImpl.isExistBook(id);
@@ -54,7 +65,7 @@ public class BookServerImpl implements IBookServer {
 	}
 
 	@Override
-	public Book getBookById(String id) {
+	public Book getBookById(Integer id) {
 		Book book = null;
 		try {
 			book = bookDaoImpl.getBookById(id);
@@ -68,11 +79,23 @@ public class BookServerImpl implements IBookServer {
 	public List<Book> getBookList() {
 		List<Book> booklist = null;
 		try {
-			booklist = getBookList();
+			booklist = bookDaoImpl.getBookList();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return booklist;
+	}
+
+	@Override
+	public List<Integer> getBookIdList() {
+		List<Integer> booklist = null;
+		try {
+			booklist = bookDaoImpl.getBookIdList();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return booklist;
+		
 	}
 	
 	
