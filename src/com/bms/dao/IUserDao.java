@@ -1,5 +1,6 @@
 package com.bms.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.bms.bean.User;
@@ -9,15 +10,15 @@ import com.bms.bean.User;
  * author: Shixiaodong
  */
 public interface IUserDao {
-	boolean addUser(User user);
+	int addUser(User user) throws SQLException;
 
-	boolean deleteUser(Integer id);
+	boolean deleteUser(Integer id) throws SQLException;
 
-	boolean updateUser(User user);
+	boolean updateUser(User user) throws SQLException;
 
-	boolean isExistUser(Integer id);
+	boolean isExistUser(Integer id) throws SQLException;
 
-	List<User> getUserList();
+	List<User> getUserList() throws SQLException;
 
-	User getUserById(String id);
+	User getUserById(Integer id) throws SQLException;
 }

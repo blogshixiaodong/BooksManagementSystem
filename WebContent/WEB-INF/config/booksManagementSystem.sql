@@ -1,5 +1,3 @@
-`student``message`
-
 CREATE DATABASE booksManagementSystem
 
 USE booksManagementSystem
@@ -28,8 +26,8 @@ CREATE TABLE record(rid INT AUTO_INCREMENT
 		    CONSTRAINT fk_uid FOREIGN KEY(uid) REFERENCES booksManagementSystem.user(uid)
 		    );
 
-ALTER TABLE booksManagementSystem.book AUTO_INCREMENT = 50000
-ALTER TABLE booksManagementSystem.user AUTO_INCREMENT = 10000
+ALTER TABLE booksManagementSystem.book AUTO_INCREMENT = 50000;
+ALTER TABLE booksManagementSystem.user AUTO_INCREMENT = 10000;
 
 
 
@@ -39,7 +37,7 @@ INSERT INTO booksManagementSystem.user(username,PASSWORD)VALUES("Sxd","456");
 INSERT INTO booksManagementSystem.user(username,PASSWORD)VALUES("Join","123");
 INSERT INTO booksManagementSystem.user(username,PASSWORD)VALUES("Uint","123");
 
-#DELETE FROM book;
+
 INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("C++从菜鸟到大神","M","清华大学出版社");
 INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("Java入门","Aaron","北京大学出版社");
 INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("J2ee开发","Abne","浙江大学出版社");

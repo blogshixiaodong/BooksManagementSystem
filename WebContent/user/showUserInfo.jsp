@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,16 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${sessionScope.message  != null}">
-		<c:out value="欢迎：${message}" />
-	</c:if>
-	<c:if test="${sessionScope.message == null}">
-		<a href="login.jsp">登陆</a>
-	</c:if>
-	
-	<!-- 主要功能 -->
-	
-	
-	
+
 </body>
 </html>
