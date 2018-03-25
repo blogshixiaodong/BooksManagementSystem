@@ -3,9 +3,10 @@ package com.bms.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-/*
- * date:   
- * author: jiamin
+/**
+ *  date : 2018Äê3ÔÂ25ÈÕ	
+ * author: jiangjiamin
+ * 
  */
 public class Record implements Serializable{
 	private Integer rid;
