@@ -1,6 +1,8 @@
 package com.bms.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,38 +14,32 @@ import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
 /**
- *  date : 2018年3月25日	
+ *  date : 2018年3月26日	
  * author: jiangjiamin
+ * 
  */
-
-@WebServlet("/BookUpdateController")
-public class BookUpdateController extends HttpServlet {
+@WebServlet("/BookSearchInfoController")
+public class BookSearchInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private BookServerImpl bookServerImpl = new BookServerImpl(); 
-   
+	
+	
+    public BookSearchInfoController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
+		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		
-		Book book = (Book)RequestUtil.getParamsInjectObj(request, Book.class);
-		//Integer bid =Integer.parseInt(request.getParameter("bid"));
-		//book.setBid(bid);
-		
-		
-		if(bookServerImpl.updateBook(book)) {
-			response.sendRedirect("");
-		}else {
-			//携带错误信息，转发进入页面
-			request.getRequestDispatcher("").forward(request, response);
-		}
+		Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
+		List<Book> booklist = bookServerImpl.getBookByConndition(book);
 		
 		
 		
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
