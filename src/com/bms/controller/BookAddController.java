@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bms.bean.Book;
 import com.bms.server.impl.BookServerImpl;
+import com.utils.RequestUtil;
 
 /**
  *  date : 2018年3月25日	
@@ -30,7 +31,8 @@ public class BookAddController extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		try {
-			Book book = createBook(request);
+			Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
+			//Book book = createBook(request);
 			if(bookServerImpl.addBook(book)) {
 				//添加成功,进入查询所有页面
 				response.sendRedirect(request.getContextPath()+"/BookListController");
@@ -39,8 +41,8 @@ public class BookAddController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/book/error.jsp");
 			}
 				
-		} catch (ParseException e) {
-			//时间转换错误
+		} catch (Exception e) {
+			
 			e.printStackTrace();
 			
 		}
@@ -52,7 +54,7 @@ public class BookAddController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private Date stringToDate(String str) throws ParseException {
+	/*private Date stringToDate(String str) throws ParseException {
 		//时间格式 --> String 转换为 Date
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.parse(str);
@@ -72,10 +74,7 @@ public class BookAddController extends HttpServlet {
 		book.setPress(press);
 		book.setPublishTime(publishTime);
 		return book;
-	}
+	}*/
 	
-	 /*
-			Object xxxx(request,class)
-	*
-	*/
+
 }

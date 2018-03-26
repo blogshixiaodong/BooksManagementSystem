@@ -26,6 +26,8 @@ public class BookServerImpl implements IBookServer {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
 		}
 		return result;
 		
@@ -38,6 +40,8 @@ public class BookServerImpl implements IBookServer {
 			result = bookDaoImpl.deleteBook(uid);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
 		}
 		return result;
 	}
@@ -49,6 +53,8 @@ public class BookServerImpl implements IBookServer {
 			result = bookDaoImpl.updateBook(book);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
 		}
 		return result;
 	}
@@ -60,6 +66,8 @@ public class BookServerImpl implements IBookServer {
 			result = bookDaoImpl.isExistBook(id);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
 		}
 		return result;
 	}
@@ -71,6 +79,8 @@ public class BookServerImpl implements IBookServer {
 			book = bookDaoImpl.getBookById(id);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
 		}
 		return book;
 	}
@@ -82,6 +92,8 @@ public class BookServerImpl implements IBookServer {
 			booklist = bookDaoImpl.getBookList();
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
 		}
 		return booklist;
 	}
@@ -93,12 +105,25 @@ public class BookServerImpl implements IBookServer {
 			booklist = bookDaoImpl.getBookIdList();
 		}catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
 		}
 		return booklist;
 		
 	}
-	
-	
-	
-	
+
+	@Override
+	public List<Book> getBookByConndition(Book book) {
+		List<Book> booklist = null;
+		
+		
+		
+		
+		try {
+			//booklist = bookDaoImpl.getBookByConndition(conndition);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return booklist;
+	}
 }

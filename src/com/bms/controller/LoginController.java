@@ -1,7 +1,6 @@
 package com.bms.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,16 +24,16 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		IUserServer server = new UserServerImpl();
 		try {
-			//输入账号合法性校验
+			//杈撳叆璐﹀彿鍚堟硶鎬ф牎楠�
 			intUid = Integer.parseInt(uid);
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
-			request.setAttribute("error", "输入账号非法!");
+			request.setAttribute("error", "杈撳叆璐﹀彿闈炴硶!");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		}
 		if(!server.login(intUid, password)) {
-			request.setAttribute("error", "账号或密码错误!");
+			request.setAttribute("error", "璐﹀彿鎴栧瘑鐮侀敊璇�!");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			return;
 		}

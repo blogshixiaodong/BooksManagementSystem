@@ -36,13 +36,13 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
 	public boolean updateBook(Book book)throws SQLException {
-		String sql = "UPDATE BOOK SET BNAME = ?,AUTHOR = ? "
-				+ "PRESS = ?,PUBLICTIME WHERE BID = ?";
+		String sql = "UPDATE BOOK SET BNAME = ?,AUTHOR = ?,"
+				+ "PRESS = ?,PUBLISHTIME = ? WHERE BID = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setString(1, book.getBname());
 		pstmt.setString(2, book.getAuthor());
 		pstmt.setString(3, book.getPress());
-		pstmt.setDate(4, (Date) book.getPublishTime());
+		pstmt.setDate(4, new java.sql.Date(book.getPublishTime().getTime()));
 		pstmt.setInt(5, book.getBid());
 		
 		return pstmt.executeUpdate() == 1;
@@ -72,6 +72,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		Book book = null;
 		while(rs.next()) {
 			book = new Book();
+			book.setBid(id);
 			book.setAuthor(rs.getString("author"));
 			book.setBname(rs.getString("bname"));
 			book.setPress(rs.getString("press"));
@@ -110,6 +111,26 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		} 
 		return idlist;
 
+	}
+
+	@Override
+	public List<Book> getBookByConndition(String conndition) throws SQLException {
+		String sql = "SELECT * FROM BOOK WHERE " + conndition;
+		pstmt = getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		List<Book> booklist = new ArrayList<Book>();
+		while(rs.next()) {
+			
+			Book book = new Book();
+			book.setBid(rs.getInt("bid"));
+			book.setBname(rs.getString("bname"));
+			book.setAuthor(rs.getString("author"));
+			book.setPress(rs.getString("press"));
+			book.setPublishTime(rs.getDate("publishTime"));
+			booklist.add(book);
+		} 
+		return booklist;
+		
 	}
 	
 }

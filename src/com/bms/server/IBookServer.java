@@ -23,5 +23,8 @@ public interface IBookServer {
 	List<Integer> getBookIdList();
 
 	List<Book> getBookList();
+	
+	List<Book> getBookByConndition(Book book);
+	
 
 }

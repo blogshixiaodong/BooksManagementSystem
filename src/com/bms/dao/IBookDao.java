@@ -24,4 +24,6 @@ public interface IBookDao {
 	List<Integer> getBookIdList() throws SQLException;
 
 	List<Book> getBookList() throws SQLException;
+	
+	List<Book> getBookByConndition(String conndition) throws SQLException;
 }
