@@ -6,7 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	注册成功：你的账号${requestScope.uid}
-	<a >
+	你好：${sessionScope.username}<br/>
+	注册成功：你的账号为 ${sessionScope.uid}<br/>
+	<a href="../main.jsp">回到首页</a>
 </body>
 </html>

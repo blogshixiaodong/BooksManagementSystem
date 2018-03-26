@@ -21,4 +21,5 @@ public interface IUserDao {
 	List<User> getUserList() throws SQLException;
 
 	User getUserById(Integer id) throws SQLException;
+
 }

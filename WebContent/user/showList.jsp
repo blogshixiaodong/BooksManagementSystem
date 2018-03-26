@@ -12,16 +12,24 @@
 		List<User> list = (List<User>)request.getAttribute("userList");
 		pageContext.setAttribute("userList", list);
 	%>
-	<table>
+	<table border="1" cellspacing="0">
 		<tr>
 			<td>用户ID</td>
 			<td>用户名</td>
+			<td colspan="2">操作</td>
 		</tr>
 		<c:if test="${userList != null && userList.size() > 0 }">
 			<c:forEach var="user" begin="0" end="${userList.size()}" items="${userList}">
 				<tr>
 					<td><c:out value="${user.getUid()}" /></td>	
 					<td><c:out value="${user.getUsername()}" /></td>
+					<td>
+						<a href="UserListController?uid=${user.getUid()}">修改</a>
+						
+					</td>
+					<td>
+						<a href="user/UserDeleteController?uid=${user.getUid()}">删除</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</c:if>

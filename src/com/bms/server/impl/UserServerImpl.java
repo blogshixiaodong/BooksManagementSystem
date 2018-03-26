@@ -70,6 +70,9 @@ public class UserServerImpl implements IUserServer {
 	@Override
 	public User getUserById(Integer id) {
 		try {
+			if(!isExistUser(id)) {
+				return null;
+			}
 			return dao.getUserById(id);
 		} catch (SQLException e) {
 			e.printStackTrace();

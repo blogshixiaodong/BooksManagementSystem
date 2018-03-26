@@ -6,24 +6,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.bms.server.IUserServer;
+import com.bms.server.impl.UserServerImpl;
 
 
-@WebServlet("/LogoffController")
-public class LogoffController extends HttpServlet {
+@WebServlet("/user/UserUpdateController")
+public class UserUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-  
+       
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("userid") != null) {
-			session.removeAttribute("uid");
-			session.removeAttribute("username");
-		}
-		response.sendRedirect("user/index.jsp");
+		int uid = Integer.parseInt(request.getParameter("uid"));
+		IUserServer server = new UserServerImpl();
+		request.setAttribute("user", server.getUserById(uid));
+		request.getRequestDispatcher("showInfo.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+
 }

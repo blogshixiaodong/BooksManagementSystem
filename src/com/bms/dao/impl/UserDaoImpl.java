@@ -111,7 +111,5 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 		closeQuickly();
 		return user;
 	}
-
-	
 	
 }
