@@ -10,27 +10,27 @@
 	<h3>修改图书信息</h3>
 	
 	<form action = "${pageContext.request.contextPath}/BookUpdateController" method = "POST">
-	
+		<input type = "hidden" name = "bid" value = "${book.bid}"/>
 		<table>
 			<tr>
 				<td>书名:</td>
-				<td><input type = "text" value = "${book.bname}"></td>
+				<td><input type = "text" value = "${book.bname}" name = "bname"></td>
 			</tr>
 			
 			<tr>
 				<td>作者:</td>
-				<td><input type = "text" value = "${book.author}"></td>
+				<td><input type = "text" value = "${book.author}" name = "author"></td>
 			</tr>
 			
 			
 			<tr>
 				<td>出版社:</td>
-				<td><input type = "text" value = "${book.press}"></td>
+				<td><input type = "text" value = "${book.press}" name = "press"></td>
 			</tr>
 			
 			<tr>
 				<td>出版时间:</td>
-				<td><input type = "text" value = "${book.publishTime}"></td>
+				<td><input type = "text" value = "${book.publishTime}" name = "publishTime"></td>
 			</tr>
 			
 			<tr>

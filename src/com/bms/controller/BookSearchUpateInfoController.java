@@ -31,6 +31,7 @@ public class BookSearchUpateInfoController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		//ªÒ»°Õº È∫≈
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
 		Book book = bookServerImpl.getBookById(bid);
 		request.setAttribute("book", book);

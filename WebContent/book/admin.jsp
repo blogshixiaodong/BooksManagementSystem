@@ -9,8 +9,8 @@
 <body>
 
 <a href = "${pageContext.request.contextPath}/book/addBook.jsp">添加图书信息</a><br>
-<%-- <a href = "${pageContext.request.contextPath}/BookSearchIdListController?op=Delete">删除图书信息</a><br> --%>
-<%-- <a href = "${pageContext.request.contextPath}/BookSearchIdListController?op=Update">修改图书信息</a><br> --%>
+<a href = "${pageContext.request.contextPath}/book/searchBook.jsp">删除图书信息</a><br>
+<a href = "${pageContext.request.contextPath}/book/searchBook.jsp">修改图书信息</a><br>
 <a href = "${pageContext.request.contextPath}/BookListController">查询图书信息</a><br>
 </body>
 </html>

@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/com/bms/bean/Book.java=UTF-8
+encoding//src/com/bms/controller/LoginController.java=UTF-8
 encoding//src/com/bms/dao/IBaseDao.java=UTF-8
 encoding//src/com/bms/dao/IBookDao.java=UTF-8
 encoding//src/com/bms/dao/IUserDao.java=UTF-8
