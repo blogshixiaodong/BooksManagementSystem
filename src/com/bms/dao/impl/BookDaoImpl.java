@@ -115,7 +115,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
 	public List<Book> getBookByConndition(String conndition) throws SQLException {
-		String sql = "SELECT * FROM BOOK WHERE " + conndition;
+		String sql = "SELECT * FROM BOOK WHERE 1=1 AND " + conndition;
 		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		List<Book> booklist = new ArrayList<Book>();

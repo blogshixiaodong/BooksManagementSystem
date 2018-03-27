@@ -31,11 +31,16 @@ public class BookSearchInfoController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
 		List<Book> booklist = bookServerImpl.getBookByConndition(book);
+		request.setAttribute("booklist", booklist);
 		
+		request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
 		
 		
 	}

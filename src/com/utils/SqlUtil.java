@@ -1,6 +1,7 @@
 package com.utils;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 /**
  *  date : 2018年3月27日	
  * author: jiangjiamin
@@ -22,27 +23,40 @@ public class SqlUtil {
 				field.setAccessible(true);
 				Object value = field.get(object);
 				if(value != null) {
-					str.append(field.getName()+" = ?,");
+					
+					//获取属性的值对象
+					Object valueObj = field.get(object);
+					
+					str.append(field.getName()+ " = " + getSqlByType(valueObj) + " and " );
 					
 				}
 			}
-			if(str.toString() == "") {
-				
-			}
 			
-			//判断拼接的字符串最后一个字符是否为 逗号
-			if(',' == str.charAt(str.length() - 1 )) {
-				str.deleteCharAt(str.length() - 1);
+			//删除最后一个and
+			if(str.toString() != "") {
+				str.delete(str.length()-5, str.length()-1);
 			}
-			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		return null;
+		return str.toString();
 		
 	}
+	
+	//根据类型拼接sql语句
+	private static String getSqlByType(Object object) {
+		String sql = "";
+		if(object instanceof String) {
+			sql = " '" + object.toString() + "' ";
+		}else if(object instanceof Integer) {
+			sql = sql+object;
+		}else if(object instanceof Date) {
+			sql = " '" + DateFormat.dateToString((Date)object) + "' ";
+		}
+		
+		return sql;
+	}
+	
+	
 }
