@@ -30,10 +30,6 @@ public class LoginController extends HttpServlet {
 			intUid = Integer.parseInt(uid);
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
-<<<<<<< HEAD
-=======
-
->>>>>>> origin
 			session.setAttribute("error", "输入账号非法!");
 			response.sendRedirect("user/login.jsp");
 			return;
@@ -41,18 +37,6 @@ public class LoginController extends HttpServlet {
 		if(!server.login(intUid, password)) {
 			session.setAttribute("error", "账号或密码错误!");
 			response.sendRedirect("user/login.jsp");
-<<<<<<< HEAD
-=======
-
-			request.setAttribute("error", "杈撳叆璐﹀彿闈炴硶!");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
-			return;
-		}
-		if(!server.login(intUid, password)) {
-			request.setAttribute("error", "璐﹀彿鎴栧瘑鐮侀敊璇�!");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
-
->>>>>>> origin
 			return;
 		}
 		username = server.getUserById(intUid).getUsername();

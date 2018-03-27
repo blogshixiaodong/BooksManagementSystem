@@ -10,11 +10,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/JdbcUtils"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JRE"/>
-	<classpathentry kind="lib" path="E:/eclipse/work2/BooksManagementSystem/WebContent/WEB-INF/lib/JdbcUtils.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse/work2/BooksManagementSystem/WebContent/WEB-INF/lib/jstl.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse/work2/BooksManagementSystem/WebContent/WEB-INF/lib/junit-4.8.2.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse/work2/BooksManagementSystem/WebContent/WEB-INF/lib/mysql.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse/work2/BooksManagementSystem/WebContent/WEB-INF/lib/standard.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="build/classes"/>
 </classpath>

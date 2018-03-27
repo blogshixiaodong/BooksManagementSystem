@@ -7,8 +7,8 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   
-<!--  <filter>
-  <!-- <filter>
+<!--
+  <filter>
   	<filter-name>UserPowerFilter</filter-name>
   	<filter-class>com.bms.filter.UserPowerFilter</filter-class>
   </filter>

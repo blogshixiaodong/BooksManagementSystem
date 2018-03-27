@@ -1,10 +1,6 @@
 package com.bms.controller;
 
 import java.io.IOException;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,23 +35,16 @@ public class UserListController extends HttpServlet {
 				e.printStackTrace();
 				session.setAttribute("error", "杈撳叆璐﹀彿闈炴硶!");
 				response.sendRedirect("user/search.jsp");
-//				request.getRequestDispatcher("/user/search.jsp").forward(request, response);
 				return;
 			}
 			List<User> list = new ArrayList<User>();
 			User user = server.getUserById(intUid);
 			if(user == null) {
-<<<<<<< HEAD
+
 				session.setAttribute("error", "用户Id不存在!");
 				response.sendRedirect("search.jsp");
-=======
-				session.setAttribute("error", "鐢ㄦ埛Id涓嶅瓨鍦�!");
-				response.sendRedirect("user/search.jsp");
->>>>>>> origin
-//				request.getRequestDispatcher("/user/search.jsp").forward(request, response);
 				return ;
 			}
-			//淇敼鐢ㄦ埛淇℃伅鐨勬煡璇�
 			list.add(user);
 			request.setAttribute("userList", list);
 			request.getRequestDispatcher("/user/showInfo.jsp").forward(request, response);
