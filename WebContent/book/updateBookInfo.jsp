@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	${sessionScope.excep.content}
+	<%session.removeAttribute("excep"); %>
+
 	<h3>修改图书信息</h3>
 	
 	<form action = "${pageContext.request.contextPath}/BookUpdateController" method = "POST">

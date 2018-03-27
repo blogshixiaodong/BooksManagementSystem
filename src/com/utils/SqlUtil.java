@@ -27,15 +27,11 @@ public class SqlUtil {
 					//获取属性的值对象
 					Object valueObj = field.get(object);
 					
-					str.append(field.getName()+ " = " + getSqlByType(valueObj) + " and " );
+					str.append( " and " +field.getName()+ " = " + getSqlByType(valueObj));
 					
 				}
 			}
 			
-			//删除最后一个and
-			if(str.toString() != "") {
-				str.delete(str.length()-5, str.length()-1);
-			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

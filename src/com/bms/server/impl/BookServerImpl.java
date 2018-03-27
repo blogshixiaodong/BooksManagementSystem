@@ -1,9 +1,14 @@
 package com.bms.server.impl;
 
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import com.bms.bean.Book;
 import com.bms.dao.impl.BookDaoImpl;
+import com.bms.exception.BookException;
+import com.bms.exception.ErrorList;
 import com.bms.server.IBookServer;
+import com.sxd.util.StringUtils;
 import com.utils.SqlUtil;
 
 
@@ -16,17 +21,18 @@ public class BookServerImpl implements IBookServer {
 	private BookDaoImpl bookDaoImpl = new BookDaoImpl();
 	
 	@Override
-	public boolean addBook(Book book) {
+	public boolean addBook(Book book)throws BookException {
 		boolean result = false;
-		if(book == null) {
-			return result;
-		}
 		
 		try {
+			checkIsNull(book);
 			result =  bookDaoImpl.addBook(book);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (BookException e) {
+			
+			throw new BookException(ErrorList.NOT_NULL);
+		}catch (Exception e) {
+			
 		}finally {
 			bookDaoImpl.closeQuickly();
 		}
@@ -47,13 +53,33 @@ public class BookServerImpl implements IBookServer {
 		return result;
 	}
 
+	
+	private void checkIsNull(Book book)throws BookException {
+		boolean flag = true;
+		if(StringUtils.isNullOrEmpty(book.getBname())) {
+			flag = false;
+		}else if(StringUtils.isNullOrEmpty(book.getAuthor())) {
+			flag = false;
+		}else if(StringUtils.isNull(book.getPress())) {
+			flag = false;
+		}else if(book.getPublishTime() == null) {
+			throw new BookException(ErrorList.DATE_FORMAT_ERROR);
+		}
+		if(!flag) {
+			throw new BookException(ErrorList.NOT_NULL);
+		}
+	}
+	
 	@Override
-	public boolean updateBook(Book book) {
+	public boolean updateBook(Book book)throws BookException {
 		boolean result = false;
 		try {
+			
+			checkIsNull(book);
 			result = bookDaoImpl.updateBook(book);
 		}catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw new BookException(ErrorList.NOT_NULL);
 		}finally {
 			bookDaoImpl.closeQuickly();
 		}
@@ -114,19 +140,23 @@ public class BookServerImpl implements IBookServer {
 	}
 
 	@Override
-	public List<Book> getBookByConndition(Book book) {
+	public List<Book> getBookByConndition(Book book)throws BookException {
 		List<Book> booklist = null;
 		
 		//拼接条件查询 where 之后条件语句
 		String conndition = SqlUtil.getSql(book);
 		
+
+			try {
+				booklist = bookDaoImpl.getBookByConndition(conndition);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(booklist == null || booklist.size() == 0) {
+				throw new BookException(ErrorList.NO_RECORD);
+			}
 		
-		try {
-			booklist = bookDaoImpl.getBookByConndition(conndition);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
 		return booklist;
 	}
 }

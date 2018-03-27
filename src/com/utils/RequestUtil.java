@@ -8,6 +8,9 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bms.exception.BookException;
+import com.bms.exception.ErrorList;
+
 /**
  *  date : 2018年3月27日	
  * author: jiangjiamin
@@ -15,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RequestUtil {
 	
-	public static <T> T getParamsInjectObj(HttpServletRequest request,Class<T> clazz) {
+	public static <T> T getParamsInjectObj(HttpServletRequest request,Class<T> clazz)   {
 		//获取表单提交所有参数名
 		Enumeration<String> paramNmaes = request.getParameterNames();
 		T object = null;
@@ -31,37 +34,38 @@ public class RequestUtil {
 				field.setAccessible(true);
 				//将表单获取到的String类型参数值转化为 类中对应的类型
 				setParam(field, object, request.getParameter(param));
-			
 			}
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		}catch (BookException e) {
+			//e.setContent(ErrorList.DATE_FORMAT_ERROR);
+			request.getSession().setAttribute("excep", e);
+		}catch (Exception e) {
 			e.printStackTrace();
-		} 
-		
-		return object;
-			
+		}
+		return object;	
 	}
 
-	public static void  setParam(Field field,Object object,String value) throws Exception {
+	public static void  setParam(Field field,Object object,String value) throws BookException {
 		String type = field.getType().toString();
 		
-		//if value = null  return;
-		if("".equals(value)) {
-			field.set(object,null);
-			return;
-		}
-		
-		if(type.equals("class java.lang.String")){
-			field.set(object, value);
-		}else if(type.equals("class java.lang.Integer")){
-			field.set(object, Integer.parseInt(value) );
-		}else if(type.equals("class java.lang.Float")){
-			field.set(object, Float.parseFloat(value ) );
-		}else if(type.equals("class java.util.Date")) {
+		try {
+			//if value = null  return;
+			if("".equals(value)) {
+				field.set(object,null);
+				return;
+			}
 			
-			field.set(object,DateFormat.stringToDate(value));
+			if(type.equals("class java.lang.String")){
+				field.set(object, value);
+			}else if(type.equals("class java.lang.Integer")){
+				field.set(object, Integer.parseInt(value) );
+			}else if(type.equals("class java.lang.Float")){
+				field.set(object, Float.parseFloat(value ) );
+			}else if(type.equals("class java.util.Date")) {
+				
+				field.set(object,DateFormat.stringToDate(value));
+			}
+		}catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
 	

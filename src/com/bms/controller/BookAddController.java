@@ -1,10 +1,6 @@
 package com.bms.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bms.bean.Book;
+import com.bms.exception.BookException;
 import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
@@ -30,22 +27,28 @@ public class BookAddController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		try {
-			Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
-			//Book book = createBook(request);
-			if(bookServerImpl.addBook(book)) {
-				//添加成功,进入查询所有页面
-				response.sendRedirect(request.getContextPath()+"/BookListController");
-			}else {
-				//添加失败
-				response.sendRedirect(request.getContextPath()+"/book/error.jsp");
-			}
+				//反射获取表单book提交数据
+				Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
 				
-		} catch (Exception e) {
+				if(request.getSession().getAttribute("excep") != null) {
+					response.sendRedirect(request.getContextPath()+"/book/addBook.jsp");
+					return ;
+				}
+				
+				try {
+					if(bookServerImpl.addBook(book)) {
+
+						response.sendRedirect(request.getContextPath()+"/BookListController");
+					}
+				} catch (BookException e) {
+					request.getSession().setAttribute("excep", e);
+					response.sendRedirect(request.getContextPath()+"/book/addBook.jsp");
+				}
+
+				
 			
-			e.printStackTrace();
+				
 			
-		}
 	}
 
 	
@@ -54,27 +57,6 @@ public class BookAddController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	/*private Date stringToDate(String str) throws ParseException {
-		//时间格式 --> String 转换为 Date
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sdf.parse(str);
-	}
-	
-	private Book createBook(HttpServletRequest request) throws ParseException {
-		//获取表单值
-		String bname = request.getParameter("bname");
-		String author = request.getParameter("author");
-		String press = request.getParameter("press");
-		Date publishTime = stringToDate(request.getParameter("publishTime"));
-		
-		//创建图书对象
-		Book book = new Book();
-		book.setBname(bname);
-		book.setAuthor(author);
-		book.setPress(press);
-		book.setPublishTime(publishTime);
-		return book;
-	}*/
 	
 
 }
