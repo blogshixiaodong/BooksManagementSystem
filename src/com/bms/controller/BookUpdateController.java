@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bms.bean.Book;
+import com.bms.exception.BookException;
 import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
@@ -26,21 +27,33 @@ public class BookUpdateController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		
-		Book book = (Book)RequestUtil.getParamsInjectObj(request, Book.class);
-		//Integer bid =Integer.parseInt(request.getParameter("bid"));
-		//book.setBid(bid);
-		
-		
-		if(bookServerImpl.updateBook(book)) {
-			response.sendRedirect("");
-		}else {
-			//携带错误信息，转发进入页面
-			request.getRequestDispatcher("").forward(request, response);
-		}
-		
-		
-		
+			Book book = (Book)RequestUtil.getParamsInjectObj(request, Book.class);
+			
+			/*if(request.getSession().getAttribute("excep") != null) {
+				response.sendRedirect(request.getContextPath()+"/book/addBook.jsp");
+				return ;
+			}
+			
+			try {
+				if(bookServerImpl.updateBook(book)) {
+					response.sendRedirect("book/showBookList.jsp");
+				}
+			}catch (BookException e) {
+				request.getSession().setAttribute("excep", e);	
+				request.getRequestDispatcher("/book/updateBookInfo.jsp").forward(request, response);
+			}*/
+			
+			try {
+				bookServerImpl.updateBook(book);
+			} catch (BookException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			response.sendRedirect("BookListController");
+			
+			
+			
 	}
 
 	

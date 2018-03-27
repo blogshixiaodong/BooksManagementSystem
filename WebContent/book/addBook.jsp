@@ -6,6 +6,9 @@
 <title>中文</title>
 </head>
 <body>
+
+	${sessionScope.excep.content}
+	<%session.removeAttribute("excep"); %>
 	<h3>添加图书信息</h3>
 
 	<form action = "${pageContext.request.contextPath}/BookAddController" method = "POST">

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.bms.bean.Book;
 import com.bms.dao.IBookDao;
+import com.bms.exception.BookException;
 
 /**
  *  date : 2018年3月25日	
@@ -18,12 +19,14 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	@Override
 	public boolean addBook(Book book) throws SQLException {
 		String sql = "INSERT INTO BOOK(BNAME,AUTHOR,PRESS,PUBLISHTIME) VALUES(?, ?, ?, ?)";
-		pstmt = getConnection().prepareStatement(sql);
-		pstmt.setString(1, book.getBname());
-		pstmt.setString(2, book.getAuthor());
-		pstmt.setString(3, book.getPress());
-		pstmt.setDate(4, new java.sql.Date(book.getPublishTime().getTime()) );
-		return pstmt.executeUpdate() == 1;
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, book.getBname());
+			pstmt.setString(2, book.getAuthor());
+			pstmt.setString(3, book.getPress());
+			pstmt.setDate(4, new java.sql.Date(book.getPublishTime().getTime()) );
+			return pstmt.executeUpdate() == 1;
+		
+		
 	}
 
 	@Override
@@ -115,7 +118,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
 	public List<Book> getBookByConndition(String conndition) throws SQLException {
-		String sql = "SELECT * FROM BOOK WHERE 1=1 AND " + conndition;
+		String sql = "SELECT * FROM BOOK WHERE 1=1" + conndition;
 		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		List<Book> booklist = new ArrayList<Book>();

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bms.bean.Book;
+import com.bms.exception.BookException;
 import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
@@ -37,12 +38,22 @@ public class BookSearchInfoController extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
-		List<Book> booklist = bookServerImpl.getBookByConndition(book);
-		request.setAttribute("booklist", booklist);
 		
-		request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
+		if(request.getSession().getAttribute("excep") != null) {
+			response.sendRedirect("book/searchBook.jsp");
+			return ;
+		}
 		
-		
+		try {
+			List<Book> booklist = bookServerImpl.getBookByConndition(book);
+			request.setAttribute("booklist", booklist);
+			request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
+		} catch (BookException e) {
+			request.getSession().setAttribute("excep", e);
+			response.sendRedirect("book/searchBook.jsp");
+			return ;
+			
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

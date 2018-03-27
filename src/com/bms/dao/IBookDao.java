@@ -2,7 +2,6 @@ package com.bms.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import com.bms.bean.Book;
 
 /**
