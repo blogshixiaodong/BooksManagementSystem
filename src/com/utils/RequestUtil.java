@@ -25,7 +25,7 @@ public class RequestUtil {
 			
 			//循环为每个字段赋值
 			while(paramNmaes.hasMoreElements()) {
-				String param = paramNmaes.nextElement();
+ 				String param = paramNmaes.nextElement();
 				Field field = clazz.getDeclaredField(param);
 				
 				field.setAccessible(true);
@@ -46,23 +46,26 @@ public class RequestUtil {
 
 	public static void  setParam(Field field,Object object,String value) throws Exception {
 		String type = field.getType().toString();
+		
+		//if value = null  return;
+		if("".equals(value)) {
+			field.set(object,null);
+			return;
+		}
+		
 		if(type.equals("class java.lang.String")){
-			field.set(object, value.toString() );
+			field.set(object, value);
 		}else if(type.equals("class java.lang.Integer")){
-			field.set(object, Integer.parseInt((String)value) );
+			field.set(object, Integer.parseInt(value) );
 		}else if(type.equals("class java.lang.Float")){
-			field.set(object, Float.parseFloat((String)value ) );
+			field.set(object, Float.parseFloat(value ) );
 		}else if(type.equals("class java.util.Date")) {
 			
-			field.set(object,stringToDate(value));
+			field.set(object,DateFormat.stringToDate(value));
 		}
 	}
 	
-	private static Date stringToDate(String str) throws ParseException {
-		//时间格式 --> String 转换为 Date
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sdf.parse(str);
-	}
+	
 
 
 }

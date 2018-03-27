@@ -1,11 +1,8 @@
 package com.bms.controller;
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
-=======
->>>>>>> origin/master
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +23,7 @@ public class UserListController extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		IUserServer server = new UserServerImpl();
-		//request中有uid参数则为查询
+		//request涓湁uid鍙傛暟鍒欎负鏌ヨ
 		String uid = request.getParameter("uid");
 		HttpSession session = request.getSession();
 		session.removeAttribute("error");
@@ -36,7 +33,7 @@ public class UserListController extends HttpServlet {
 				intUid = Integer.parseInt(uid);
 			} catch(NumberFormatException e) {
 				e.printStackTrace();
-				session.setAttribute("error", "输入账号非法!");
+				session.setAttribute("error", "杈撳叆璐﹀彿闈炴硶!");
 				response.sendRedirect("user/search.jsp");
 //				request.getRequestDispatcher("/user/search.jsp").forward(request, response);
 				return;
@@ -44,12 +41,12 @@ public class UserListController extends HttpServlet {
 			List<User> list = new ArrayList<User>();
 			User user = server.getUserById(intUid);
 			if(user == null) {
-				session.setAttribute("error", "用户Id不存在!");
+				session.setAttribute("error", "鐢ㄦ埛Id涓嶅瓨鍦�!");
 				response.sendRedirect("user/search.jsp");
 //				request.getRequestDispatcher("/user/search.jsp").forward(request, response);
 				return ;
 			}
-			//修改用户信息的查询
+			//淇敼鐢ㄦ埛淇℃伅鐨勬煡璇�
 			list.add(user);
 			request.setAttribute("userList", list);
 			request.getRequestDispatcher("/user/showInfo.jsp").forward(request, response);
