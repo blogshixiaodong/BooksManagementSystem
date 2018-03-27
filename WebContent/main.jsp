@@ -10,6 +10,6 @@
 	<!--<a href="/UserListController">删除用户</a><br/>-->
 	<a href="user/search.jsp">修改用户</a><br/>
 	<a href="user/search.jsp">用户查询</a><br/>
-	<a href="UserListController">用户列表</a><br/>
+	<a href="user/UserListController">用户列表</a><br/>
 </body>
 </html>

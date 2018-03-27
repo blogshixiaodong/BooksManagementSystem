@@ -42,7 +42,7 @@ public class UserListController extends HttpServlet {
 			if(user == null) {
 
 				session.setAttribute("error", "用户Id不存在!");
-				response.sendRedirect("search.jsp");
+				response.sendRedirect("/search.jsp");
 				return ;
 			}
 			list.add(user);

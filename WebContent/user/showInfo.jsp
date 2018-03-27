@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="user/UserUpdateController" method="post">
+	<form action="UserUpdateController" method="post">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>

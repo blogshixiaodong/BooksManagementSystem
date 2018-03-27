@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>用户注册</title>
 
 
 
@@ -21,6 +21,9 @@
 					<td>错误:</td>
 					<td><c:out value="${sessionScope.error}" /><br /></td>
 				</tr>
+				<%
+					request.getSession().removeAttribute("error");
+				%>
 			</c:if>
 			<tr>
 				<td>用户名:</td>
@@ -47,8 +50,9 @@
 			<tr>
 				<td></td>
 				<td>
-					<input type="submit" value="注册" /> &nbsp;&nbsp;
+					<input type="submit" value="注册" />
 					<input type="reset" value="重置" />
+					<button><a href="<%=basePath%>main.jsp">首页</button>
 				</td>
 			</tr>
 		</table>
