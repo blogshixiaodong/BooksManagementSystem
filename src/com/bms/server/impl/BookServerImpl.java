@@ -4,6 +4,7 @@ import java.util.List;
 import com.bms.bean.Book;
 import com.bms.dao.impl.BookDaoImpl;
 import com.bms.server.IBookServer;
+import com.utils.SqlUtil;
 
 
 /**
@@ -116,11 +117,13 @@ public class BookServerImpl implements IBookServer {
 	public List<Book> getBookByConndition(Book book) {
 		List<Book> booklist = null;
 		
-		
+		//拼接条件查询 where 之后条件语句
+		String conndition = SqlUtil.getSql(book);
 		
 		
 		try {
-			//booklist = bookDaoImpl.getBookByConndition(conndition);
+			booklist = bookDaoImpl.getBookByConndition(conndition);
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
