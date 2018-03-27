@@ -16,10 +16,10 @@
 	<br />
 	<!-- 主要功能 -->
 	
-	<a href="user/register.jsp">添加用户</a><br/>
+	<a href="register.jsp">添加用户</a><br/>
 	<!--<a href="/UserListController">删除用户</a><br/>-->
-	<a href="user/search.jsp">修改用户</a><br/>
-	<a href="user/search.jsp">用户查询</a><br/>
+	<a href="search.jsp">修改用户</a><br/>
+	<a href="search.jsp">用户查询</a><br/>
 	<a href="UserListController">用户列表</a><br/>
 	
 </body>

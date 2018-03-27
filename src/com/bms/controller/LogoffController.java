@@ -16,11 +16,11 @@ public class LogoffController extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("userid") != null) {
+		if((session.getAttribute("userid") != null) || (session.getAttribute("username") != null)) {
 			session.removeAttribute("uid");
 			session.removeAttribute("username");
 		}
-		response.sendRedirect("user/index.jsp");
+		response.sendRedirect("index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

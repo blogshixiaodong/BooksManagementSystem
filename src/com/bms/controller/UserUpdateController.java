@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bms.bean.User;
 import com.bms.server.IUserServer;
 import com.bms.server.impl.UserServerImpl;
+import com.utils.RequestUtil;
 
 
 @WebServlet("/user/UserUpdateController")
@@ -19,8 +21,9 @@ public class UserUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		IUserServer server = new UserServerImpl();
-		request.setAttribute("user", server.getUserById(uid));
-		request.getRequestDispatcher("showInfo.jsp").forward(request, response);
+		User user = RequestUtil.getParamsInjectObj(request, User.class);
+		server.updateUser(user);
+		response.sendRedirect("../main.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

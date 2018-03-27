@@ -7,12 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="../UserListController" method="post">
+	<form action="UserListController" method="post">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>
 					<td><c:out value="错误:" /></td>
 					<td><c:out value="${sessionScope.error}" /></td>
+					<%
+						request.getSession().removeAttribute("error");
+					%>
 					<!-- 有BUG可以在此处调用removeAttribute("error") -->
 				</tr>
 			</c:if>

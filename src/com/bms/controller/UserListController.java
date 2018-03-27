@@ -1,11 +1,9 @@
 package com.bms.controller;
 
 import java.io.IOException;
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 import java.util.List;
-=======
->>>>>>> origin/master
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +17,7 @@ import com.bms.server.IUserServer;
 import com.bms.server.impl.UserServerImpl;
 
 
-@WebServlet("/UserListController")
+@WebServlet("/user/UserListController")
 public class UserListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,7 +43,7 @@ public class UserListController extends HttpServlet {
 			User user = server.getUserById(intUid);
 			if(user == null) {
 				session.setAttribute("error", "用户Id不存在!");
-				response.sendRedirect("user/search.jsp");
+				response.sendRedirect("search.jsp");
 //				request.getRequestDispatcher("/user/search.jsp").forward(request, response);
 				return ;
 			}

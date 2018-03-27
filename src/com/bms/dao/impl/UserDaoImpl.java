@@ -48,11 +48,11 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 	@Override
 	public boolean updateUser(User user) throws SQLException {
 		boolean result = false;
-		String sql = "UPDATE user SET username = ? and password = ? WHERE uid = ?";
+		String sql = "UPDATE user SET username = ? WHERE uid = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setString(1, user.getUsername());
-		pstmt.setString(2, user.getPassword());
-		pstmt.setInt(3, user.getUid());
+		//pstmt.setString(2, user.getPassword());
+		pstmt.setInt(2, user.getUid());
 		result = pstmt.executeUpdate() == 1;
 		closeQuickly();
 		return result;
