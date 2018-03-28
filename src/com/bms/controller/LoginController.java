@@ -13,7 +13,7 @@ import com.bms.server.IUserServer;
 import com.bms.server.impl.UserServerImpl;
 
 
-@WebServlet("/LoginController")
+@WebServlet("/user/LoginController")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -31,18 +31,27 @@ public class LoginController extends HttpServlet {
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
 			session.setAttribute("error", "输入账号非法!");
-			response.sendRedirect("user/login.jsp");
+			response.sendRedirect("login.jsp");
 			return;
 		}
 		if(!server.login(intUid, password)) {
 			session.setAttribute("error", "账号或密码错误!");
-			response.sendRedirect("user/login.jsp");
+			response.sendRedirect("login.jsp");
 			return;
 		}
 		username = server.getUserById(intUid).getUsername();
-		session.setAttribute("uid", username);
+		session.setAttribute("uid", intUid);
 		session.setAttribute("username", username);
-		response.sendRedirect("user/loginSuccess.jsp");
+		
+		if(intUid > 9999) {
+			response.sendRedirect("../user_main.jsp");
+			return ;
+		} else {
+			session.setAttribute("isAdmin", "true");
+			response.sendRedirect("../admin_main.jsp");
+		}
+		
+		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

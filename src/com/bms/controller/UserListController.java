@@ -47,7 +47,7 @@ public class UserListController extends HttpServlet {
 			}
 			list.add(user);
 			request.setAttribute("userList", list);
-			request.getRequestDispatcher("/user/showInfo.jsp").forward(request, response);
+			request.getRequestDispatcher("/user/updateInfo.jsp").forward(request, response);
 			return ;
 			
 		} else {

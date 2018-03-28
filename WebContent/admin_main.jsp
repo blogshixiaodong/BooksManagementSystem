@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" +request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -12,8 +13,18 @@
 </head>
 <body>
 	
+	<c:if test="${sessionScope.username  != null}">
+		<c:out value="欢迎管理员：${sessionScope.username}" />&nbsp; &nbsp;
+		<a href="<%=basePath%>user/LogoffController">注销</a>&nbsp; &nbsp;
+	</c:if>
 	
+	<c:if test="${sessionScope.username == null}">
+		<a href="<%=basePath%>user/login.jsp">登陆</a>&nbsp; &nbsp;
+		<a href="<%=basePath%>user/register.jsp">注册</a>&nbsp; &nbsp;
+	</c:if>
+	<a href="<%=basePath%>index.jsp">回到首页</a>
 	
+	<hr/>
 	
 	<div style="background-color:#333;">
 		<div style="float:left;">
@@ -29,7 +40,7 @@
 			<a href="<%=basePath %>/book/searchBook.jsp">删除图书</a><br/>
 			<a href="<%=basePath %>/book/searchBook.jsp">修改图书</a><br/>
 			<a href="<%=basePath %>/book/searchBook.jsp">查询图书</a><br/>
-			<a href="<%=basePath %>/BookListController">图书列表</a><br/>
+			<a href="<%=basePath %>/BookListController?flag=1">图书列表</a><br/>
 	
 		</div>
 

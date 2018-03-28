@@ -1,5 +1,6 @@
 
 
+
 CREATE DATABASE booksManagementSystem
 
 USE booksManagementSystem
@@ -89,6 +90,7 @@ UPDATE book SET bname = NULL WHERE bid = 1
 SELECT * FROM record WHERE returnTime IS NOT NULL;
 
 ##########------test
+
 
  
 

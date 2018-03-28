@@ -21,5 +21,7 @@ public interface IUserDao {
 	List<User> getUserList() throws SQLException;
 
 	User getUserById(Integer id) throws SQLException;
+	
+	boolean updatePassword(int uid, String password) throws SQLException;
 
 }
