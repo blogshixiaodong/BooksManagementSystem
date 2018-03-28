@@ -57,6 +57,18 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 		closeQuickly();
 		return result;
 	}
+	
+	@Override
+	public boolean updatePassword(int uid, String password) throws SQLException {
+		boolean result = false;
+		String sql = "UPDATE user SET password = ? WHERE uid = ?";
+		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setString(1, password);
+		pstmt.setInt(2, uid);
+		result = pstmt.executeUpdate() == 1;
+		closeQuickly();
+		return result;
+	}
 
 	@Override
 	public boolean isExistUser(Integer id) throws SQLException {
@@ -77,6 +89,8 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 		closeQuickly();
 		return result;
 	}
+
+	
 
 	@Override
 	public List<User> getUserList() throws SQLException {

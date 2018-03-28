@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/LogoffController")
+@WebServlet("/user/LogoffController")
 public class LogoffController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
@@ -19,8 +19,9 @@ public class LogoffController extends HttpServlet {
 		if((session.getAttribute("userid") != null) || (session.getAttribute("username") != null)) {
 			session.removeAttribute("uid");
 			session.removeAttribute("username");
+			session.removeAttribute("isAdmin");
 		}
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("../index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

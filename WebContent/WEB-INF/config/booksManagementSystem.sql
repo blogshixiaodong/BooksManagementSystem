@@ -4,8 +4,8 @@ USE booksManagementSystem
 
 CREATE TABLE book(bid INT AUTO_INCREMENT
 	PRIMARY KEY,
-	bname VARCHAR(12),author VARCHAR(10),press VARCHAR(10),
-	publicTime DATE );
+	bname VARCHAR(50),author VARCHAR(20),press VARCHAR(50),
+	publishTime DATE );
 
 
 
@@ -38,11 +38,11 @@ INSERT INTO booksManagementSystem.user(username,PASSWORD)VALUES("Join","123");
 INSERT INTO booksManagementSystem.user(username,PASSWORD)VALUES("Uint","123");
 
 
-INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("C++从菜鸟到大神","M","清华大学出版社");
-INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("Java入门","Aaron","北京大学出版社");
-INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("J2ee开发","Abne","浙江大学出版社");
-INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("数据结构","Benson","fjut出版社");
-INSERT INTO booksManagementSystem.book(bname,author,press)VALUES("编程指南","Gale","人民邮电出版社");
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime)VALUES("C++从菜鸟到大神","M","清华大学出版社", "2015-4-6");
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime)VALUES("Java入门","Aaron","北京大学出版社", "2015-4-6");
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime)VALUES("J2ee开发","Abne","浙江大学出版社", "2015-4-6");
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime)VALUES("数据结构","Benson","fjut出版社", "2014-4-6");
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime)VALUES("编程指南","Gale","人民邮电出版社", "2015-4-6");
 
 
 

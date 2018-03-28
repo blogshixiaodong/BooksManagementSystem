@@ -7,13 +7,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<base href="<%=basePath %>" />
-	<title>用户登陆</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 </head>
-<body>     
-	   
-	<form action="<%=basePath%>user/LoginController" method="post">
+<body>
+	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
+	<a href="<%=basePath%>user_main.jsp">返回</a>
+	<hr/>
+
+	<form action="UserUpdatePwdController" method="post">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>
@@ -26,16 +28,20 @@
 			</c:if>
 			<tr>
 				<td>账号:</td>
-				<td><input type="text" name="username" autocomplete="off" /><br /></td>
+				<td><input type="text" name="uid" autocomplete="off" readonly="readonly" value="${sessionScope.uid }"/><br /></td>
 			</tr>
 			<tr>
 				<td>密码:</td>
 				<td><input type="text" name="password" autocomplete="off" /><br /></td>
 			</tr>
 			<tr>
+				<td>重复密码:</td>
+				<td><input type="text" name="repassword" autocomplete="off" /><br /></td>
+			</tr>
+			<tr>
 				<td></td>
 				<td>
-					<input type="submit" value="登陆" />
+					<input type="submit" value="确定" /> &nbsp;&nbsp;
 					<input type="reset" value="重置" />
 				</td>
 			</tr>

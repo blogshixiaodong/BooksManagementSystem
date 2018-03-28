@@ -15,6 +15,8 @@ public interface IUserServer {
 	boolean deleteUser(Integer id);
 
 	boolean updateUser(User user);
+	
+	boolean updatePassword(int uid, String password);
 
 	boolean isExistUser(Integer id);
 

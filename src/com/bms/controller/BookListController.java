@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.bms.bean.Book;
 import com.bms.server.impl.BookServerImpl;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018ï¿½ï¿½3ï¿½ï¿½25ï¿½ï¿½	
  * author: jiangjiamin
  * 
  */
@@ -27,15 +30,25 @@ public class BookListController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
 		
 		BookServerImpl bookServerImpl = new BookServerImpl();
 		List<Book> booklist = bookServerImpl.getBookList();
+		if(request.getParameter("flag") == null) {
+			JSONArray jArray = new JSONArray();
+			JSONObject jObject = new JSONObject();
+			for(int i = 0; i < booklist.size(); i++) {
+				jObject.put("bid", booklist.get(i).getBid());
+				jObject.put("bname", booklist.get(i).getBname());
+				jObject.put("author", booklist.get(i).getAuthor());
+				jObject.put("press", booklist.get(i).getPress());
+				jObject.put("publishTime", booklist.get(i).getPublishTime().toString());
+				jArray.add(jObject);
+			}
+			response.getWriter().print(jArray.toString());
+			return;
+		}
+		
 		request.setAttribute("booklist", booklist);
-		
-		
-		
 		request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
 		
 		

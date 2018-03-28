@@ -10,10 +10,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户注册</title>
 
-
-
 </head>
 <body>
+	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
+	<c:if test="${sessionScope.isAdmin != null}">
+			<a href="../admin_main.jsp">返回</a>
+		</c:if>
+		<c:if test="${sessionScope.isAdmin == null}">
+			<a href="../user_main.jsp">返回</a>
+		</c:if>
+	<hr/>
 	<form action="RegisterController" method="post">
 		<table>
 			<c:if test="${sessionScope.error != null}">

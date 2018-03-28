@@ -36,6 +36,18 @@ public class UserServerImpl implements IUserServer {
 		}
 		return false;
 	}
+	
+	
+
+	@Override
+	public boolean updatePassword(int uid, String password) {
+		try {
+			return dao.updatePassword(uid, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	@Override
 	public boolean updateUser(User user) {
