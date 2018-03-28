@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018å¹´3æœˆ25æ—¥	
  * author: jiangjiamin
  * 
  */
@@ -18,6 +18,8 @@ public class Record implements Serializable{
 	private Integer bid;
 	private Date borrowTime;
 	private Date returnTime;
+	
+	
 	public Integer getRid() {
 		return rid;
 	}
@@ -48,5 +50,7 @@ public class Record implements Serializable{
 	public void setReturnTime(Date returnTime) {
 		this.returnTime = returnTime;
 	}
+	
+	
 	
 }

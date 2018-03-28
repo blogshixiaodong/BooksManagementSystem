@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/config/booksManagementSystem.sql=UTF-8
 encoding//src/com/bms/bean/Book.java=UTF-8
 encoding//src/com/bms/controller/LoginController.java=UTF-8
 encoding//src/com/bms/controller/UserListController.java=UTF-8

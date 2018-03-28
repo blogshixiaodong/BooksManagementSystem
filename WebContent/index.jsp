@@ -36,6 +36,7 @@
 		&nbsp; &nbsp;
 		<a href="<%=basePath%>user/register.jsp">注册</a>
 	</c:if>
+
 	&nbsp; &nbsp;
 	<a href="<%=basePath%>book/searchBook.jsp">图书查询</a>
 	
@@ -68,5 +69,6 @@
 			<td>#5</td>
 		</tr>
 	</script>
+
 </body>
 </html>

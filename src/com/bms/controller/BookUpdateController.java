@@ -13,10 +13,10 @@ import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018å¹´3æœˆ25æ—¥	
  * author: jiangjiamin
+ * 
  */
-
 @WebServlet("/BookUpdateController")
 public class BookUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

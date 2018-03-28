@@ -13,8 +13,9 @@ import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018å¹´3æœˆ25æ—¥	
  * author: jiangjiamin
+ * 
  */
 @WebServlet("/BookAddController")
 public class BookAddController extends HttpServlet {
@@ -27,7 +28,7 @@ public class BookAddController extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-				//·´Éä»ñÈ¡±íµ¥bookÌá½»Êı¾İ
+				//åå°„è·å–è¡¨å•æäº¤å‚æ•°
 				Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
 				
 				if(request.getSession().getAttribute("excep") != null) {

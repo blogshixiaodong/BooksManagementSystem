@@ -14,8 +14,9 @@ import com.bms.exception.BookException;
 import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
+
 /**
- *  date : 2018Äê3ÔÂ26ÈÕ	
+ *  date : 2018å¹´3æœˆ26æ—¥	
  * author: jiangjiamin
  * 
  */
@@ -35,10 +36,10 @@ public class BookSearchInfoController extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
 		
+		//æ—¶é—´æ ¼å¼å¼‚å¸¸
 		if(request.getSession().getAttribute("excep") != null) {
 			response.sendRedirect("book/searchBook.jsp");
 			return ;
