@@ -2,8 +2,9 @@ package com.utils;
 
 import java.lang.reflect.Field;
 import java.util.Date;
+
 /**
- *  date : 2018Äê3ÔÂ27ÈÕ	
+ *  date : 2018å¹´3æœˆ27æ—¥	
  * author: jiangjiamin
  * 
  */
@@ -11,20 +12,20 @@ public class SqlUtil {
 	
 	public static String getSql(Object object) {
 		StringBuilder str = new StringBuilder();
-		//»ñÈ¡Àà¶ÔÏó
+		
 		Class clazz = (Class)object.getClass();
  		
-		//»ñÈ¡ÊôĞÔ¼¯ºÏ
+		//è·å–æ‰€æœ‰å±æ€§
 		Field[] fieldArray = clazz.getDeclaredFields();
 		try {
-			//±éÀúÊôĞÔ¼¯ºÏ
+			
 			for(Field field : fieldArray) {
-				//ÉèÖÃË½ÓĞÊôĞÔÒ²ÔÊĞí·ÃÎÊ
+				//è®¾ç½®ç§æœ‰å±æ€§å…è®¸è®¿é—®
 				field.setAccessible(true);
 				Object value = field.get(object);
 				if(value != null) {
 					
-					//»ñÈ¡ÊôĞÔµÄÖµ¶ÔÏó
+					//è·å–å¯¹è±¡å±æ€§å€¼
 					Object valueObj = field.get(object);
 					
 					str.append( " and " +field.getName()+ " = " + getSqlByType(valueObj));
@@ -40,7 +41,7 @@ public class SqlUtil {
 		
 	}
 	
-	//¸ù¾İÀàĞÍÆ´½ÓsqlÓï¾ä
+	//æ ¹æ®ç±»å‹æ‹¼æ¥å­—ç¬¦ä¸²
 	private static String getSqlByType(Object object) {
 		String sql = "";
 		if(object instanceof String) {

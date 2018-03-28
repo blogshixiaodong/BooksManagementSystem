@@ -5,7 +5,9 @@ import java.util.List;
 import com.bms.bean.Record;
 
 public interface IRecordDao  {
-	boolean addRecord(Record record) throws SQLException;
+	
+	
+	boolean addRecord(Integer uid,Integer bid) throws SQLException;
 	
 	
 	boolean isReturnBook(String id) throws SQLException;

@@ -21,5 +21,11 @@
 		&nbsp; &nbsp;
 		<a href="user/register.jsp">注册</a>
 	</c:if>
+	
+	
+	
+	
+	
+	
 </body>
 </html>

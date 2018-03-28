@@ -2,6 +2,10 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" +request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
@@ -28,8 +32,8 @@
 				<td>${book.author}</td>
 				<td>${book.press}</td>
 				<td>${book.publishTime}</td>
-				<td> <a href = "${pageContext.request.contextPath}/BookDeleteController?bid=${book.bid}">删除</a></td>
-				<td> <a href = "${pageContext.request.contextPath}/BookSearchUpateInfoController?bid=${book.bid}">修改</a></td>
+				<td> <a href = "<%=basePath %>/BookDeleteController?bid=${book.bid}">删除</a></td>
+				<td> <a href = "<%=basePath %>/BookSearchUpateInfoController?bid=${book.bid}">修改</a></td>
 			</tr>
 		</c:forEach>
 		

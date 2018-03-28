@@ -11,32 +11,32 @@ import javax.servlet.http.HttpServletRequest;
 import com.bms.exception.BookException;
 import com.bms.exception.ErrorList;
 
+
 /**
- *  date : 2018Äê3ÔÂ27ÈÕ	
+ *  date : 2018å¹´3æœˆ27æ—¥	
  * author: jiangjiamin
  * 
  */
 public class RequestUtil {
 	
 	public static <T> T getParamsInjectObj(HttpServletRequest request,Class<T> clazz)   {
-		//»ñÈ¡±íµ¥Ìá½»ËùÓĞ²ÎÊıÃû
+		//è·å–æ‰€æœ‰çš„è¡¨å•å˜é‡å
 		Enumeration<String> paramNmaes = request.getParameterNames();
 		T object = null;
 		try {
-			//´´½¨·ºĞÍ¶ÔÏó
+			//å®ä¾‹åŒ–å¯¹è±¡
 			object = clazz.newInstance();
 			
-			//Ñ­»·ÎªÃ¿¸ö×Ö¶Î¸³Öµ
+			//Öµ
 			while(paramNmaes.hasMoreElements()) {
  				String param = paramNmaes.nextElement();
 				Field field = clazz.getDeclaredField(param);
 				
 				field.setAccessible(true);
-				//½«±íµ¥»ñÈ¡µ½µÄStringÀàĞÍ²ÎÊıÖµ×ª»¯Îª ÀàÖĞ¶ÔÓ¦µÄÀàĞÍ
+				//æ ¹æ®ç±»å‹ä¸ºå¯¹è±¡å±æ€§èµ‹å€¼
 				setParam(field, object, request.getParameter(param));
 			}
 		}catch (BookException e) {
-			//e.setContent(ErrorList.DATE_FORMAT_ERROR);
 			request.getSession().setAttribute("excep", e);
 		}catch (Exception e) {
 			e.printStackTrace();

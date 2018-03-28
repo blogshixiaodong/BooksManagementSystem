@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.bms.bean.Book;
 import com.bms.server.impl.BookServerImpl;
 
-
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018å¹´3æœˆ27æ—¥	
  * author: jiangjiamin
  * 
  */
@@ -27,17 +26,14 @@ public class BookListController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		
 		BookServerImpl bookServerImpl = new BookServerImpl();
+		//è·å–å›¾ä¹¦åˆ—è¡¨è®°å½•
 		List<Book> booklist = bookServerImpl.getBookList();
 		request.setAttribute("booklist", booklist);
 		
-		
-		
 		request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
-		
 		
 	}
 

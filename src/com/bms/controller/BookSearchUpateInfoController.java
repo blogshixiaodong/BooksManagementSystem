@@ -11,8 +11,9 @@ import com.bms.bean.Book;
 import com.bms.server.impl.BookServerImpl;
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018å¹´3æœˆ25æ—¥	
  * author: jiangjiamin
+ * 
  */
 @WebServlet("/BookSearchUpateInfoController")
 public class BookSearchUpateInfoController extends HttpServlet {
@@ -26,12 +27,10 @@ public class BookSearchUpateInfoController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		//»ñÈ¡Í¼ÊéºÅ
+		//è·å–å›¾ä¹¦IDï¼Œæ ¹æ®IDæŸ¥æ‰¾å›¾ä¹¦
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
 		Book book = bookServerImpl.getBookById(bid);
 		request.setAttribute("book", book);

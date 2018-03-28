@@ -8,7 +8,7 @@ import com.bms.exception.BookException;
 import com.bms.exception.ErrorList;
 
 /**
- *  date : 2018Äê3ÔÂ27ÈÕ	
+ *  date : 2018å¹´3æœˆ27æ—¥	
  * author: jiangjiamin
  * 
  */
@@ -20,7 +20,7 @@ public class DateFormat {
 			return null;
 		}
 		
-		//Ê±¼ä¸ñÊ½ --> String ×ª»»Îª Date
+		//æ—¶é—´æ ¼å¼è½¬æ¢ String --> Date
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			return sdf.parse(str);

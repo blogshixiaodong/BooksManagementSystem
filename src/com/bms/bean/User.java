@@ -2,8 +2,9 @@ package com.bms.bean;
 
 import java.io.Serializable;
 
+
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018å¹´3æœˆ25æ—¥	
  * author: jiangjiamin
  * 
  */
@@ -15,6 +16,11 @@ public class User implements Serializable{
 	private Integer uid;
 	private String username;
 	private String password;
+	private String sex;
+	private Integer age;
+	private float balance;
+	private int is_freeze;
+	
 	
 	
 	public Integer getUid() {
@@ -35,6 +41,32 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	public float getBalance() {
+		return balance;
+	}
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
+	public int getIs_freeze() {
+		return is_freeze;
+	}
+	public void setIs_freeze(int is_freeze) {
+		this.is_freeze = is_freeze;
+	}
+	
+	
 	
 	
 }

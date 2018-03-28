@@ -18,6 +18,7 @@ public class Book implements Serializable{
 	private String author;
 	private String press;     //出版社
 	private Date publishTime; //出版时间
+	private int stock;        //库存
 	
 	
 	public Integer getBid() {
@@ -50,6 +51,14 @@ public class Book implements Serializable{
 	public void setPublishTime(Date publishTime) {
 		this.publishTime = publishTime;
 	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	
+	
 	
 	
 	

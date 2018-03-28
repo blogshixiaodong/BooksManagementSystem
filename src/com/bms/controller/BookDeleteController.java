@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bms.server.impl.BookServerImpl;
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018å¹´3æœˆ25æ—¥	
  * author: jiangjiamin
  * 
  */
@@ -25,10 +25,10 @@ public class BookDeleteController extends HttpServlet {
 		
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
 		if(bookServerImpl.deleteBook(bid)) {
-			//É¾³ı³É¹¦
+			//åˆ é™¤æˆåŠŸ
 			response.sendRedirect(request.getContextPath()+"/book/admin.jsp");
 		}else {
-			//É¾³ıÊ§°Ü
+			//åˆ é™¤å¤±è´¥
 			response.sendRedirect(request.getContextPath()+"/book/error.jsp");
 		}
 		
