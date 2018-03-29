@@ -8,36 +8,44 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>更新用户信息</title>
 </head>
 <body>
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
-	<a href="<%=basePath%>user_main.jsp">返回</a>
+	<c:if test="${sessionScope.isAdmin != null}">
+			<a href="<%=basePath%>admin_main.jsp">返回</a>
+	</c:if>
+	<c:if test="${sessionScope.isAdmin == null}">
+		<a href="<%=basePath%>user_main.jsp">返回</a>
+	</c:if>
 	<hr/>
-
+	
 	<form action="UserUpdateController" method="post">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>
 					<td><c:out value="错误:" /></td>
 					<td><c:out value="${sessionScope.error}" /></td>
+					<%
+						request.getSession().removeAttribute("error");
+					%>
 				</tr>
 			</c:if>
 			<tr>
 				<td>账号:</td>
-				<td><input type="text" name="uid" autocomplete="off" readonly="readonly" value="${requestScope.userList.get(0).uid}"/><br /></td>
+				<td><input type="text" name="uid" autocomplete="off" readonly="readonly" value="${requestScope.user.uid}"/><br /></td>
 			</tr>
 			<tr>
 				<td>用户名:</td>
-				<td><input type="text" name="username" autocomplete="off" value="${requestScope.userList.get(0).username}" /><br /></td>
+				<td><input type="text" name="username" autocomplete="off" value="${requestScope.user.username}" /><br /></td>
 			</tr>
 			<tr>
 				<td>性别</td>
-				<td><input type="text" name="sex" autocomplete="off" value="${requestScope.userList.get(0).sex}" /><br /></td>
+				<td><input type="text" name="sex" autocomplete="off" value="${requestScope.user.sex}" /><br /></td>
 			</tr>
 			<tr>
 				<td>年龄</td>
-				<td><input type="text" name="age" autocomplete="off" value="${requestScope.userList.get(0).age}" /><br /></td>
+				<td><input type="text" name="age" autocomplete="off" value="${requestScope.user.age}" /><br /></td>
 			</tr>
 			
 			<tr>

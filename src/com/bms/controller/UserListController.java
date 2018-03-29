@@ -33,19 +33,17 @@ public class UserListController extends HttpServlet {
 				intUid = Integer.parseInt(uid);
 			} catch(NumberFormatException e) {
 				e.printStackTrace();
-				session.setAttribute("error", "杈撳叆璐﹀彿闈炴硶!");
-				response.sendRedirect("user/search.jsp");
+				session.setAttribute("error", "账号格式错误");
+				response.sendRedirect("search.jsp");
 				return;
 			}
-			List<User> list = new ArrayList<User>();
 			User user = server.getUserById(intUid);
 			if(user == null) {
 				session.setAttribute("error", "用户Id不存在!");
-				response.sendRedirect("/search.jsp");
+				response.sendRedirect("search.jsp");
 				return ;
 			}
-			list.add(user);
-			request.setAttribute("userList", list);
+			request.setAttribute("user", user);
 			request.getRequestDispatcher("/user/updateInfo.jsp").forward(request, response);
 			return ;
 			

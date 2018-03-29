@@ -11,7 +11,7 @@ import com.bms.bean.User;
 import com.bms.server.IUserServer;
 import com.bms.server.impl.UserServerImpl;
 import com.utils.RequestUtil;
-
+import static com.utils.StringUtils.*;
 
 @WebServlet("/user/UserUpdateController")
 public class UserUpdateController extends HttpServlet {
@@ -22,9 +22,20 @@ public class UserUpdateController extends HttpServlet {
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		IUserServer server = new UserServerImpl();
 		User user = RequestUtil.getParamsInjectObj(request, User.class);
+		if(isNullOrEmpty(user.getUsername()) || isNullOrEmpty(user.getSex()) || isNull(user.getAge())) {
+			request.getSession().setAttribute("error", "信息不完整!");
+			request.setAttribute("user", user);
+			request.getRequestDispatcher("updateInfo.jsp").forward(request, response);
+			return ;
+		}
 		server.updateUser(user);
-		request.getSession().setAttribute("username", user.getUsername());
-		response.sendRedirect("../user_main.jsp");
+		if(request.getSession().getAttribute("isAdmin") == null) {
+			request.getSession().setAttribute("username", user.getUsername());
+			response.sendRedirect("../user_main.jsp");
+		} else {
+			response.sendRedirect("../admin_main.jsp");
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

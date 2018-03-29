@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" +request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +13,15 @@
 <body>
 	${sessionScope.excep.content}
 	<%session.removeAttribute("excep"); %>
-
-<h3>条件查询图书</h3>
+	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
+	<c:if test="${sessionScope.isAdmin != null}">
+			<a href="<%=basePath%>admin_main.jsp">返回</a>
+	</c:if>
+	<c:if test="${sessionScope.isAdmin == null}">
+		<a href="<%=basePath%>user_main.jsp">返回</a>
+	</c:if>
+	<hr/>
+	<h3>条件查询图书</h3>
 	<form action = "${pageContext.request.contextPath}/BookSearchInfoController" method = "POST">
 		<table>
 			<tr>

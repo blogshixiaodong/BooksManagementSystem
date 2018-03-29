@@ -20,6 +20,10 @@
   	<filter-name>userPowerFilter</filter-name>
   	<url-pattern>/admin_main.jsp</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+  	<filter-name>userPowerFilter</filter-name>
+  	<url-pattern>/BorrowBookController</url-pattern>
+  </filter-mapping>
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

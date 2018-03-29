@@ -17,4 +17,8 @@ public class StringUtils {
 		}
 		return true;
 	}
+	
+	public static boolean isNull(Object obj) {
+		return obj == null;
+	}
 }
