@@ -19,10 +19,12 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 	@Override
 	public int addUser(User user) throws SQLException {
 		int result = -1;
-		String sql = "INSERT INTO user VALUES(null, ?, ?)";
+		String sql = "INSERT INTO user VALUES(null, ?, ?, ?, ?, 1, 0)";
 		pstmt = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		pstmt.setString(1, user.getUsername());
 		pstmt.setString(2, user.getPassword());
+		pstmt.setString(3, user.getSex());
+		pstmt.setInt(4, user.getAge());
 		result = pstmt.executeUpdate();
 		if(result > 0) {
 			rs = pstmt.getGeneratedKeys();

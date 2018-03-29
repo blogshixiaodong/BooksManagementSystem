@@ -8,4 +8,13 @@ public class StringUtils {
 	public static boolean isNullOrEmpty(String str) {
 		return str == null || str.length() == 0;
 	}
+	
+	public static boolean isNumber(String str) {
+		try {
+			Integer.parseInt(str);
+		} catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
 }

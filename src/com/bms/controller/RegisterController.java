@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.bms.bean.User;
 import com.bms.server.IUserServer;
 import com.bms.server.impl.UserServerImpl;
+import com.utils.StringUtils;
 
 import static com.utils.StringUtils.*;
 
@@ -20,27 +21,38 @@ public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String repassword = request.getParameter("repassword");
+		String sex = request.getParameter("sex");
+		Object ageString = request.getParameter("age");
 		HttpSession session = request.getSession();
 		session.removeAttribute("error");
 		IUserServer server = new UserServerImpl();
 		if(isNullOrEmpty(username) || isNullOrEmpty(password) || isNullOrEmpty(repassword)) {
 			session.setAttribute("error", "注册信息不完整!");
-//			request.getRequestDispatcher("registerUser.jsp").forward(request, response);
 			response.sendRedirect("register.jsp");
 			return ;
 		}
 		if(!password.equals(repassword)) {
 			session.setAttribute("error", "两次密码不一致!");
-//			request.getRequestDispatcher("register.jsp").forward(request, response);
 			response.sendRedirect("register.jsp");
 			return ;
 		}
+		if(ageString != null && !StringUtils.isNumber(ageString.toString())) {
+			session.setAttribute("error", "存在非法字段!");
+			response.sendRedirect("register.jsp");
+			return ;
+		}
+		int age = Integer.parseInt(ageString.toString());
+		
+		
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(repassword);
+		user.setSex(sex);
+		user.setAge(age);
 		int uid = server.registerUser(user);
 		session.setAttribute("uid", uid);
 		session.setAttribute("username", username);

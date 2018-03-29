@@ -17,8 +17,8 @@ import com.utils.RequestUtil;
 public class UserUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		IUserServer server = new UserServerImpl();
 		User user = RequestUtil.getParamsInjectObj(request, User.class);

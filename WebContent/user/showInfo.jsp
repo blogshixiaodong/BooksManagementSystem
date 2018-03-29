@@ -23,11 +23,22 @@
 			<td>用户名:</td>
 			<td><input type="text" name="username" autocomplete="off" readonly="readonly" value="${requestScope.user.username}" /><br /></td>
 		</tr>
-		<!--
-			<tr>其他字段显示</td>
-				<td><input type="text" name="username" autocomplete="off" readonly="readonly" value="${requestScope.user.username}" /><br /></td>
-			</tr>
-		 -->
+		<tr>
+			<td>性别</td>
+			<td><input type="text" name="username" autocomplete="off" readonly="readonly" value="${requestScope.user.sex}" /><br /></td>
+		</tr>
+		<tr>
+			<td>年龄</td>
+			<td><input type="text" name="username" autocomplete="off" readonly="readonly" value="${requestScope.user.age}" /><br /></td>
+		</tr>
+		<tr>
+			<td>账户余额</td>
+			<td><input type="text" name="username" autocomplete="off" readonly="readonly" value="${requestScope.user.balance}" /><br /></td>
+		</tr>
+		<tr>
+			<td>账户状态</td>
+			<td><input type="text" name="username" autocomplete="off" readonly="readonly" value="${requestScope.user.is_freeze == 1 ? "冻结" : "正常"}" /><br /></td>
+		</tr>
 	</table>
 </body>
 </html>

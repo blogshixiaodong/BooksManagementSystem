@@ -184,4 +184,11 @@ public class BookServerImpl implements IBookServer {
 		
 		return booklist;
 	}
+
+	@Override
+	public int getPageSize() {
+		return bookDaoImpl.getPageSize(); 
+	}
+	
+	
 }

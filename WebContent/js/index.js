@@ -17,12 +17,7 @@ function getBookList() {
 				for(var field in json[i]) {
 					$(tr).children("td")[index].innerText = json[i][field];
 					index++;
-				}
-				
-				//设置链接
-				//$(tr).find(".downloadFile").attr("href", "servlet/FileDownload?fileName=" + json[i].fileName + "." + json[i].fileType);
-				//$(tr).find(".deleteFile").attr("href", "servlet/FileDelete?fileId=" + json[i].fileId);
-				
+				}	
 			}
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {

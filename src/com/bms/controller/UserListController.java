@@ -40,7 +40,6 @@ public class UserListController extends HttpServlet {
 			List<User> list = new ArrayList<User>();
 			User user = server.getUserById(intUid);
 			if(user == null) {
-
 				session.setAttribute("error", "用户Id不存在!");
 				response.sendRedirect("/search.jsp");
 				return ;

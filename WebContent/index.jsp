@@ -42,7 +42,7 @@
 	
 	<hr/>
 	<div>
-		<table border="1">
+		<table  border="1">
 			<thead>
 				<tr>
 					<th>图书ID</th>
@@ -53,12 +53,16 @@
 				</tr>
 			</thead>
 			<tbody id="bookList">
-				<!-- 列表 -->
+				<!-- 动态列表 -->
 			</tbody>
+			<tfoot>
+				<tr>
+			    	<td style="text-align:center" colspan="5"><a href="BookListController?flag=1&pageNo=2">&lt;&lt;&lt;查看更多>>></a></a></td>
+			    </tr>
+			</tfoot>
 		</table>	
 	</div>
-	
-	
+
 
 	<script id="fileListTrTemp" type="text/html"> 
    		<tr>

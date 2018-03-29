@@ -25,4 +25,7 @@ public interface IBookDao extends IPageDao<Book> {
 	List<Book> getBookList() throws SQLException;
 	
 	List<Book> getBookByConndition(String conndition) throws SQLException;
+	
+	
+	
 }

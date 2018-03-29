@@ -36,6 +36,17 @@
 				<td><input type="text" name="username" autocomplete="off" /><br /></td>
 			</tr>
 			<tr>
+				<td>性别</td>
+				<td>
+					<input type="radio" name="sex" value="男" checked="checked" />男
+					<input type="radio" name="sex" value="女" />女
+				</td>
+			</tr>
+			<tr>
+				<td>年龄</td>
+				<td><input type="text" name="age" autocomplete="off" /><br /></td>
+			</tr>
+			<tr>
 				<td>密码:</td>
 				<td><input type="text" name="password" autocomplete="off" /><br /></td>
 			</tr>
@@ -44,21 +55,13 @@
 				<td><input type="text" name="repassword" autocomplete="off" /><br /></td>
 			</tr>
 <!-- 
-			<tr>
-				<td>备用字段1:</td>
-				<td><input type="text" name="field" autocomplete="off" /><br /></td>
-			</tr>
-			<tr>
-				<td>备用字段2:</td>
-				<td><input type="text" name="field2" autocomplete="off" /><br /></td>
-			</tr>
+			
 -->
 			<tr>
 				<td></td>
 				<td>
 					<input type="submit" value="注册" />
 					<input type="reset" value="重置" />
-					<button><a href="<%=basePath%>main.jsp">首页</button>
 				</td>
 			</tr>
 		</table>

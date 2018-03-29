@@ -23,7 +23,6 @@ public class LoginController extends HttpServlet {
 		String uid = request.getParameter("username");
 		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
-		session.removeAttribute("error");
 		IUserServer server = new UserServerImpl();
 		try {
 			//判断账号合法性
@@ -43,6 +42,7 @@ public class LoginController extends HttpServlet {
 		session.setAttribute("uid", intUid);
 		session.setAttribute("username", username);
 		
+		//判断登陆角色
 		if(intUid > 9999) {
 			response.sendRedirect("../user_main.jsp");
 			return ;

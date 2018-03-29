@@ -12,17 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.bms.bean.Book;
 import com.bms.server.impl.BookServerImpl;
 
-/**
- *  date : 2018年3月27日	
-=======
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-
 /**
- *  date : 2018��3��25��	
->>>>>>> sxd/master
- * author: jiangjiamin
+ *  date : 2018年3月27日	
+ *  author: jiangjiamin
  * 
  */
 @WebServlet("/BookListController")
@@ -31,14 +26,29 @@ public class BookListController extends HttpServlet {
        
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-
+		
 		BookServerImpl bookServerImpl = new BookServerImpl();
+		List<Book> booklist = null;
+		Object pageNo = request.getParameter("pageNo");
+		int intPageNo = -1;
 		//获取图书列表记录
-		List<Book> booklist = bookServerImpl.getBookList();
-
+		if(pageNo == null) {
+			booklist = bookServerImpl.getBookListByPageNo(1);
+			intPageNo = 1;
+		} else {
+			intPageNo = Integer.parseInt(pageNo.toString());
+			booklist = bookServerImpl.getBookListByPageNo(intPageNo);
+		}
+		int pageSize = bookServerImpl.getPageSize();
+		int recordNum = bookServerImpl.getRecordCount();
+		int pageNum = recordNum % pageSize == 0 ? recordNum / pageSize : recordNum / pageSize + 1;
+		
+		request.getSession().setAttribute("pageNo", intPageNo);
+		request.getSession().setAttribute("pageNum", pageNum);
+		request.getSession().setAttribute("recordNum", bookServerImpl.getRecordCount());
+		
 		if(request.getParameter("flag") == null) {
 			JSONArray jArray = new JSONArray();
 			JSONObject jObject = new JSONObject();

@@ -31,4 +31,6 @@ public interface IBookServer {
 	List<Book> getBookByConndition(Book book) throws BookException;
 	
 	int  getRecordCount();
+	
+	int getPageSize();
 }

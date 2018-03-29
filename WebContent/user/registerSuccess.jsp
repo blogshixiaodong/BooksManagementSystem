@@ -8,6 +8,6 @@
 <body>
 	你好：${sessionScope.username}<br/>
 	注册成功：你的账号为 ${sessionScope.uid}<br/>
-	<a href="../main.jsp">回到首页</a>
+	<a href="../user_main.jsp">回到首页</a>
 </body>
 </html>

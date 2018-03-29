@@ -8,11 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet Filter implementation class PowerFilter
- */
-@WebFilter("/UserPowerFilter")
+
 public class UserPowerFilter implements Filter {
 
 	
@@ -22,12 +22,20 @@ public class UserPowerFilter implements Filter {
 	
 	//特定权限过滤
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {		
-		chain.doFilter(request, response);
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		Object object = session.getAttribute("uid");
+		if(object != null) {
+			chain.doFilter(request, response);
+			return ;
+		}
+		session.setAttribute("error", "请先登陆!");
+		((HttpServletResponse)response).sendRedirect("user/login.jsp");
+		
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

@@ -139,7 +139,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
 	public List<Book> getRecordByPageNo(int currentPageNo) throws SQLException {
-		String sql = "SELECT * FROM BOOK" + " limit " + (currentPageNo - 1) + "," + getPageSize();;
+		String sql = "SELECT * FROM BOOK" + " limit " + (currentPageNo - 1) * getPageSize() + "," + getPageSize();;
 		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		List<Book> booklist =new ArrayList<Book>();

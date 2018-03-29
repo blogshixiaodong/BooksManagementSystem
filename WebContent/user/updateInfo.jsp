@@ -31,12 +31,14 @@
 				<td>用户名:</td>
 				<td><input type="text" name="username" autocomplete="off" value="${requestScope.userList.get(0).username}" /><br /></td>
 			</tr>
-			<!--  
-				<tr>
-					<td>其他字段显示</td>
-					<td><input type="text" name="username" autocomplete="off" value="${requestScope.userList.get(0).username}" /><br /></td>
-				</tr>
-			-->
+			<tr>
+				<td>性别</td>
+				<td><input type="text" name="sex" autocomplete="off" value="${requestScope.userList.get(0).sex}" /><br /></td>
+			</tr>
+			<tr>
+				<td>年龄</td>
+				<td><input type="text" name="age" autocomplete="off" value="${requestScope.userList.get(0).age}" /><br /></td>
+			</tr>
 			
 			<tr>
 				<td></td>
