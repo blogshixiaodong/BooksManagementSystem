@@ -63,6 +63,14 @@ INSERT INTO booksManagementSystem.book(bname,author,press,publishTime,stock)VALU
 INSERT INTO booksManagementSystem.book(bname,author,press,publishTime,stock)VALUES("编程指南","Gale","人民邮电出版社","2006-05-14",7);
 
 
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime,stock)VALUES("C++","M","清华大学出版社","1996-11-14",15);
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime,stock)VALUES("C","Aaron","北京大学出版社","1998-11-15",4);
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime,stock)VALUES("C#","Abne","浙江大学出版社","2001-10-15",3);
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime,stock)VALUES("Java","Benson","fjut出版社","2002-11-16",5);
+INSERT INTO booksManagementSystem.book(bname,author,press,publishTime,stock)VALUES("Oracle","Gale","人民邮电出版社","2006-05-14",7);
+
+
+
 #借阅归还记录
 INSERT INTO booksManagementSystem.record(uid,bid,borrowTime)VALUES(10000,50000,"2018-3-28");
 
