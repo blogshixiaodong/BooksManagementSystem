@@ -50,7 +50,7 @@ public class BookUpdateController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			response.sendRedirect("BookListController");
+			response.sendRedirect("BookListController?flag=1");
 			
 			
 			

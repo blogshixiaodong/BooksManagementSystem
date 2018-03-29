@@ -8,29 +8,34 @@
 <body>
 
 	${sessionScope.excep.content}
-	<%session.removeAttribute("excep"); %>
+	 <%session.removeAttribute("excep"); %>
 	<h3>添加图书信息</h3>
 
 	<form action = "${pageContext.request.contextPath}/BookAddController" method = "POST">
 		<table>
 			<tr>
 				<td>书名:</td>
-				<td><input type = "text" name = "bname" ></td>
+				<td><input type = "text" name = "bname" value = "${requestScope.book.bname}" ></td>
 			</tr>
 			
 			<tr>
 				<td>作者:</td>
-				<td><input type = "text" name = "author"></td>
+				<td><input type = "text" name = "author" value = "${requestScope.book.author}"></td>
 			</tr>
 			
 			<tr>
 				<td>出版社:</td>
-				<td><input type = "text" name = "press"></td>
+				<td><input type = "text" name = "press" value = "${requestScope.book.press}"></td>
 			</tr>
 			
 			<tr>
 				<td>出版时间:</td>
 				<td><input type = "text" name = "publishTime" value = "2015-01-12"></td>
+			</tr>
+			
+			<tr>
+				<td>库存:</td>
+				<td><input type = "text" name = "stock" value = "${requestScope.book.stock}"></td>
 			</tr>
 			
 			<tr>

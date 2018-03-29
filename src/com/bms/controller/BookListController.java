@@ -17,7 +17,7 @@ import net.sf.json.JSONObject;
 
 /**
  *  date : 2018年3月27日	
- *  author: jiangjiamin
+ * author: jiangjiamin
  * 
  */
 @WebServlet("/BookListController")
@@ -49,6 +49,7 @@ public class BookListController extends HttpServlet {
 		request.getSession().setAttribute("pageNum", pageNum);
 		request.getSession().setAttribute("recordNum", bookServerImpl.getRecordCount());
 		
+
 		if(request.getParameter("flag") == null) {
 			JSONArray jArray = new JSONArray();
 			JSONObject jObject = new JSONObject();

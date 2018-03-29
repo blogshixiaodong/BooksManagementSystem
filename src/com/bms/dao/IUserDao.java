@@ -26,7 +26,7 @@ public interface IUserDao extends IPageDao<User> {
 	
 	boolean isFreeze(Integer id)  throws SQLException;
 	
-	boolean updateBalance(Integer uid, int money)  throws SQLException;
+	boolean updateBalance(Integer uid, Float money)  throws SQLException;
 	
 	
 }

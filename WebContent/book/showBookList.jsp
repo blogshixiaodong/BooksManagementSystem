@@ -8,9 +8,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<title>中文</title>
+<title>书籍列表</title>
 </head>
 <body>
+
 	<c:if test="${sessionScope.username  != null}">
 		<c:out value="欢迎：${sessionScope.username}" />&nbsp; &nbsp;
 		<a href="<%=basePath%>user/LogoffController">注销</a>&nbsp; &nbsp;
@@ -23,6 +24,8 @@
 	<a href="<%=basePath%>index.jsp">回到首页</a>
 	
 	<hr/>
+
+
 	<table border = "1">
 		<thead>
 			<tr>
@@ -31,6 +34,7 @@
 				<th>作者</th>
 				<th>出版社</th>
 				<th>出版时间</th>
+				<th>库存</th>
 				<c:if test="${sessionScope.isAdmin != null }">
 					<th>删除</th>
 					<th>修改</th>
@@ -48,18 +52,17 @@
 					<td>${book.author}</td>
 					<td>${book.press}</td>
 					<td>${book.publishTime}</td>
-	
+					<td>${book.stock}</td>
 					<c:if test="${sessionScope.isAdmin != null }">
 						<td> <a href = "${pageContext.request.contextPath}/BookDeleteController?bid=${book.bid}">删除</a></td>
 						<td> <a href = "${pageContext.request.contextPath}/BookSearchUpateInfoController?bid=${book.bid}">修改</a></td>
 					</c:if>
 					<c:if test="${sessionScope.isAdmin == null }">
-						<th><a href = "${pageContext.request.contextPath}/BookDeleteController?bid=${book.bid}">借阅</a></th>
+						<th><a href = "${pageContext.request.contextPath}/BorrowBookController?bid=${book.bid}">借阅</a></th>
 					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
-
 	</table>
 	<div id="yeshu">
 		<%

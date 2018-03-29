@@ -56,7 +56,7 @@ public class RequestUtil {
 			
 			if(type.equals("class java.lang.String")){
 				field.set(object, value);
-			}else if(type.equals("class java.lang.Integer")){
+			}else if(type.equals("class java.lang.Integer") ){
 				field.set(object, Integer.parseInt(value) );
 			}else if(type.equals("class java.lang.Float")){
 				field.set(object, Float.parseFloat(value ) );

@@ -29,7 +29,7 @@ public interface IUserServer {
 	
 	boolean isFreeze(Integer id);
 	
-	boolean updateBalance(Integer uid, int money);
+	boolean updateBalance(Integer uid, Float money);
 	
 	
 }

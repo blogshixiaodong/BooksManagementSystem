@@ -19,6 +19,7 @@ public class User implements Serializable{
 	private Integer age;
 	private Float balance;
 	private Integer is_freeze;
+
 	
 	public Integer getUid() {
 		return uid;

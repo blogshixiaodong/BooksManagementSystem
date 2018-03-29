@@ -120,7 +120,7 @@ public class UserServerImpl implements IUserServer {
 	}
 
 	@Override
-	public boolean updateBalance(Integer uid, int money) {
+	public boolean updateBalance(Integer uid, Float money) {
 		try {
 			return dao.updateBalance(uid, money);
 		} catch (SQLException e) {
