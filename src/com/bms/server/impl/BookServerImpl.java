@@ -11,9 +11,12 @@ import com.bms.server.IBookServer;
 import com.sxd.util.StringUtils;
 import com.utils.SqlUtil;
 
-
 /**
+<<<<<<< HEAD
+ *  date : 2018年3月25日	
+=======
  *  date : 2018��3��25��	
+>>>>>>> sxd/master
  * author: jiangjiamin
  * 
  */
@@ -25,19 +28,23 @@ public class BookServerImpl implements IBookServer {
 		boolean result = false;
 		
 		try {
+			//bookDaoImpl.getConnection().setAutoCommit(false);
 			checkIsNull(book);
 			result =  bookDaoImpl.addBook(book);
-			
+			//bookDaoImpl.getConnection().commit();
 		} catch (BookException e) {
-			
 			throw new BookException(ErrorList.NOT_NULL);
-		}catch (Exception e) {
-			
+		}catch (SQLException e) {
+			/*try {
+				bookDaoImpl.getConnection().rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}*/
 		}finally {
 			bookDaoImpl.closeQuickly();
 		}
-		return result;
 		
+		return result;
 	}
 
 	@Override
@@ -61,6 +68,8 @@ public class BookServerImpl implements IBookServer {
 		}else if(StringUtils.isNullOrEmpty(book.getAuthor())) {
 			flag = false;
 		}else if(StringUtils.isNull(book.getPress())) {
+			flag = false;
+		}else if(book.getStock() == null) {
 			flag = false;
 		}else if(book.getPublishTime() == null) {
 			throw new BookException(ErrorList.DATE_FORMAT_ERROR);
@@ -168,10 +177,8 @@ public class BookServerImpl implements IBookServer {
 	public List<Book> getBookByConndition(Book book)throws BookException {
 		List<Book> booklist = null;
 		
-		//ƴ��������ѯ where ֮���������
 		String conndition = SqlUtil.getSql(book);
 		
-
 			try {
 				booklist = bookDaoImpl.getBookByConndition(conndition);
 			} catch (SQLException e) {

@@ -154,11 +154,11 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 	}
 
 	@Override
-	public boolean updateBalance(Integer uid, int money) throws SQLException {
+	public boolean updateBalance(Integer uid, Float money) throws SQLException {
 		boolean result = false;
 		String sql = "UPDATE user SET balance = balance + ? WHERE uid = ?";
 		pstmt = getConnection().prepareStatement(sql);
-		pstmt.setInt(1, money);
+		pstmt.setFloat(1, money);
 		pstmt.setInt(2, uid);
 		result = pstmt.executeUpdate() == 1;
 		closeQuickly();

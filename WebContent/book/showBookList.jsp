@@ -20,6 +20,7 @@
 			<th>作者</th>
 			<th>出版社</th>
 			<th>出版时间</th>
+			<th>库存</th>
 			<c:if test="${sessionScope.isAdmin != null }">
 				<th>删除</th>
 				<th>修改</th>
@@ -36,13 +37,13 @@
 				<td>${book.author}</td>
 				<td>${book.press}</td>
 				<td>${book.publishTime}</td>
-
+				<td>${book.stock}</td>
 				<c:if test="${sessionScope.isAdmin != null }">
-					<td> <a href = "${pageContext.request.contextPath}/BookDeleteController?bid=${book.bid}">删除</a></td>
-					<td> <a href = "${pageContext.request.contextPath}/BookSearchUpateInfoController?bid=${book.bid}">修改</a></td>
+					<td> <a href = "<%=basePath %>/BookDeleteController?bid=${book.bid}">删除</a></td>
+					<td> <a href = "<%=basePath %>/BookSearchUpateInfoController?bid=${book.bid}">修改</a></td>
 				</c:if>
 				<c:if test="${sessionScope.isAdmin == null }">
-					<th><a href = "${pageContext.request.contextPath}/BookDeleteController?bid=${book.bid}">借阅</a></th>
+					<th><a href = "<%=basePath %>/BorrowBookController?bid=${book.bid}">借阅</a></th>
 				</c:if>
 
 			</tr>

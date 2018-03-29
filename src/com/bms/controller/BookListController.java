@@ -12,16 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.bms.bean.Book;
 import com.bms.server.impl.BookServerImpl;
 
-/**
- *  date : 2018年3月27日	
-=======
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-
 /**
- *  date : 2018��3��25��	
->>>>>>> sxd/master
+ *  date : 2018年3月27日	
  * author: jiangjiamin
  * 
  */
@@ -38,7 +33,9 @@ public class BookListController extends HttpServlet {
 		BookServerImpl bookServerImpl = new BookServerImpl();
 		//获取图书列表记录
 		List<Book> booklist = bookServerImpl.getBookList();
-
+		
+		
+		//需添加库存！！！！
 		if(request.getParameter("flag") == null) {
 			JSONArray jArray = new JSONArray();
 			JSONObject jObject = new JSONObject();

@@ -37,6 +37,11 @@
 			</tr>
 			
 			<tr>
+				<td>库存:</td>
+				<td><input type = "text" value = "${book.stock}" name = "stock"></td>
+			</tr>
+			
+			<tr>
 				<td><input type = "submit" value = "提交"></td>
 				<td><input type = "reset" value = "重置"></td>
 			</tr>
