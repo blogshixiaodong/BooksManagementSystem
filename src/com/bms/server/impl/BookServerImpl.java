@@ -12,11 +12,7 @@ import com.sxd.util.StringUtils;
 import com.utils.SqlUtil;
 
 /**
-<<<<<<< HEAD
  *  date : 2018年3月25日	
-=======
- *  date : 2018��3��25��	
->>>>>>> sxd/master
  * author: jiangjiamin
  * 
  */
@@ -33,7 +29,7 @@ public class BookServerImpl implements IBookServer {
 			result =  bookDaoImpl.addBook(book);
 			//bookDaoImpl.getConnection().commit();
 		} catch (BookException e) {
-			throw new BookException(ErrorList.NOT_NULL);
+			throw new BookException(e.getContent());
 		}catch (SQLException e) {
 			/*try {
 				bookDaoImpl.getConnection().rollback();
@@ -73,6 +69,8 @@ public class BookServerImpl implements IBookServer {
 			flag = false;
 		}else if(book.getPublishTime() == null) {
 			throw new BookException(ErrorList.DATE_FORMAT_ERROR);
+		}else if(book.getStock() < 0) {
+			throw new BookException(ErrorList.NAGETIVE_NUMBER);
 		}
 		if(!flag) {
 			throw new BookException(ErrorList.NOT_NULL);

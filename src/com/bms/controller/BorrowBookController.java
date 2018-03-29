@@ -32,13 +32,13 @@ public class BorrowBookController extends HttpServlet {
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
 		
 		RecordServerImpl recordServerImpl = new RecordServerImpl();
-		if(recordServerImpl.addRecord(uid, bid)) {
+		String info = recordServerImpl.addRecord(uid, bid);
+		if("Success".equals(info)) {
 			//借阅成功
-			//若session中可以取到用户id 则改为redirect!!!!!
-			//request.getRequestDispatcher("BorrowBookListController").forward(request, response);
 			response.sendRedirect("BorrowBookListController");
 		}else {
 			//借阅失败
+			request.getSession().setAttribute("error", info);
 			response.sendRedirect("BorrowBookListController");
 		}
 		

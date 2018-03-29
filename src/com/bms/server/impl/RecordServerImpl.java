@@ -18,44 +18,46 @@ public class RecordServerImpl implements IRecordServer {
 	private BookDaoImpl bookDaoImpl = new BookDaoImpl();
 	
 	//借阅图书
+	//1 用户被冻结   2借阅数量达到最大值  3.图书超期  4.库存不足  
+	//0 借阅成功
 	@Override
-	public boolean addRecord(Integer uid,Integer bid){
+	public String addRecord(Integer uid,Integer bid){
 		
 		try {
 			//1. user 状态
 			User user = userDaoImpl.getUserById(uid);
 			if(user.getIs_freeze() == 1) {
-				return false;
+				return "The user is frozen";
 			}
 			
 			//2. user 已借的数量
 			Integer count = recordDaoImpl.borrowBookCount(uid);
 			if(count >= 5) {
 				user.setIs_freeze(1);
-				return false;
+				return "The number of borrowing is greater than 5";
 			}
 			
 			//3. user 是否有超期
 			if(recordDaoImpl.hasOverTimeBook(uid)) {
 				user.setIs_freeze(1);
-				return false;
+				return "Book borrow time over";
 			}
 			
 			//4.是否有库存 --->可能不必要
 			if(!bookDaoImpl.hasStock(bid)) {
-				return false;
+				return "Book stock deficiency";
 			}
 			
 			//5. 创建借书记录
 			recordDaoImpl.addRecord(uid, bid);
 			bookDaoImpl.updateStock(bid,"-");
-			return true;
+			return "Success";
 		}catch (SQLException e) {
 			//应该使用事务！！！！！
 			e.printStackTrace();
 		}
-		
-		return false;
+		//未知错误
+		return "error";
 	}
 
 	

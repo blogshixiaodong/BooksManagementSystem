@@ -12,7 +12,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<body>
+	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
+	<a href="<%=basePath%>user_main.jsp">个人中心</a>&nbsp;&nbsp;
+	<hr />
+	${sessionScope.error}
+	<%session.removeAttribute("error"); %>
 <form action="" method = "POST">
 	<table border = "1">
 		<tr>
@@ -20,7 +25,7 @@
 			<th>作者</th>
 			<th>出版社</th>
 			<th>借阅日期</th>
-			<th>超期</th>
+			<th>借阅天数</th>
 			<th>归还</th>
 		</tr>
 		
@@ -31,7 +36,7 @@
 				<td>${record[2]}</td>
 				<td>${record[3]}</td>
 				<td>${record[4]}</td>
-				<td><a href = "<%=basePath%>/ReturnBookController?bid=${record[5]}&rid=${record[6]}&uid=10000">归还</a>  </td>
+				<td><a href = "<%=basePath%>ReturnBookController?bid=${record[5]}&rid=${record[6]}&uid=10000">归还</a>  </td>
 			</tr>
 		</c:forEach>
 		

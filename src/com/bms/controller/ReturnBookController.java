@@ -38,6 +38,7 @@ public class ReturnBookController extends HttpServlet {
 			response.sendRedirect("BorrowBookListController");
 		}else {
 			//归还失败
+			request.getSession().setAttribute("error", "余额不足");
 			request.getRequestDispatcher("BorrowBookListController").forward(request, response);
 		}
 		
