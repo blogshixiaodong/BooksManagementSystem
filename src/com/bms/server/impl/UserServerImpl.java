@@ -108,6 +108,28 @@ public class UserServerImpl implements IUserServer {
 		}
 		return true;
 	}
+
+	@Override
+	public boolean isFreeze(Integer id) {
+		try {
+			return dao.isFreeze(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateBalance(Integer uid, int money) {
+		try {
+			return dao.updateBalance(uid, money);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
 	
 	
 	

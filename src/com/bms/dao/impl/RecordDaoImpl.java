@@ -11,7 +11,7 @@ import com.utils.DateFormat;
 
 /**
  *  date : 2018年3月28日	
- * author: jiangjiamin
+ * 	author: jiangjiamin
  * 
  */
 public class RecordDaoImpl extends BaseDao implements IRecordDao {
@@ -60,7 +60,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 			@Override
 			public List<Object[]> getRecordByUserId(Integer uid) throws SQLException {
 				//String sql = "SELECT * FROM RECORD WHERE UID = ? AND RETURNTIME IS NULL";
-				String sql = "SELECT BNAME,AUTHOR,PRESS,BORROWTIME,TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) DAY FROM RECORD,BOOK"
+				String sql = "SELECT RECORD.BID,RID,BNAME,AUTHOR,PRESS,BORROWTIME,TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) DAY FROM RECORD,BOOK"
 						+ " WHERE BOOK.BID = RECORD.BID AND UID = ? AND RETURNTIME IS NULL";
 				pstmt = getConnection().prepareStatement(sql);
 				pstmt.setInt(1, uid);
@@ -68,12 +68,14 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 				List<Object[]> recordlist = new ArrayList<Object[]>();
 				
 				while(rs.next()) {
-					Object[] objects =  new Object[5];
+					Object[] objects =  new Object[7];
 					objects[0] = rs.getString("BNAME");
 					objects[1] = rs.getString("AUTHOR");
 					objects[2] = rs.getString("PRESS");
 					objects[3] = rs.getString("BORROWTIME");
 					objects[4] = rs.getInt("DAY");
+					objects[5] = rs.getInt("RECORD.BID");
+					objects[6] = rs.getInt("RID");
 					recordlist.add(objects);
 				}
 				return recordlist;
@@ -86,9 +88,12 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, uid);
 		rs = pstmt.executeQuery();
-		Integer count = rs.getInt("count");
+		/*if(rs.next()) {
+			Integer count = rs.getInt("count");
+		}*/
+		rs.next();
+		return rs.getInt("count");
 		
-		return count;
 	}
 
 	/*是否有超期图书   
@@ -96,11 +101,11 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 	 * */
 	@Override
 	public boolean hasOverTimeBook(Integer uid) throws SQLException {
-		String sql = "SELECT  COUNT((NOW() - BORROWTIME) > 60) NUM FROM RECORD WHERE RETURNTIME IS NULL AND UID = ?";
-		pstmt.setInt(1, uid);
+		String sql = "SELECT  COUNT(*) NUM FROM RECORD WHERE RETURNTIME IS NULL AND UID = ? AND TIMESTAMPDIFF(DAY,BORROWTIME,NOW())>60";
 		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setInt(1, uid);
 		rs = pstmt.executeQuery();
-		
+		rs.next();
 		Integer count = rs.getInt("NUM");
 		if(count != 0) {
 			return true;
@@ -116,12 +121,14 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 	public int borrowTime(Integer uid, Integer bid) throws SQLException {
 
 		String sql = "SELECT TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) NUM FROM RECORD WHERE RETURNTIME IS NULL AND UID = ? AND BID = ?";
+		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, uid);
 		pstmt.setInt(2, bid);
-		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
-		return rs.getInt("NUM");
-		
+		if(rs.next()) {
+			return rs.getInt("NUM");
+		}
+		return -1;
 	}
 
 

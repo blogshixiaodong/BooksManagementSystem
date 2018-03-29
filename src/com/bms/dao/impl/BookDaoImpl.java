@@ -59,6 +59,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, id);
 		rs = pstmt.executeQuery();
+		rs.next();
 		int count = rs.getInt(1);
 		if(count == 1) {
 			return true;
@@ -142,10 +143,13 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	}
 
 	@Override
+
 	public boolean hasStock(Integer bid) throws SQLException {
 		String sql = "SELECT STOCK FROM BOOK WHERE BID = ?";
-		pstmt.getConnection().prepareStatement(sql);
+		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setInt(1, bid);
 		rs = pstmt.executeQuery();
+		rs.next();
 		Integer stock = rs.getInt("STOCK");
 		if(stock > 0) {
 			return true;
@@ -156,11 +160,40 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
 	public boolean updateStock(Integer bid,String flag) throws SQLException {
-		String sql = "UPDATE BOOK SET STOCK = STOCK"+ flag + " 1 WHERE BID = ?";
-		pstmt.getConnection().prepareStatement(sql);
+		String sql = "UPDATE BOOK SET STOCK = STOCK "+ flag + " 1 WHERE BID = ?";
+		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, bid);
+		
 		return pstmt.executeUpdate() == 1;
 		
 	}
-	
+
+	public List<Book> getRecordByPageNo(int currentPageNo) throws SQLException {
+		String sql = "SELECT * FROM BOOK" + " limit " + (currentPageNo - 1) + "," + getPageSize();;
+		pstmt = getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		List<Book> booklist =new ArrayList<Book>();
+		while(rs.next()) {
+			Book book = new Book();
+			book.setBid(rs.getInt("bid"));
+			book.setBname(rs.getString("bname"));
+			book.setAuthor(rs.getString("author"));
+			book.setPress(rs.getString("press"));
+			book.setPublishTime(rs.getDate("publishTime"));
+			booklist.add(book);
+		} 
+		return booklist;
+	}
+
+	@Override
+	public int getRecordCount() throws SQLException {
+		String sql = "SELECT COUNT(*) FROM BOOK";
+		pstmt = getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		rs.next();
+		int count = rs.getInt(1);
+		closeQuickly();
+		return count;
+	}
+
 }

@@ -9,7 +9,7 @@ import com.bms.bean.User;
  * date:   2018骞�3鏈�23鏃� 涓嬪崍11:43:31
  * author: Shixiaodong
  */
-public interface IUserDao {
+public interface IUserDao extends IPageDao<User> {
 	int addUser(User user) throws SQLException;
 
 	boolean deleteUser(Integer id) throws SQLException;
@@ -23,5 +23,10 @@ public interface IUserDao {
 	User getUserById(Integer id) throws SQLException;
 	
 	boolean updatePassword(int uid, String password) throws SQLException;
-
+	
+	boolean isFreeze(Integer id)  throws SQLException;
+	
+	boolean updateBalance(Integer uid, Float money)  throws SQLException;
+	
+	
 }

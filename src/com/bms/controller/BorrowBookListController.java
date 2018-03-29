@@ -30,7 +30,7 @@ public class BorrowBookListController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Integer uid = Integer.parseInt(request.getParameter("uid"));
+		Integer uid = (Integer)request.getSession().getAttribute("uid");
 		
 		RecordServerImpl recordServerImpl = new RecordServerImpl();
 		List<Object[]> recordlist =  recordServerImpl.getRecordByUserId(uid);

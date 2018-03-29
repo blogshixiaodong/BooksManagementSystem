@@ -12,7 +12,11 @@ import com.sxd.util.StringUtils;
 import com.utils.SqlUtil;
 
 /**
+<<<<<<< HEAD
  *  date : 2018年3月25日	
+=======
+ *  date : 2018��3��25��	
+>>>>>>> sxd/master
  * author: jiangjiamin
  * 
  */
@@ -116,6 +120,31 @@ public class BookServerImpl implements IBookServer {
 		}
 		return book;
 	}
+	
+	
+
+	@Override
+	public int getRecordCount() {
+		try {
+			return bookDaoImpl.getRecordCount();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public List<Book> getBookListByPageNo(int pageNo) {
+		List<Book> booklist = null;
+		try {
+			booklist = bookDaoImpl.getRecordByPageNo(pageNo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
+		}
+		return booklist;
+	}
 
 	@Override
 	public List<Book> getBookList() {
@@ -148,7 +177,6 @@ public class BookServerImpl implements IBookServer {
 	public List<Book> getBookByConndition(Book book)throws BookException {
 		List<Book> booklist = null;
 		
-		//拼接字符串
 		String conndition = SqlUtil.getSql(book);
 		
 			try {

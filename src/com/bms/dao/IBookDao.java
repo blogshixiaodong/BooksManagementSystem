@@ -9,7 +9,7 @@ import com.bms.bean.Book;
  * author: jiangjiamin
  * 
  */
-public interface IBookDao {
+public interface IBookDao extends IPageDao<Book> {
 	boolean addBook(Book book) throws SQLException;
 
 	boolean deleteBook(Integer id) throws SQLException;

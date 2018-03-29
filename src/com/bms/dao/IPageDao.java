@@ -1,5 +1,7 @@
 package com.bms.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -9,8 +11,10 @@ import java.util.List;
 public interface IPageDao<T> {
 	static final int DEFAULT_PAGE_SIZE = 5;
 
-	int getRecordCount();
-
-	List<T> getRecordByPageNo(int pageNo);
+	default int getPageSize() {
+		return DEFAULT_PAGE_SIZE;
+	}
+	int  getRecordCount() throws SQLException;
+	List<T> getRecordByPageNo(int currentPageNo) throws SQLException;
 
 }

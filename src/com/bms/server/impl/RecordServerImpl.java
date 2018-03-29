@@ -10,6 +10,8 @@ import com.bms.dao.impl.RecordDaoImpl;
 import com.bms.dao.impl.UserDaoImpl;
 import com.bms.server.IRecordServer;
 
+import jdk.nashorn.internal.ir.Flags;
+
 public class RecordServerImpl implements IRecordServer {
 	private RecordDaoImpl recordDaoImpl = new RecordDaoImpl();
 	private UserDaoImpl userDaoImpl = new UserDaoImpl();
@@ -50,6 +52,7 @@ public class RecordServerImpl implements IRecordServer {
 			return true;
 		}catch (SQLException e) {
 			//应该使用事务！！！！！
+			e.printStackTrace();
 		}
 		
 		return false;
@@ -59,32 +62,50 @@ public class RecordServerImpl implements IRecordServer {
 	
 	@Override
 	public boolean returnBook(Integer bid,Integer uid,Integer rid) {
+		
+		int flag = 0;//标志归还是否成功
 		try {
+
 			//该用户这本书时候有超期，若超期余额是否足够
-			//获得借阅时间
+			
+			//获得要归还这本书的借阅时间
 			int count = recordDaoImpl.borrowTime(uid, bid);
 			float money;
+			User user = userDaoImpl.getUserById(uid);
 			
 			//该书超期，计算金额
 			if(count >= 60) {
-				money = count * 0.1f;
-				User user = userDaoImpl.getUserById(uid);
+				money = (count - 60) * 0.1f;
 				if(user.getBalance() > money) {
-					user.setBalance(user.getBalance() - money);
 					
+					userDaoImpl.updateBalance(uid, -money);
 					recordDaoImpl.updateRecord(rid);
 					bookDaoImpl.updateStock(bid,"+");
+					flag = 1;
 				}
 				
 			}else {
 				//借阅时间未达到60天，直接归还
 				recordDaoImpl.updateRecord(rid);
 				bookDaoImpl.updateStock(bid,"+");
-				return true;
+				flag = 1;
 			}
-		} catch (Exception e) {
 			
+			//判断用户是否还存在超期图书，如果存在冻结用户
+			if(recordDaoImpl.hasOverTimeBook(uid)) {
+				user.setIs_freeze(1);
+			}else {
+				user.setIs_freeze(0);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		if(flag == 1) {
+			return true;
+		}
+		
 		return false;
 	}
 

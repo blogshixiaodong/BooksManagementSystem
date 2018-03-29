@@ -28,14 +28,17 @@ public class ReturnBookController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
-		Integer uid = Integer.parseInt(request.getParameter("uid"));
+		Integer uid =  (Integer) request.getSession().getAttribute("uid");
 		Integer rid = Integer.parseInt(request.getParameter("rid"));
 		
 		RecordServerImpl recordServerImpl = new RecordServerImpl();
 		if(recordServerImpl.returnBook(bid, uid, rid)) {
 			//归还成功
+			//request.getRequestDispatcher("BorrowBookListController").forward(request, response);
+			response.sendRedirect("BorrowBookListController");
 		}else {
 			//归还失败
+			request.getRequestDispatcher("BorrowBookListController").forward(request, response);
 		}
 		
 		
