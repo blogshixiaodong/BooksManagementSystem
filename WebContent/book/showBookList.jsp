@@ -11,7 +11,7 @@
 <title>书籍列表</title>
 </head>
 <body>
-
+	
 	<c:if test="${sessionScope.username  != null}">
 		<c:out value="欢迎：${sessionScope.username}" />&nbsp; &nbsp;
 		<a href="<%=basePath%>user/LogoffController">注销</a>&nbsp; &nbsp;
@@ -25,7 +25,8 @@
 	
 	<hr/>
 
-
+	${sessionScope.error}
+	<%session.removeAttribute("error"); %>
 	<table border = "1">
 		<thead>
 			<tr>

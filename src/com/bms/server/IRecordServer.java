@@ -11,9 +11,9 @@ import com.bms.bean.Record;
  * 
  */
 public interface IRecordServer {
-	boolean addRecord(Integer uid,Integer bid);
+	String addRecord(Integer uid,Integer bid);
 	
-	public boolean returnBook(Integer bid,Integer uid,Integer rid);
+	boolean returnBook(Integer bid,Integer uid,Integer rid);
 
 	
 	List<Object[]> getRecordByUserId(Integer id);
