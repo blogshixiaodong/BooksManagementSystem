@@ -9,6 +9,8 @@ import com.bms.bean.Book;
 import com.bms.dao.IBookDao;
 import com.bms.exception.BookException;
 
+import jdk.nashorn.internal.ir.Flags;
+
 /**
  *  date : 2018年3月25日	
  * author: jiangjiamin
@@ -18,15 +20,14 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
 	public boolean addBook(Book book) throws SQLException {
-		String sql = "INSERT INTO BOOK(BNAME,AUTHOR,PRESS,PUBLISHTIME) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO BOOK(BNAME,AUTHOR,PRESS,PUBLISHTIME,STOCK) VALUES(?, ?, ?, ?,?)";
 			pstmt = getConnection().prepareStatement(sql);
 			pstmt.setString(1, book.getBname());
 			pstmt.setString(2, book.getAuthor());
 			pstmt.setString(3, book.getPress());
 			pstmt.setDate(4, new java.sql.Date(book.getPublishTime().getTime()) );
+			pstmt.setInt(5, book.getStock());
 			return pstmt.executeUpdate() == 1;
-		
-		
 	}
 
 	@Override
@@ -40,13 +41,14 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	@Override
 	public boolean updateBook(Book book)throws SQLException {
 		String sql = "UPDATE BOOK SET BNAME = ?,AUTHOR = ?,"
-				+ "PRESS = ?,PUBLISHTIME = ? WHERE BID = ?";
+				+ "PRESS = ?,PUBLISHTIME = ?,STOCK = ? WHERE BID = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setString(1, book.getBname());
 		pstmt.setString(2, book.getAuthor());
 		pstmt.setString(3, book.getPress());
 		pstmt.setDate(4, new java.sql.Date(book.getPublishTime().getTime()));
-		pstmt.setInt(5, book.getBid());
+		pstmt.setInt(5, book.getStock());
+		pstmt.setInt(6, book.getBid());
 		
 		return pstmt.executeUpdate() == 1;
 	}
@@ -80,6 +82,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			book.setBname(rs.getString("bname"));
 			book.setPress(rs.getString("press"));
 			book.setPublishTime(rs.getDate("publishTime"));
+			book.setStock(rs.getInt("stock"));
 		}
 		return book;
 	}
@@ -97,6 +100,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			book.setAuthor(rs.getString("author"));
 			book.setPress(rs.getString("press"));
 			book.setPublishTime(rs.getDate("publishTime"));
+			book.setStock(rs.getInt("stock"));
 			booklist.add(book);
 		} 
 		return booklist;
@@ -130,9 +134,32 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			book.setAuthor(rs.getString("author"));
 			book.setPress(rs.getString("press"));
 			book.setPublishTime(rs.getDate("publishTime"));
+			book.setStock(rs.getInt("stock"));
 			booklist.add(book);
 		} 
 		return booklist;
+		
+	}
+
+	@Override
+	public boolean hasStock(Integer bid) throws SQLException {
+		String sql = "SELECT STOCK FROM BOOK WHERE BID = ?";
+		pstmt.getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		Integer stock = rs.getInt("STOCK");
+		if(stock > 0) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean updateStock(Integer bid,String flag) throws SQLException {
+		String sql = "UPDATE BOOK SET STOCK = STOCK"+ flag + " 1 WHERE BID = ?";
+		pstmt.getConnection().prepareStatement(sql);
+		pstmt.setInt(1, bid);
+		return pstmt.executeUpdate() == 1;
 		
 	}
 	

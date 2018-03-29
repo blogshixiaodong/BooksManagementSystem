@@ -18,8 +18,8 @@ public class User implements Serializable{
 	private String password;
 	private String sex;
 	private Integer age;
-	private float balance;
-	private int is_freeze;
+	private Float balance;
+	private Integer is_freeze;
 	
 	
 	
@@ -53,13 +53,13 @@ public class User implements Serializable{
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	public float getBalance() {
+	public Float getBalance() {
 		return balance;
 	}
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
-	public int getIs_freeze() {
+	public Integer getIs_freeze() {
 		return is_freeze;
 	}
 	public void setIs_freeze(int is_freeze) {

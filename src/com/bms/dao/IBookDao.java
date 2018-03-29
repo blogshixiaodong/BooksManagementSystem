@@ -17,6 +17,10 @@ public interface IBookDao {
 	boolean updateBook(Book book) throws SQLException;
 	
 	boolean isExistBook(Integer id) throws SQLException;
+	
+	boolean hasStock(Integer bid)throws SQLException;
+	
+	boolean updateStock(Integer bid,String flag)throws SQLException;
 
 	Book getBookById(Integer id) throws SQLException;
 	
