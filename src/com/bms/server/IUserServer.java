@@ -1,5 +1,6 @@
 package com.bms.server;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.bms.bean.User;
@@ -25,5 +26,10 @@ public interface IUserServer {
 	User getUserById(Integer id);
 	
 	boolean login(int uid, String password);
+	
+	boolean isFreeze(Integer id);
+	
+	boolean updateBalance(Integer uid, int money);
+	
 	
 }

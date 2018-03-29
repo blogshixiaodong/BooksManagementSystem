@@ -57,6 +57,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, id);
 		rs = pstmt.executeQuery();
+		rs.next();
 		int count = rs.getInt(1);
 		if(count == 1) {
 			return true;
@@ -135,5 +136,37 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		return booklist;
 		
 	}
+
+	@Override
+	public List<Book> getRecordByPageNo(int currentPageNo) throws SQLException {
+		String sql = "SELECT * FROM BOOK" + " limit " + (currentPageNo - 1) + "," + getPageSize();;
+		pstmt = getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		List<Book> booklist =new ArrayList<Book>();
+		while(rs.next()) {
+			Book book = new Book();
+			book.setBid(rs.getInt("bid"));
+			book.setBname(rs.getString("bname"));
+			book.setAuthor(rs.getString("author"));
+			book.setPress(rs.getString("press"));
+			book.setPublishTime(rs.getDate("publishTime"));
+			booklist.add(book);
+		} 
+		return booklist;
+	}
+
+	@Override
+	public int getRecordCount() throws SQLException {
+		String sql = "SELECT COUNT(*) FROM BOOK";
+		pstmt = getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		rs.next();
+		int count = rs.getInt(1);
+		closeQuickly();
+		return count;
+	}
+	
+	
+	
 	
 }

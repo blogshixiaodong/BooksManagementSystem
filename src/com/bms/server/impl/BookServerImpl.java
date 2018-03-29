@@ -13,7 +13,7 @@ import com.utils.SqlUtil;
 
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018ï¿½ï¿½3ï¿½ï¿½25ï¿½ï¿½	
  * author: jiangjiamin
  * 
  */
@@ -111,6 +111,31 @@ public class BookServerImpl implements IBookServer {
 		}
 		return book;
 	}
+	
+	
+
+	@Override
+	public int getRecordCount() {
+		try {
+			return bookDaoImpl.getRecordCount();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public List<Book> getBookListByPageNo(int pageNo) {
+		List<Book> booklist = null;
+		try {
+			booklist = bookDaoImpl.getRecordByPageNo(pageNo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			bookDaoImpl.closeQuickly();
+		}
+		return booklist;
+	}
 
 	@Override
 	public List<Book> getBookList() {
@@ -143,7 +168,7 @@ public class BookServerImpl implements IBookServer {
 	public List<Book> getBookByConndition(Book book)throws BookException {
 		List<Book> booklist = null;
 		
-		//Æ´½ÓÌõ¼þ²éÑ¯ where Ö®ºóÌõ¼þÓï¾ä
+		//Æ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ where Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String conndition = SqlUtil.getSql(book);
 		
 

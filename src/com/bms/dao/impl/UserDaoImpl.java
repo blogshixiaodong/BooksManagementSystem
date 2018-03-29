@@ -45,14 +45,19 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 		return result;
 	}
 
+	
+
 	@Override
 	public boolean updateUser(User user) throws SQLException {
 		boolean result = false;
-		String sql = "UPDATE user SET username = ? WHERE uid = ?";
+		String sql = "UPDATE user SET username = ?, sex = ?, age = ? WHERE uid = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setString(1, user.getUsername());
-		//pstmt.setString(2, user.getPassword());
-		pstmt.setInt(2, user.getUid());
+		
+		pstmt.setString(2, user.getSex());
+		pstmt.setInt(3, user.getAge());
+//		pstmt.setFloat(4, user.getBalance());
+		pstmt.setInt(4, user.getUid());
 		result = pstmt.executeUpdate() == 1;
 		closeQuickly();
 		return result;
@@ -103,6 +108,10 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 			user.setUid(rs.getInt(1));
 			user.setUsername(rs.getString(2));
 			user.setPassword(rs.getString(3));
+			user.setSex(rs.getString(4));
+			user.setAge(rs.getInt(5));
+			user.setBalance(rs.getFloat(6));
+			user.setIs_freeze(rs.getInt(7));
 			list.add(user);
 		}
 		closeQuickly();
@@ -117,13 +126,75 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, id);
 		rs = pstmt.executeQuery();
-		
 		rs.next();
 		user.setUid(rs.getInt(1));
 		user.setUsername(rs.getString(2));
 		user.setPassword(rs.getString(3));
+		user.setSex(rs.getString(4));
+		user.setAge(rs.getInt(5));
+		user.setBalance(rs.getFloat(6));
+		user.setIs_freeze(rs.getInt(7));
 		closeQuickly();
 		return user;
+	}
+
+	@Override
+	public boolean isFreeze(Integer id) throws SQLException {
+		String sql = "SELECT is_freeze FROM user WHERE uid = ?";
+		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setInt(1, id);
+		rs = pstmt.executeQuery();
+		rs.next();
+		int is_freeze = rs.getInt(1);
+		closeQuickly();
+		if(is_freeze == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateBalance(Integer uid, int money) throws SQLException {
+		boolean result = false;
+		String sql = "UPDATE user SET balance = balance + ? WHERE uid = ?";
+		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setInt(1, money);
+		pstmt.setInt(2, uid);
+		result = pstmt.executeUpdate() == 1;
+		closeQuickly();
+		return result;
+	}
+	
+	@Override
+	public List<User> getRecordByPageNo(int currentPageNo) throws SQLException {
+		List<User> list = new ArrayList<User>();
+		String sql = "SELECT * FROM user" + " limit " + (currentPageNo - 1) + "," + getRecordCount();
+		pstmt = getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			User user = new User();
+			user.setUid(rs.getInt(1));
+			user.setUsername(rs.getString(2));
+			user.setPassword(rs.getString(3));
+			user.setSex(rs.getString(4));
+			user.setAge(rs.getInt(5));
+			user.setBalance(rs.getFloat(6));
+			user.setIs_freeze(rs.getInt(7));
+			list.add(user);
+		}
+		closeQuickly();
+		return list;
+	}
+	
+	@Override
+	public int getRecordCount() throws SQLException {
+		String sql = "SELECT COUNT(*) FROM user";
+		pstmt = getConnection().prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		rs.next();
+		int count = rs.getInt(1);
+		closeQuickly();
+		return count;
 	}
 	
 }

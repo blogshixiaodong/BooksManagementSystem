@@ -1,12 +1,13 @@
 package com.bms.server;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.bms.bean.Book;
 import com.bms.exception.BookException;
 
 /**
- *  date : 2018Äê3ÔÂ25ÈÕ	
+ *  date : 2018ï¿½ï¿½3ï¿½ï¿½25ï¿½ï¿½	
  * author: jiangjiamin
  * 
  */
@@ -25,7 +26,9 @@ public interface IBookServer {
 
 	List<Book> getBookList();
 	
-	List<Book> getBookByConndition(Book book)throws BookException;
+	List<Book> getBookListByPageNo(int pageNo);
 	
-
+	List<Book> getBookByConndition(Book book) throws BookException;
+	
+	int  getRecordCount();
 }
