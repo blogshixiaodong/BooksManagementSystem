@@ -59,7 +59,6 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 			//查询用户未归还图书记录
 			@Override
 			public List<Object[]> getRecordByUserId(Integer uid) throws SQLException {
-				//String sql = "SELECT * FROM RECORD WHERE UID = ? AND RETURNTIME IS NULL";
 				String sql = "SELECT RECORD.BID,RID,BNAME,AUTHOR,PRESS,BORROWTIME,TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) DAY FROM RECORD,BOOK"
 						+ " WHERE BOOK.BID = RECORD.BID AND UID = ? AND RETURNTIME IS NULL";
 				pstmt = getConnection().prepareStatement(sql);
