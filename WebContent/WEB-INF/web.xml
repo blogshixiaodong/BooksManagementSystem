@@ -6,24 +6,28 @@
     <servlet-class>com.sxd.servlet.InitDataBase</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  
-  
   <filter>
-  	<filter-name>userPowerFilter</filter-name>
-  	<filter-class>com.bms.filter.UserPowerFilter</filter-class>
+    <filter-name>userPowerFilter</filter-name>
+    <filter-class>com.bms.filter.UserPowerFilter</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>userPowerFilter</filter-name>
-  	<url-pattern>/user_main.jsp</url-pattern>
+    <filter-name>userPowerFilter</filter-name>
+    <url-pattern>/user_main.jsp</url-pattern>
   </filter-mapping>
   <filter-mapping>
-  	<filter-name>userPowerFilter</filter-name>
-  	<url-pattern>/admin_main.jsp</url-pattern>
+    <filter-name>userPowerFilter</filter-name>
+    <url-pattern>/admin_main.jsp</url-pattern>
   </filter-mapping>
   <filter-mapping>
-  	<filter-name>userPowerFilter</filter-name>
-  	<url-pattern>/BorrowBookController</url-pattern>
+    <filter-name>userPowerFilter</filter-name>
+    <url-pattern>/BorrowBookController</url-pattern>
   </filter-mapping>
+  
+  
+  <listener>
+  	<listener-class>com.bms.listener.UserFreezeListener</listener-class>
+  </listener>
+  
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

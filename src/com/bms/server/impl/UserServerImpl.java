@@ -16,6 +16,8 @@ public class UserServerImpl implements IUserServer {
 
 	private IUserDao dao = new UserDaoImpl();
 	
+	
+	
 	@Override
 	public int registerUser(User user) {
 		try {
