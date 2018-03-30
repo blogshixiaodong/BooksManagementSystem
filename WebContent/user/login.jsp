@@ -15,7 +15,7 @@
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
 	
 	<hr />
-	<form action="<%=basePath%>user/LoginController" method="post">
+	<form action="<%=basePath%>user/LoginController" method="post" onsubmit="return checkForm()">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>
@@ -43,5 +43,9 @@
 			</tr>
 		</table>
 	</form>
+	<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/utils.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/login.js"></script>
+	
 </body>
 </html>
