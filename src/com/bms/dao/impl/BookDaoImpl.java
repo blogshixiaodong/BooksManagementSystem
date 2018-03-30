@@ -1,15 +1,10 @@
 package com.bms.dao.impl;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.bms.bean.Book;
 import com.bms.dao.IBookDao;
-import com.bms.exception.BookException;
-
-import jdk.nashorn.internal.ir.Flags;
 
 /**
  *  date : 2018年3月25日	
@@ -21,25 +16,33 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	@Override
 	public boolean addBook(Book book) throws SQLException {
 		String sql = "INSERT INTO BOOK(BNAME,AUTHOR,PRESS,PUBLISHTIME,STOCK) VALUES(?, ?, ?, ?,?)";
-			pstmt = getConnection().prepareStatement(sql);
-			pstmt.setString(1, book.getBname());
-			pstmt.setString(2, book.getAuthor());
-			pstmt.setString(3, book.getPress());
-			pstmt.setDate(4, new java.sql.Date(book.getPublishTime().getTime()) );
-			pstmt.setInt(5, book.getStock());
-			return pstmt.executeUpdate() == 1;
+		boolean result = false;
+		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setString(1, book.getBname());
+		pstmt.setString(2, book.getAuthor());
+		pstmt.setString(3, book.getPress());
+		pstmt.setDate(4, new java.sql.Date(book.getPublishTime().getTime()) );
+		pstmt.setInt(5, book.getStock());
+		result = pstmt.executeUpdate() == 1;
+		
+		closeQuickly();
+		return result;
 	}
 
 	@Override
 	public boolean deleteBook(Integer id)throws SQLException {
+		boolean result = false;
 		String sql = "DELETE FROM BOOK WHERE BID = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, id);
-		return pstmt.executeUpdate() == 1;
+		result = pstmt.executeUpdate() == 1;
+		closeQuickly();
+		return result;
 	}
 
 	@Override
 	public boolean updateBook(Book book)throws SQLException {
+		boolean result = false;
 		String sql = "UPDATE BOOK SET BNAME = ?,AUTHOR = ?,"
 				+ "PRESS = ?,PUBLISHTIME = ?,STOCK = ? WHERE BID = ?";
 		pstmt = getConnection().prepareStatement(sql);
@@ -50,9 +53,12 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		pstmt.setInt(5, book.getStock());
 		pstmt.setInt(6, book.getBid());
 		
-		return pstmt.executeUpdate() == 1;
+		result = pstmt.executeUpdate() == 1;
+		closeQuickly();
+		return result;
 	}
-
+	
+	//没有用到
 	@Override
 	public boolean isExistBook(Integer id)throws SQLException {
 		String sql = "SELECT COUNT(*) FROM BOOK WHERE BID = ?";
@@ -85,6 +91,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			book.setPublishTime(rs.getDate("publishTime"));
 			book.setStock(rs.getInt("stock"));
 		}
+		closeQuickly();
 		return book;
 	}
 
@@ -103,7 +110,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			book.setPublishTime(rs.getDate("publishTime"));
 			book.setStock(rs.getInt("stock"));
 			booklist.add(book);
-		} 
+		}
+		closeQuickly();
 		return booklist;
 	}
 
@@ -117,10 +125,12 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		while(rs.next()) {
 			idlist.add(rs.getInt("bid"));
 		} 
+		closeQuickly();
 		return idlist;
 
 	}
-
+	
+	//按条件获取记录
 	@Override
 	public List<Book> getBookByConndition(String conndition) throws SQLException {
 		String sql = "SELECT * FROM BOOK WHERE 1=1" + conndition;
@@ -137,14 +147,16 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			book.setPublishTime(rs.getDate("publishTime"));
 			book.setStock(rs.getInt("stock"));
 			booklist.add(book);
-		} 
+		}
+		closeQuickly();
 		return booklist;
 		
 	}
-
+	
+	//是否还有库存
 	@Override
-
 	public boolean hasStock(Integer bid) throws SQLException {
+		boolean result = false;
 		String sql = "SELECT STOCK FROM BOOK WHERE BID = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, bid);
@@ -152,20 +164,22 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		rs.next();
 		Integer stock = rs.getInt("STOCK");
 		if(stock > 0) {
-			return true;
+			result = true;
 		}
 		
-		return false;
+		closeQuickly();
+		return result;
 	}
 
 	@Override
 	public boolean updateStock(Integer bid,String flag) throws SQLException {
+		boolean result = false;
 		String sql = "UPDATE BOOK SET STOCK = STOCK "+ flag + " 1 WHERE BID = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, bid);
-		
-		return pstmt.executeUpdate() == 1;
-		
+		result = pstmt.executeUpdate() == 1;
+		//closeQuickly();
+		return result;
 	}
 
 	public List<Book> getRecordByPageNo(int currentPageNo) throws SQLException {
@@ -182,7 +196,8 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 			book.setStock(rs.getInt("stock"));
 			book.setPublishTime(rs.getDate("publishTime"));
 			booklist.add(book);
-		} 
+		}
+		closeQuickly();
 		return booklist;
 	}
 

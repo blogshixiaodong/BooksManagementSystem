@@ -38,7 +38,6 @@ public class BookUpdateController extends HttpServlet {
 			
 			try {
 				if(bookServerImpl.updateBook(book)) {
-					//response.sendRedirect("book/showBookList.jsp");
 					response.sendRedirect(request.getContextPath()+"/BookListController?flag=1");
 				}
 				
@@ -46,7 +45,6 @@ public class BookUpdateController extends HttpServlet {
 			}catch (BookException e) {
 				//信息错误，抛出错误信息
 				if(book.getPublishTime() != null) {
-					//request.setAttribute("time", DateFormat.dateToString(book.getPublishTime()));
 					System.out.println(book.getPublishTime().toString());
 				}
 				request.getSession().setAttribute("excep", e);	
