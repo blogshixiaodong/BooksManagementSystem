@@ -12,12 +12,6 @@
 </head>
 <body>
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
-	<a href="<%=basePath%>admin_main.jsp">个人中心</a>&nbsp;&nbsp;
-	<hr />
-
-	${sessionScope.excep.content}
-	<%session.removeAttribute("excep"); %>
-	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
 	<c:if test="${sessionScope.isAdmin != null}">
 			<a href="<%=basePath%>admin_main.jsp">返回</a>
 	</c:if>
@@ -25,7 +19,8 @@
 		<a href="<%=basePath%>user_main.jsp">返回</a>
 	</c:if>
 	<hr/>
-	 
+	 ${sessionScope.excep.content}
+	<%session.removeAttribute("excep"); %>
 	<h3>添加图书信息</h3>
 	
 	<form action = "${pageContext.request.contextPath}/BookAddController" method = "POST">

@@ -23,5 +23,4 @@ public interface IRecordDao  {
 	
 	//是否有超期图书
 	boolean hasOverTimeBook(Integer uid) throws SQLException;
-	List<Record> getRecord() throws SQLException;
 }

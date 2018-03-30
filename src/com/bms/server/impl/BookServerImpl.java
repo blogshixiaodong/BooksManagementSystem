@@ -24,22 +24,13 @@ public class BookServerImpl implements IBookServer {
 		boolean result = false;
 		
 		try {
-			//bookDaoImpl.getConnection().setAutoCommit(false);
 			checkIsNull(book);
 			result =  bookDaoImpl.addBook(book);
-			//bookDaoImpl.getConnection().commit();
 		} catch (BookException e) {
 			throw new BookException(e.getContent());
 		}catch (SQLException e) {
-			/*try {
-				bookDaoImpl.getConnection().rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}*/
-		}finally {
-			bookDaoImpl.closeQuickly();
+			e.printStackTrace();
 		}
-		
 		return result;
 	}
 
@@ -81,7 +72,6 @@ public class BookServerImpl implements IBookServer {
 	public boolean updateBook(Book book)throws BookException {
 		boolean result = false;
 		try {
-			
 			checkIsNull(book);
 			result = bookDaoImpl.updateBook(book);
 		}catch (Exception e) {
@@ -120,7 +110,6 @@ public class BookServerImpl implements IBookServer {
 	}
 	
 	
-
 	@Override
 	public int getRecordCount() {
 		try {
@@ -168,25 +157,21 @@ public class BookServerImpl implements IBookServer {
 			bookDaoImpl.closeQuickly();
 		}
 		return booklist;
-		
 	}
 
 	@Override
 	public List<Book> getBookByConndition(Book book)throws BookException {
 		List<Book> booklist = null;
-		
 		String conndition = SqlUtil.getSql(book);
 		
-			try {
-				booklist = bookDaoImpl.getBookByConndition(conndition);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(booklist == null || booklist.size() == 0) {
-				throw new BookException(ErrorList.NO_RECORD);
-			}
-		
+		try {
+			booklist = bookDaoImpl.getBookByConndition(conndition);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(booklist == null || booklist.size() == 0) {
+			throw new BookException(ErrorList.NO_RECORD);
+		}
 		return booklist;
 	}
 
