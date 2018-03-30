@@ -9,7 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户注册</title>
-
 </head>
 <body>
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
@@ -20,7 +19,7 @@
 			<a href="../user_main.jsp">返回</a>
 		</c:if>
 	<hr/>
-	<form action="RegisterController" method="post">
+	<form action="RegisterController" method="post" onsubmit="return checkForm()">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>
@@ -38,7 +37,7 @@
 			<tr>
 				<td>性别</td>
 				<td>
-					<input type="radio" name="sex" value="男" checked="checked" />男
+					<input type="radio" name="sex" value="男" />男
 					<input type="radio" name="sex" value="女" />女
 				</td>
 			</tr>
@@ -66,5 +65,8 @@
 			</tr>
 		</table>
 	</form>
+	<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/utils.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/register.js"></script>
 </body>
 </html>

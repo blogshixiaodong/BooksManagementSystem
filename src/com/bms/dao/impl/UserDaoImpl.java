@@ -198,5 +198,19 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 		closeQuickly();
 		return count;
 	}
+
+	@Override
+	public boolean updateStatus(Integer uid, Integer is_freeze) throws SQLException {
+		boolean result = false;
+		String sql = "UPDATE user SET is_freeze = ? WHERE uid = ?";
+		pstmt = getConnection().prepareStatement(sql);
+		pstmt.setInt(1, is_freeze);
+		pstmt.setInt(2, uid);
+		result = pstmt.executeUpdate() == 1;
+		closeQuickly();
+		return false;
+	}
+	
+	
 	
 }

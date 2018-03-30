@@ -9,14 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
-<script type="text/javascript" src="<%=basePath%>js/index.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
-<script>
-	window.onload = function() {
-		getBookList();
-	};
-	
-</script>
 </head>
 <body>
 	<c:if test="${sessionScope.username  != null}">
@@ -63,7 +55,13 @@
 		</table>	
 	</div>
 
-
+	<script type="text/javascript" src="<%=basePath%>js/index.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
+	<script>
+		window.onload = function() {
+			getBookList();
+		};
+	</script>
 	<script id="fileListTrTemp" type="text/html"> 
    		<tr>
 			<td>#1</td>
