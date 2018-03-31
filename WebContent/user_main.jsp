@@ -35,6 +35,7 @@
 			<a href="<%=basePath %>/book/searchBook.jsp">查询图书</a><br/>
 			<a href="<%=basePath %>/BookListController?flag=1">图书列表</a><br/>
 			<a href="<%=basePath %>/BorrowBookListController">借阅查询</a><br/>
+			<a href="<%=basePath %>BorrowHistroyRecordController">历史借阅</a><br/>
 		</div>
 
 	</div> 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bms.bean.Book;
+import com.bms.server.IBookServer;
 import com.bms.server.impl.BookServerImpl;
 
 /**
@@ -18,7 +19,7 @@ import com.bms.server.impl.BookServerImpl;
 @WebServlet("/BookSearchUpateInfoController")
 public class BookSearchUpateInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private BookServerImpl bookServerImpl = new BookServerImpl();   
+    private IBookServer bookServer = new BookServerImpl();   
    
     public BookSearchUpateInfoController() {
         super();
@@ -32,12 +33,9 @@ public class BookSearchUpateInfoController extends HttpServlet {
 		
 		//获取图书ID，根据ID查找图书
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
-		Book book = bookServerImpl.getBookById(bid);
+		Book book = bookServer.getBookById(bid);
 		request.setAttribute("book", book);
-		
 		request.getRequestDispatcher("/book/updateBookInfo.jsp").forward(request, response);
-		
-		
 	}
 
 	

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bms.dao.impl.RecordDaoImpl;
+import com.bms.server.IRecordServer;
 import com.bms.server.impl.RecordServerImpl;
 
 /**
@@ -27,12 +28,10 @@ public class BorrowBookController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		/*Integer uid = Integer.parseInt(request.getParameter("uid"));*/
 		Integer uid = (Integer) request.getSession().getAttribute("uid");
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
-		
-		RecordServerImpl recordServerImpl = new RecordServerImpl();
-		String info = recordServerImpl.addRecord(uid, bid);
+		IRecordServer recordServer = new RecordServerImpl();
+		String info = recordServer.addRecord(uid, bid);
 		if("Success".equals(info)) {
 			//借阅成功
 			response.sendRedirect("BorrowBookListController");

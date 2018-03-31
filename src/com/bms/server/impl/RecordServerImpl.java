@@ -6,6 +6,7 @@ import com.bms.bean.User;
 import com.bms.dao.impl.BookDaoImpl;
 import com.bms.dao.impl.RecordDaoImpl;
 import com.bms.dao.impl.UserDaoImpl;
+import com.bms.exception.ErrorList;
 import com.bms.server.IRecordServer;
 
 /**
@@ -20,42 +21,44 @@ public class RecordServerImpl implements IRecordServer {
 	private BookDaoImpl bookDaoImpl = new BookDaoImpl();
 	
 	//借阅图书
-	//1 用户被冻结   2借阅数量达到最大值  3.图书超期  4.库存不足  
-	//0 借阅成功
 	@Override
 	public String addRecord(Integer uid,Integer bid){
-		
 		try {
 			//开启事务
 			beginTranscation();
 			//1. user 状态是否冻结
 			User user = userDaoImpl.getUserById(uid);
 			if(user.getIs_freeze() == 1) {
-				return "The user is frozen";
+				return ErrorList.USER_FREEZE;
 			}
 			
 			//2. user 是否有超期
 			if(recordDaoImpl.hasOverTimeBook(uid)) {
 				user.setIs_freeze(1);
-				return "Book borrow time over";
+				return ErrorList.BORROW_TIME_OVER;
 			}
 			
 			//3. user 已借的数量
 			Integer count = recordDaoImpl.borrowBookCount(uid);
 			if(count >= 5) {
 				user.setIs_freeze(1);
-				return "The number of borrowing is greater than 5";
+				return ErrorList.BORROW_NUM_OVER;
 			}
 			
 			//4.是否有库存 --->可能不必要
 			if(!bookDaoImpl.hasStock(bid)) {
-				return "Book stock deficiency";
+				return ErrorList.STOCK_DEFICIENCY;
 			}
 			
 			//5. 创建借书记录
 			recordDaoImpl.addRecord(uid, bid);
 			bookDaoImpl.updateStock(bid,"-");
 			commitTranscation();
+			
+			//6.借阅成功之后，如果借阅数量达到5本，冻结账户
+			if(recordDaoImpl.borrowBookCount(uid) >= 5) {
+				userDaoImpl.updateStatus(uid, 1);
+			}
 			return "Success";
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -71,77 +74,87 @@ public class RecordServerImpl implements IRecordServer {
 
 	@Override
 	public boolean returnBook(Integer bid,Integer uid,Integer rid) {
-		
-		int flag = 0;//标志归还是否成功
+		boolean result = false;
 		try {
 			beginTranscation();
-			
 			//获得要归还这本书的借阅时间
-			int count = recordDaoImpl.borrowTime(uid, bid);
+			int day = recordDaoImpl.borrowTime(rid);
 			User user = userDaoImpl.getUserById(uid);
 			float money;
-			
 			//该书超期，计算金额
-			if(count >= 60) {
-				money = (count - 60) * 0.1f;
+			if(day >= 60) {
+				money = (day - 60) * 0.1f;
 				if(user.getBalance() > money) {
-					
 					userDaoImpl.updateBalance(uid, -money);
 					recordDaoImpl.updateRecord(rid);
 					bookDaoImpl.updateStock(bid,"+");
-					flag = 1;
+					result = true;
 				}
-				
 			}else {
 				//借阅时间未达到60天，直接归还
 				recordDaoImpl.updateRecord(rid);
 				bookDaoImpl.updateStock(bid,"+");
-				flag = 1;
+				result = true;
 			}
-			commitTranscation();
 			//判断用户是否还存在超期图书，如果存在冻结用户
 			if(recordDaoImpl.hasOverTimeBook(uid)) {
-				user.setIs_freeze(1);
+				userDaoImpl.updateStatus(uid, 1);
 			}else {
-				user.setIs_freeze(0);
+				userDaoImpl.updateStatus(uid,0);
 			}
-			
+			//提交事务
+			commitTranscation();
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollbackTranscation();
 		}finally {
 			closeQuery();
 		}
-		
-		if(flag == 1) {
-			return true;
+		return result;
+	}
+	
+	
+	//借阅记录
+	public List<Object[]> getHistoryRecordByUserId(Integer uid){
+		List<Object[]> list = null;
+		try {
+			list = recordDaoImpl.getRecordByUserId(uid,"NOT");
+			if(list.size() == 0) {
+				list = null;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		return false;
+		return list;
 	}
 
 	//通过用户id获取book表和record表连接之后需要的字段链表
 	@Override
 	public List<Object[]> getRecordByUserId(Integer uid){
+		List<Object[]> list = null;
 		try {
-			return recordDaoImpl.getRecordByUserId(uid);
+			list =  recordDaoImpl.getRecordByUserId(uid,"");
+			if(list.size() == 0) {
+				list = null;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return list;
 	}
 	
-	public void setUserFreezeStatus(Integer uid) {
-		
+	public void checkUserFreezeStatus(Integer uid) {
 		try {
 			//是否是冻结状态
 			if(!userDaoImpl.isFreeze(uid)) {
 				if(recordDaoImpl.hasOverTimeBook(uid)) {
 					//userDaoImpl.update  --> 修改状态
+					userDaoImpl.updateStatus(uid, 1);
 					return;
 				}
 				if(recordDaoImpl.borrowBookCount(uid) >= 5) {
 					//userDaoImpl.update -->修改状态
+					userDaoImpl.updateStatus(uid,1);
 					return;
 				}
 			}
@@ -173,7 +186,6 @@ public class RecordServerImpl implements IRecordServer {
 			userDaoImpl.getConnection().rollback();
 			bookDaoImpl.getConnection().rollback();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

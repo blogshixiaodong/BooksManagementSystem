@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bms.server.IBookServer;
 import com.bms.server.impl.BookServerImpl;
 
 /**
@@ -17,24 +18,18 @@ import com.bms.server.impl.BookServerImpl;
 @WebServlet("/BookDeleteController")
 public class BookDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private BookServerImpl bookServerImpl = new BookServerImpl();
+    private IBookServer bookServer = new BookServerImpl();
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
-		if(bookServerImpl.deleteBook(bid)) {
+		if(bookServer.deleteBook(bid)) {
 			//删除成功
 			response.sendRedirect(request.getContextPath()+"/book/admin.jsp");
 		}else {
 			//删除失败
+			//!!
 			response.sendRedirect(request.getContextPath()+"/book/error.jsp");
 		}
-		
-		
-		
-		
 	}
 
 	

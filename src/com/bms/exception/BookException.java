@@ -18,13 +18,6 @@ public class BookException extends SQLException {
 		content = message;
 	}
 	
-	/*private String handlerMessages(String message) {
-		if(message.contains("cannot be null")) {
-			message = message.substring(6, message.length());
-		}
-		
-		return message;
-	}*/
 	
 	public void setContent(String message) {
 		content = message;
