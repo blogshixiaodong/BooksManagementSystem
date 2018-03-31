@@ -7,6 +7,8 @@
 	  <servlet-class>com.sxd.servlet.InitDataBase</servlet-class>
 	  <load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!--过滤器  -->
 	<filter>
 	  <filter-name>userPowerFilter</filter-name>
 	  <filter-class>com.bms.filter.UserPowerFilter</filter-class>
@@ -24,7 +26,7 @@
 	  <url-pattern>/BorrowBookController</url-pattern>
 	</filter-mapping>
   
-  
+  <!--监听器  -->
 	<listener>
 		<listener-class>com.bms.listener.UserFreezeListener</listener-class>
 	</listener>

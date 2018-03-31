@@ -19,8 +19,8 @@
 		<a href="<%=basePath%>user_main.jsp">返回</a>
 	</c:if>
 	<hr/>
-	 ${sessionScope.excep.content}
-	<%session.removeAttribute("excep"); %>
+	 ${sessionScope.error}
+	<%session.removeAttribute("error"); %>
 	<h3>添加图书信息</h3>
 	
 	<form action = "${pageContext.request.contextPath}/BookAddController" method = "POST">
@@ -42,7 +42,7 @@
 			
 			<tr>
 				<td>出版时间:</td>
-				<td><input type = "text" name = "publishTime" value = "2015-01-12"></td>
+				<td><input type = "text" name = "publishTime" placeholder = "2018-01-01"></td>
 			</tr>
 			
 			<tr>

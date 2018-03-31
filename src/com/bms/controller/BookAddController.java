@@ -36,12 +36,13 @@ public class BookAddController extends HttpServlet {
 			return ;
 		}
 				
-		try {
+		try{
 			if(bookServer.addBook(book)) {
 				response.sendRedirect(request.getContextPath()+"/BookListController?flag=1");
 			}
-		} catch (BookException e) {
-			request.getSession().setAttribute("excep", e);
+		}catch(BookException e) {
+			//添加错误，抛出错误消息
+			request.getSession().setAttribute("error", e.getContent());
 			request.setAttribute("book", book);			
 			request.getRequestDispatcher("book/addBook.jsp").forward(request, response);
 		}

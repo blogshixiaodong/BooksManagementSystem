@@ -29,7 +29,7 @@ public class BookUpdateController extends HttpServlet {
 		
 		Book book = (Book)RequestUtil.getParamsInjectObj(request, Book.class);
 		//存在格式错误	
-		if(request.getSession().getAttribute("excep") != null) {
+		if(request.getSession().getAttribute("error") != null) {
 			request.setAttribute("book", book);
 			response.sendRedirect(request.getContextPath()+"/book/addBook.jsp");
 			return ;
@@ -40,7 +40,7 @@ public class BookUpdateController extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/BookListController?flag=1");
 			}	
 		}catch (BookException e) {
-			request.getSession().setAttribute("excep", e);	
+			request.getSession().setAttribute("error", e);	
 			request.setAttribute("book", book);
 			request.getRequestDispatcher("/book/updateBookInfo.jsp").forward(request, response);
 		}	

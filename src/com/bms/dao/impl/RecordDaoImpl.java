@@ -15,6 +15,7 @@ import com.utils.DateFormat;
  */
 public class RecordDaoImpl extends BaseDao implements IRecordDao {
 	
+	
 	@Override
 	public boolean addRecord(Integer uid,Integer bid) throws SQLException {
 		boolean result = false;
@@ -104,7 +105,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 		
 	}
 
-	/*是否有超期图书   
+	/* 是否有超期图书   
 	 * 有超期 返回true
 	 * */
 	@Override
@@ -119,21 +120,19 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 		if(count != 0) {
 			result = true;
 		}
-		
 		closeQuickly();
 		return result;
 	}
 	
 	
-	/*该书是否超期   
-	 * 有超期 返回true
+	/*	该本书的借阅时间
+	 *  返回借阅天数
 	 * */
 	public int borrowTime(Integer rid) throws SQLException {
 		Integer result = -1;
 		String sql = "SELECT TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) NUM FROM RECORD WHERE RETURNTIME IS NULL AND RID = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, rid);
-		//pstmt.setInt(2, bid);
 		rs = pstmt.executeQuery();
 		if(rs.next()) {
 			result = rs.getInt("NUM");

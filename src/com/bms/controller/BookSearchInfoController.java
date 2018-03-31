@@ -36,13 +36,12 @@ public class BookSearchInfoController extends HttpServlet {
 		
 		Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
 		//存在格式格式异常
-		if(request.getSession().getAttribute("excep") != null) {
+		if(request.getSession().getAttribute("error") != null) {
 			response.sendRedirect("book/searchBook.jsp");
 			return ;
 		}
 		
 		try {
-
 			List<Book> booklist = bookServer.getBookByConndition(book);
 			int pageSize = bookServer.getPageSize();
 			int recordNum = booklist.size();
@@ -55,7 +54,7 @@ public class BookSearchInfoController extends HttpServlet {
 			request.setAttribute("booklist", booklist);
 			request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
 		} catch (BookException e) {
-			request.getSession().setAttribute("excep", e);
+			request.getSession().setAttribute("error", e.getContent());
 			response.sendRedirect("book/searchBook.jsp");
 			return ;
 		}

@@ -25,8 +25,8 @@
 	
 	<hr/>
 
-	${sessionScope.error}
-	<%session.removeAttribute("error"); %>
+	<%-- ${sessionScope.error}
+	<%session.removeAttribute("error"); %> --%>
 	<table border = "1">
 		<thead>
 			<tr>

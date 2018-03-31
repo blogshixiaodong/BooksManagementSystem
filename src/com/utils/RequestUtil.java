@@ -25,34 +25,30 @@ public class RequestUtil {
 		try {
 			//实例化对象
 			object = clazz.newInstance();
-			
-			//ֵ
 			while(paramNmaes.hasMoreElements()) {
  				String param = paramNmaes.nextElement();
 				Field field = clazz.getDeclaredField(param);
-				
+				//设置私有属性允许访问
 				field.setAccessible(true);
 				//根据类型为对象属性赋值
 				setParam(field, object, request.getParameter(param));
 			}
 		}catch (BookException e) {
-			request.getSession().setAttribute("excep", e);
+			request.getSession().setAttribute("error", e.getContent());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return object;	
 	}
 
-	public static void  setParam(Field field,Object object,String value) throws BookException {
+	public static void setParam(Field field,Object object,String value) throws BookException {
 		String type = field.getType().toString();
-		
 		try {
-			//if value = null  return;
+			//如果为空串，赋null
 			if("".equals(value)) {
 				field.set(object,null);
 				return;
 			}
-			
 			if(type.equals("class java.lang.String")){
 				field.set(object, value);
 			}else if(type.equals("class java.lang.Integer") ){
@@ -60,7 +56,6 @@ public class RequestUtil {
 			}else if(type.equals("class java.lang.Float")){
 				field.set(object, Float.parseFloat(value ));
 			}else if(type.equals("class java.util.Date")) {
-				
 				field.set(object,DateFormat.stringToDate(value));
 			}
 		}catch (IllegalArgumentException | IllegalAccessException e) {
@@ -68,8 +63,4 @@ public class RequestUtil {
 			throw new BookException(ErrorList.PATTERN_ERROR);
 		}
 	}
-	
-	
-
-
 }
