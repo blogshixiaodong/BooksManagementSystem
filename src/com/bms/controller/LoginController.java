@@ -24,6 +24,16 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
 		IUserServer server = new UserServerImpl();
+		
+		//验证码校验
+		String checkcode = request.getParameter("checkCode");
+		Object checkObj = request.getSession().getAttribute("checkCode");
+		if(null == checkObj || !checkObj.toString().equalsIgnoreCase(checkcode)) {
+			session.setAttribute("error", "验证码错误!");
+			response.sendRedirect("login.jsp");
+			return;
+		}
+		
 		try {
 			//判断账号合法性
 			intUid = Integer.parseInt(uid);
@@ -33,6 +43,7 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("login.jsp");
 			return;
 		}
+		//登陆验证
 		if(!server.login(intUid, password)) {
 			session.setAttribute("error", "账号或密码错误!");
 			response.sendRedirect("login.jsp");

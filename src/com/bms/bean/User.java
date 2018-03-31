@@ -12,8 +12,8 @@ public class User{
 	private String password;
 	private String sex;
 	private Integer age;
-	private Float balance;
-	private Integer is_freeze;
+	private Float balance;		//账户余额
+	private Integer is_freeze;	//账户状态
 
 	
 	public Integer getUid() {

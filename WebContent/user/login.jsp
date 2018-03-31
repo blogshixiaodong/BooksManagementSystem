@@ -31,6 +31,16 @@
 				<td><input type="text" name="username" autocomplete="off" /><br /></td>
 			</tr>
 			<tr>
+				<td>验证码:</td>
+				<td>
+					<div class="checkCode">
+						<input name="checkCode" type="text" placeholder="输入右侧验证码"/>
+						<img src="CheckCode"/>
+						<div class="clear"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<td>密码:</td>
 				<td><input type="text" name="password" autocomplete="off" /><br /></td>
 			</tr>
