@@ -1,6 +1,5 @@
 package com.bms.bean;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,11 +7,8 @@ import java.util.Date;
  * author: jiangjiamin
  * 
  */
-public class Book implements Serializable{
-	/**
-	 * 
-	 */
-	
+public class Book {
+
 	private Integer bid;
 	private String bname;
 	private String author;

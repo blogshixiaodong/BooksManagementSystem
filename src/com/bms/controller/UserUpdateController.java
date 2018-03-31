@@ -19,7 +19,6 @@ public class UserUpdateController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int uid = Integer.parseInt(request.getParameter("uid"));
 		IUserServer server = new UserServerImpl();
 		User user = RequestUtil.getParamsInjectObj(request, User.class);
 		if(isNullOrEmpty(user.getUsername()) || isNullOrEmpty(user.getSex()) || isNull(user.getAge())) {

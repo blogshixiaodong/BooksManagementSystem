@@ -1,16 +1,11 @@
 package com.bms.bean;
 
-import java.io.Serializable;
-
 /**
  *  date : 2018年3月25日	
- * 	author: jiangjiamin
+ * 	author: shixiaodong
  * 
  */
-public class User implements Serializable{
-	/**
-	 * 
-	 */
+public class User{
 	
 	private Integer uid;
 	private String username;

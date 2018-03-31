@@ -1,9 +1,7 @@
 package com.bms.server;
 
-import java.sql.SQLException;
-import java.util.List;
 
-import com.bms.bean.Record;
+import java.util.List;
 
 /**
  *  date : 2018��3��25��	

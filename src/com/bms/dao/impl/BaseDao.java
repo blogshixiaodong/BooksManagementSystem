@@ -11,7 +11,7 @@ import com.sxd.util.jdbc.IDataBase;
 import com.sxd.util.jdbc.JdbcUtils;
 
 /*
- * date:   2018骞�3鏈�23鏃� 涓嬪崍11:39:28
+ * date:   2018/3/23
  * author: Shixiaodong
  */
 public class BaseDao implements IBaseDao {

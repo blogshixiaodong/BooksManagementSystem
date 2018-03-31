@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bms.server.impl.BookServerImpl;
 import com.bms.server.impl.RecordServerImpl;
 
 /**

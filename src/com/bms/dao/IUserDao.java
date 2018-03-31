@@ -6,7 +6,7 @@ import java.util.List;
 import com.bms.bean.User;
 
 /*
- * date:   2018骞�3鏈�23鏃� 涓嬪崍11:43:31
+ * date:   2018/3/31
  * author: Shixiaodong
  */
 public interface IUserDao extends IPageDao<User> {

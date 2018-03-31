@@ -23,7 +23,7 @@
 	${sessionScope.excep.content}
 	<%session.removeAttribute("excep"); %>
 	<h3>条件查询图书</h3>
-	<form action = "${pageContext.request.contextPath}/BookSearchInfoController" method = "POST">
+	<form action = "${pageContext.request.contextPath}/BookSearchInfoController" method = "POST" onsubmit="return checkForm()">
 		<table>
 			<tr>
 				<td>编号:</td>
@@ -49,16 +49,17 @@
 			
 			<tr>
 				<td>出版时间:</td>
-				<td><input type = "text" name = "publishTime"></td>
+				<td><input type = "text" name = "publishTime" placeholder="2018-01-01"></td>
 			</tr>
 			
 			<tr>
 				<td><input type = "submit" value = "提交"></td>
 				<td><input type = "reset" value = "重置"></td>
 			</tr>
-			
 		</table>
-	
 	</form>
+	<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/utils.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/searchBook.js"></script>
 </body>
 </html>

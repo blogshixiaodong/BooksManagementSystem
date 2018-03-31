@@ -12,6 +12,28 @@
 <body>
 	你好：${sessionScope.username}<br/>
 	注册成功：你的账号为 ${sessionScope.uid}<br/>
-	<a href="../user_main.jsp">回到首页</a>
+	
+	<div>
+		<span class="showbox"></span>s 后自动跳转回首页...
+	</div>
+	跳转失败点击<a href="../user_main.jsp">回到首页</a>
+	<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			show();
+		});
+		var timeout = 5;
+		function show() {
+		    var showbox = $(".showbox");
+		     showbox.html(timeout);
+		     timeout--;
+		     if (timeout == 0) {
+		        window.location.href = "../index.jsp";
+		    }
+		    else {
+		        setTimeout("show()", 1000);
+		    }
+		}
+	</script>
 </body>
 </html>

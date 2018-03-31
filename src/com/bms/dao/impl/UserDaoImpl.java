@@ -208,7 +208,7 @@ public class UserDaoImpl extends BaseDao implements IUserDao {
 		pstmt.setInt(2, uid);
 		result = pstmt.executeUpdate() == 1;
 		closeQuickly();
-		return false;
+		return result;
 	}
 	
 	

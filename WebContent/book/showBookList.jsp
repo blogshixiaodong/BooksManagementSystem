@@ -70,8 +70,9 @@
 			int pageNo = Integer.parseInt(request.getSession().getAttribute("pageNo").toString());
 			int pageNum = Integer.parseInt(request.getSession().getAttribute("pageNum").toString());
 			int recordNum = Integer.parseInt(request.getSession().getAttribute("recordNum").toString());
-			out.println("<a href=BookListController?flag=1&pageNo=1>首页</a>");
+			
 			if (pageNo != 1) {
+				out.println("<a href=BookListController?flag=1&pageNo=1>首页</a>");
 				out.println("<a href=BookListController?flag=1&pageNo=" + (pageNo - 1) + ">上一页</a>");
 			}
 			
@@ -85,8 +86,9 @@
 	
 	       	if (pageNo != pageNum) {
 	       		out.println("<a href=BookListController?flag=1e&pageNo=" + (pageNo + 1) + ">下一页</a>");
+	       		out.println("<a href=BookListController?flag=1&pageNo=" + pageNum + ">最后一页</a>&nbsp;&nbsp;总共"+pageNum + "页");
 	       	}
-	       	out.println("<a href=BookListController?flag=1&pageNo=" + (recordNum/4) + ">最后一页</a>&nbsp;&nbsp;总共"+(recordNum/4) + "页");
+	       
 	      %>
 	</div>
 </body>

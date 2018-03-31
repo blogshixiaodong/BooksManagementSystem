@@ -1,6 +1,5 @@
 package com.bms.bean;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,11 +7,8 @@ import java.util.Date;
  * author: jiangjiamin
  * 
  */
-public class Record implements Serializable{
-	/**
-	 * 
-	 */
-	
+public class Record {
+
 	private Integer rid;
 	private Integer uid;
 	private Integer bid;

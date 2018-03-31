@@ -1,13 +1,12 @@
 package com.bms.dao.impl;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.bms.dao.IPageDao;
 
 /*
- * date:   2018年3月24日 上午12:26:44
+ * date:   2018/3/24
  * author: Shixiaodong
  */
 public abstract class BasePageDao<T> extends BaseDao implements IPageDao<T> {
@@ -17,7 +16,11 @@ public abstract class BasePageDao<T> extends BaseDao implements IPageDao<T> {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-
+	
+	public int getPageSize() {
+		return pageSize;
+	}
+	
 	@Override
 	public int getRecordCount() {
 

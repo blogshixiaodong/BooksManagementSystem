@@ -13,7 +13,7 @@ public class SqlUtil {
 	public static String getSql(Object object) {
 		StringBuilder str = new StringBuilder();
 		
-		Class clazz = (Class)object.getClass();
+		Class<?> clazz = (Class<?>)object.getClass();
  		
 		//获取所有属性
 		Field[] fieldArray = clazz.getDeclaredFields();

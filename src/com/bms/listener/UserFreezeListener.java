@@ -4,7 +4,6 @@ import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.annotation.WebListener;
 
-import com.bms.dao.impl.RecordDaoImpl;
 import com.bms.server.impl.RecordServerImpl;
 
 /**

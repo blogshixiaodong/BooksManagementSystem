@@ -47,6 +47,14 @@ public class BookSearchInfoController extends HttpServlet {
 		
 		try {
 			List<Book> booklist = bookServerImpl.getBookByConndition(book);
+			int pageSize = bookServerImpl.getPageSize();
+			int recordNum = booklist.size();
+			int pageNum = recordNum % pageSize == 0 ? recordNum / pageSize : recordNum / pageSize + 1;
+
+			request.getSession().setAttribute("pageNo", 1);
+			request.getSession().setAttribute("pageNum", pageNum);
+			request.getSession().setAttribute("recordNum", recordNum);
+			
 			request.setAttribute("booklist", booklist);
 			request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
 		} catch (BookException e) {
