@@ -1,9 +1,7 @@
-function checkForm() {
+function checkUpdateForm() {
 	var username = $("input[name='username']").val();
 	var sex = $("input[name='sex']:checked").val();
 	var age = $("input[name='age']").val();
-	var password = $("input[name='password']").val();
-	var repassword = $("input[name='repassword']").val();
 	if(isNullOrEmpty(username)) {
 		alert("请填写用户名!");
 		return false;
@@ -35,4 +33,5 @@ function checkForm() {
 		return false;
 	}
 	return true;
+	
 }

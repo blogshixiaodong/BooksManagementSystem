@@ -7,5 +7,6 @@
 </head>
 <body>
 	出错了!!!!!
+	点击<a href="index.jsp">回到首页</a>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>更新图书</title>
 </head>
 <body>
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;

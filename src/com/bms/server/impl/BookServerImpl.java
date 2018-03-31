@@ -158,12 +158,12 @@ public class BookServerImpl implements IBookServer {
 		
 		try {
 			booklist = dao.getBookByConndition(conndition);
-			//查询无结果
-			if(booklist == null || booklist.size() == 0) {
-				throw new BookException(ErrorList.NO_RECORD);
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		//查询无结果
+		if(booklist == null || booklist.size() == 0) {
+			throw new BookException(ErrorList.NO_RECORD);
 		}
 		return booklist;
 	}

@@ -8,13 +8,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>查询用户</title>
 </head>
 <body>
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
 	<a href="<%=basePath%>admin_main.jsp">返回</a>
 	<hr/>
-	<form action="UserListController" method="post">
+	<form action="UserListController" method="post" onsubmit="return checkForm()">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>
@@ -39,6 +39,8 @@
 			</tr>
 		</table>
 	</form>
-
+	<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/utils.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/searchUser.js"></script>
 </body>
 </html>

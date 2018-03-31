@@ -24,11 +24,10 @@ public class BookDeleteController extends HttpServlet {
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
 		if(bookServer.deleteBook(bid)) {
 			//删除成功
-			response.sendRedirect(request.getContextPath()+"/book/admin.jsp");
+			response.sendRedirect(request.getContextPath()+"/admin_main.jsp");
 		}else {
 			//删除失败
-			//!!
-			response.sendRedirect(request.getContextPath()+"/book/error.jsp");
+			response.sendRedirect(request.getContextPath()+"/admin_main.jsp");
 		}
 	}
 

@@ -20,7 +20,7 @@
 	</c:if>
 	<hr/>
 	
-	<form action="UserUpdateController" method="post">
+	<form action="UserUpdateController" method="post" onsubmit="return checkUpdateForm()">
 		<table>
 			<c:if test="${sessionScope.error != null}">
 				<tr>
@@ -41,7 +41,10 @@
 			</tr>
 			<tr>
 				<td>性别</td>
-				<td><input type="text" name="sex" autocomplete="off" value="${requestScope.user.sex}" /><br /></td>
+				<td>
+					<input type="radio" name="sex" value="男" ${requestScope.user.sex == "男" ? "checked" : ""}/>男
+					<input type="radio" name="sex" value="女" ${requestScope.user.sex == "女" ? "checked" : ""}/>女
+				</td>
 			</tr>
 			<tr>
 				<td>年龄</td>
@@ -57,5 +60,8 @@
 			</tr>
 		</table>
 	</form>
+	<script type="text/javascript" src="<%=basePath%>jQuery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/utils.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/updateUser.js"></script>
 </body>
 </html>

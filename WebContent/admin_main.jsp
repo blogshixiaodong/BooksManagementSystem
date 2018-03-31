@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>管理中心</title>
 
 </head>
 <body>
@@ -37,7 +37,7 @@
 	
 		<div style="float:left;margin-left:20px">
 			<a href="<%=basePath %>book/addBook.jsp">添加图书</a><br/>
-			<a href="<%=basePath %>/book/searchBook.jsp">删除图书</a><br/>
+			<!--<a href="<%=basePath %>/book/searchBook.jsp">删除图书</a><br/>-->
 			<a href="<%=basePath %>/book/searchBook.jsp">修改图书</a><br/>
 			<a href="<%=basePath %>/book/searchBook.jsp">查询图书</a><br/>
 			<a href="<%=basePath %>/BookListController?flag=1">图书列表</a><br/>

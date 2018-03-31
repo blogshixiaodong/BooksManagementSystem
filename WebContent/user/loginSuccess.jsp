@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>登陆成功</title>
 </head>
 <body>
 	<c:if test="${sessionScope.username  != null}">
