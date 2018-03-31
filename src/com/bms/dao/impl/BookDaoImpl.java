@@ -32,10 +32,12 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	@Override
 	public boolean deleteBook(Integer id)throws SQLException {
 		boolean result = false;
-		String sql = "DELETE FROM BOOK WHERE BID = ?";
+//		String sql = "DELETE FROM BOOK WHERE BID = ?";
+		String sql = "UPDATE BOOK SET STOCK = -1 WHERE BID = ?";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, id);
 		result = pstmt.executeUpdate() == 1;
+		
 		closeQuickly();
 		return result;
 	}
@@ -115,7 +117,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		return booklist;
 	}
 
-	@Override
+	@Override 
 	public List<Integer> getBookIdList() throws SQLException {
 		//获取图书ID集合
 		String sql = "SELECT BID FROM BOOK";
@@ -132,12 +134,11 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	//按条件获取记录
 	@Override
 	public List<Book> getBookByConndition(String conndition) throws SQLException {
-		String sql = "SELECT * FROM BOOK WHERE 1=1" + conndition;
+		String sql = "SELECT * FROM BOOK WHERE 1=1 AND STOCK >= 0 " + conndition;
 		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		List<Book> booklist = new ArrayList<Book>();
 		while(rs.next()) {
-			
 			Book book = new Book();
 			book.setBid(rs.getInt("bid"));
 			book.setBname(rs.getString("bname"));
@@ -181,7 +182,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	}
 
 	public List<Book> getRecordByPageNo(int currentPageNo) throws SQLException {
-		String sql = "SELECT * FROM BOOK" + " limit " + (currentPageNo - 1) * getPageSize() + "," + getPageSize();
+		String sql = "SELECT * FROM BOOK WHERE STOCK >= 0" + " limit " + (currentPageNo - 1) * getPageSize() + "," + getPageSize();
 		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		List<Book> booklist =new ArrayList<Book>();
@@ -201,7 +202,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 
 	@Override
 	public int getRecordCount() throws SQLException {
-		String sql = "SELECT COUNT(*) FROM BOOK";
+		String sql = "SELECT COUNT(*) FROM BOOK WHERE STOCK >= 0";
 		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		rs.next();

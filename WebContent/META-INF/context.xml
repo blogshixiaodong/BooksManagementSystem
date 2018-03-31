@@ -10,7 +10,7 @@
 		></Resource> -->
 	<Resource name="jdbc/MySql" type="javax.sql.DataSource" auth="Container"
 		driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/booksmanagementsystem?useUnicode=true&amp;characterEncoding=UTF-8"
-		username="root" password="shixiaodong" maxActive="20" maxIdle="10"
+		username="root" password="123456" maxActive="20" maxIdle="10"
 		maxWait="3000"></Resource>
 
 	<!-- <Resource name = "jdbc/Oracle" tyep = "javax.sql.DataSource" auth 
