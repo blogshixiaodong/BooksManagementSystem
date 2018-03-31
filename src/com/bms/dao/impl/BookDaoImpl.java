@@ -127,7 +127,6 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		} 
 		closeQuickly();
 		return idlist;
-
 	}
 	
 	//按条件获取记录
@@ -150,7 +149,6 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 		}
 		closeQuickly();
 		return booklist;
-		
 	}
 	
 	//是否还有库存
@@ -183,7 +181,7 @@ public class BookDaoImpl extends BaseDao implements IBookDao {
 	}
 
 	public List<Book> getRecordByPageNo(int currentPageNo) throws SQLException {
-		String sql = "SELECT * FROM BOOK" + " limit " + (currentPageNo - 1) * getPageSize() + "," + getPageSize();;
+		String sql = "SELECT * FROM BOOK" + " limit " + (currentPageNo - 1) * getPageSize() + "," + getPageSize();
 		pstmt = getConnection().prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		List<Book> booklist =new ArrayList<Book>();

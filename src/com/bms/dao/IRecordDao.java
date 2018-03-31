@@ -16,10 +16,10 @@ public interface IRecordDao  {
 	Integer borrowBookCount(Integer uid) throws SQLException;
 	
 	//获取已借图书记录
-	List<Object[]> getRecordByUserId(Integer id) throws SQLException;
+	List<Object[]> getRecordByUserId(Integer id,String flag) throws SQLException;
 	
 	//这本书借阅时间
-	int borrowTime(Integer uid, Integer bid) throws SQLException;
+	int borrowTime(Integer rid) throws SQLException;
 	
 	//是否有超期图书
 	boolean hasOverTimeBook(Integer uid) throws SQLException;

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bms.bean.Book;
+import com.bms.server.IBookServer;
 import com.bms.server.impl.BookServerImpl;
 
 import net.sf.json.JSONArray;
@@ -29,27 +30,26 @@ public class BookListController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
-		BookServerImpl bookServerImpl = new BookServerImpl();
+		IBookServer bookServer = new BookServerImpl();
 		List<Book> booklist = null;
 		Object pageNo = request.getParameter("pageNo");
 		int intPageNo = -1;
 		//获取图书列表记录
 		if(pageNo == null) {
-			booklist = bookServerImpl.getBookListByPageNo(1);
+			booklist = bookServer.getBookListByPageNo(1);
 			intPageNo = 1;
 		} else {
 			intPageNo = Integer.parseInt(pageNo.toString());
-			booklist = bookServerImpl.getBookListByPageNo(intPageNo);
+			booklist = bookServer.getBookListByPageNo(intPageNo);
 		}
-		int pageSize = bookServerImpl.getPageSize();
-		int recordNum = bookServerImpl.getRecordCount();
+		int pageSize = bookServer.getPageSize();
+		int recordNum = bookServer.getRecordCount();
 		int pageNum = recordNum % pageSize == 0 ? recordNum / pageSize : recordNum / pageSize + 1;
 		
 		request.getSession().setAttribute("pageNo", intPageNo);
 		request.getSession().setAttribute("pageNum", pageNum);
-		request.getSession().setAttribute("recordNum", bookServerImpl.getRecordCount());
+		request.getSession().setAttribute("recordNum", bookServer.getRecordCount());
 		
-
 		if(request.getParameter("flag") == null) {
 			JSONArray jArray = new JSONArray();
 			JSONObject jObject = new JSONObject();
@@ -66,7 +66,6 @@ public class BookListController extends HttpServlet {
 		}
 		
 		request.setAttribute("booklist", booklist);
-
 		request.getRequestDispatcher("/book/showBookList.jsp").forward(request, response);
 		
 	}

@@ -10,50 +10,62 @@ import java.util.Date;
  */
 public class SqlUtil {
 	
+	private static String[] nameArray = {"bname"};
+	
 	public static String getSql(Object object) {
 		StringBuilder str = new StringBuilder();
-		
 		Class clazz = (Class)object.getClass();
  		
 		//获取所有属性
 		Field[] fieldArray = clazz.getDeclaredFields();
 		try {
-			
 			for(Field field : fieldArray) {
 				//设置私有属性允许访问
 				field.setAccessible(true);
 				Object value = field.get(object);
 				if(value != null) {
-					
 					//获取对象属性值
 					Object valueObj = field.get(object);
-					
-					str.append( " and " +field.getName()+ " = " + getSqlByType(valueObj));
-					
+					str.append( " and " +field.getName()+ getSqlByType(valueObj,field.getName()));
 				}
-			}
-			
+			}	
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return str.toString();
-		
 	}
 	
 	//根据类型拼接字符串
-	private static String getSqlByType(Object object) {
+	private static String getSqlByType(Object object,String name) {
 		String sql = "";
 		if(object instanceof String) {
-			sql = " '" + object.toString() + "' ";
+			//匹配查看是否是需要模糊查询的字段
+			if(isLikeRetrieve(name)) {
+				sql = " LIKE '%"+object.toString()+"%' ";
+			}else {
+				sql = " = '" + object.toString() + "' ";
+			}
 		}else if(object instanceof Integer) {
-			sql = sql+object;
+			sql = sql + " = "+object;
 		}else if(object instanceof Date) {
-			sql = " '" + DateFormat.dateToString((Date)object) + "' ";
+			sql = " = '" + DateFormat.dateToString((Date)object) + "' ";
 		}
-		
 		return sql;
 	}
 	
+	//该字段是否需要模糊查询
+	private static boolean isLikeRetrieve(String name) {
+		for(String temp : nameArray) {
+			if(temp.equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
+	//设置需要模糊的字段的数组
+	public static void setNameArray(String[] nameArray) {
+		SqlUtil.nameArray = nameArray;
+	}
+
 }
