@@ -29,6 +29,8 @@ public class BorrowHistroyRecordController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer uid = (Integer)request.getSession().getAttribute("uid");
 		IRecordServer recordServer = new RecordServerImpl();
+		
+		//获取历史记录，使用数组方式保存单条记录
 		List<Object[]> recordlist = recordServer.getHistoryRecordByUserId(uid);
 		
 		request.setAttribute("recordlist", recordlist);

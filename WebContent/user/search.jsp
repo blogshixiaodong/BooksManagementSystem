@@ -23,7 +23,6 @@
 					<%
 						request.getSession().removeAttribute("error");
 					%>
-					<!-- 有BUG可以在此处调用removeAttribute("error") -->
 				</tr>
 			</c:if>
 			<tr>
