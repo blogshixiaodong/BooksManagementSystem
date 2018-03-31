@@ -16,8 +16,8 @@
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
 	<a href="<%=basePath%>user_main.jsp">个人中心</a>&nbsp;&nbsp;
 	<hr />
-	${sessionScope.error}
-	<%session.removeAttribute("error"); %>
+	 ${sessionScope.error}
+	<%session.removeAttribute("error"); %> 
 <form action="" method = "POST">
 	<c:if test = "${requestScope.recordlist != null}">
 		<table border = "1">

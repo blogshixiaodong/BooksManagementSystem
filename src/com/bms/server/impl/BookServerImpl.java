@@ -39,7 +39,6 @@ public class BookServerImpl implements IBookServer {
 		try {
 			//库存置0
 			result = dao.deleteBook(bid);
-	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

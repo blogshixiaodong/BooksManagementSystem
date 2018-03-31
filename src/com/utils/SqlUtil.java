@@ -21,11 +21,10 @@ public class SqlUtil {
 			for(Field field : fieldArray) {
 				//设置私有属性允许访问
 				field.setAccessible(true);
+				//获取对象的属性的值
 				Object value = field.get(object);
 				if(value != null) {
-					//获取对象属性值
-					Object valueObj = field.get(object);
-					str.append( " and " +field.getName()+ getSqlByType(valueObj,field.getName()));
+					str.append( " and " +field.getName()+ getSqlByType(value,field.getName()));
 				}
 			}	
 		}catch (Exception e) {

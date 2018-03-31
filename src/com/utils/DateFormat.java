@@ -14,24 +14,20 @@ import com.bms.exception.ErrorList;
  */
 public class DateFormat {
 
+	//时间格式转换 String --> Date
 	public static Date stringToDate(String str) throws BookException{
-		
 		if(str == null) {
 			return null;
 		}
-		
-		//时间格式转换 String --> Date
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			return sdf.parse(str);
 		} catch (ParseException e) {
-			//e.printStackTrace();
 			throw new BookException(ErrorList.DATE_FORMAT_ERROR);
 		}
-		//return null;
 	}
 	
-	
+	//date 类型转  string
 	public static String dateToString(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(date);

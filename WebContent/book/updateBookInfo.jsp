@@ -15,8 +15,8 @@
 	<a href="<%=basePath%>index.jsp">回到首页</a>&nbsp;&nbsp;
 	<a href="<%=basePath%>admin_main.jsp">个人中心</a>&nbsp;&nbsp;
 	<hr/>
-	${sessionScope.excep.content}
-	<%session.removeAttribute("excep"); %>
+	${sessionScope.error}
+	<%session.removeAttribute("error"); %>
 
 	<h3>修改图书信息</h3>
 	<% 

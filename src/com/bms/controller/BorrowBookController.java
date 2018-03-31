@@ -27,7 +27,6 @@ public class BorrowBookController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Integer uid = (Integer) request.getSession().getAttribute("uid");
 		Integer bid = Integer.parseInt(request.getParameter("bid"));
 		IRecordServer recordServer = new RecordServerImpl();
@@ -40,8 +39,6 @@ public class BorrowBookController extends HttpServlet {
 			request.getSession().setAttribute("error", info);
 			response.sendRedirect("BorrowBookListController");
 		}
-		
-
 	}
 
 	

@@ -53,16 +53,17 @@ public class RecordServerImpl implements IRecordServer {
 			//5. 创建借书记录
 			recordDaoImpl.addRecord(uid, bid);
 			bookDaoImpl.updateStock(bid,"-");
-			commitTranscation();
 			
 			//6.借阅成功之后，如果借阅数量达到5本，冻结账户
 			if(recordDaoImpl.borrowBookCount(uid) >= 5) {
 				userDaoImpl.updateStatus(uid, 1);
 			}
+			
+			commitTranscation();
 			return "Success";
 		}catch (SQLException e) {
 			e.printStackTrace();
-			//异常，回滚事物
+			//异常，回滚事务
 			rollbackTranscation();
 		}finally {
 			//关闭资源
@@ -96,11 +97,11 @@ public class RecordServerImpl implements IRecordServer {
 				bookDaoImpl.updateStock(bid,"+");
 				result = true;
 			}
-			//判断用户是否还存在超期图书，如果存在冻结用户
-			if(recordDaoImpl.hasOverTimeBook(uid)) {
-				userDaoImpl.updateStatus(uid, 1);
+			//判断用户是否还存在超期图书及借阅数量，如果存在冻结用户
+			if(!recordDaoImpl.hasOverTimeBook(uid) && recordDaoImpl.borrowBookCount(uid) <5) {
+				userDaoImpl.updateStatus(uid, 0);
 			}else {
-				userDaoImpl.updateStatus(uid,0);
+				userDaoImpl.updateStatus(uid,1);
 			}
 			//提交事务
 			commitTranscation();
@@ -147,13 +148,13 @@ public class RecordServerImpl implements IRecordServer {
 		try {
 			//是否是冻结状态
 			if(!userDaoImpl.isFreeze(uid)) {
+				//是否存在超期图书
 				if(recordDaoImpl.hasOverTimeBook(uid)) {
-					//userDaoImpl.update  --> 修改状态
 					userDaoImpl.updateStatus(uid, 1);
 					return;
 				}
+				//借阅数量是否达到最大值
 				if(recordDaoImpl.borrowBookCount(uid) >= 5) {
-					//userDaoImpl.update -->修改状态
 					userDaoImpl.updateStatus(uid,1);
 					return;
 				}
@@ -163,13 +164,14 @@ public class RecordServerImpl implements IRecordServer {
 		}
 	}
 	
+	//开启事务
 	private void beginTranscation() throws SQLException {
 		recordDaoImpl.getConnection().setAutoCommit(false);
 		userDaoImpl.getConnection().setAutoCommit(false);
 		bookDaoImpl.getConnection().setAutoCommit(false);
 	}
 
-	
+	//提交事务
 	private void commitTranscation() {
 		try {
 			recordDaoImpl.getConnection().commit();
@@ -180,6 +182,7 @@ public class RecordServerImpl implements IRecordServer {
 		}
 	}
 	
+	//回滚事务
 	private void rollbackTranscation() {
 		try {
 			recordDaoImpl.getConnection().rollback();
@@ -190,6 +193,7 @@ public class RecordServerImpl implements IRecordServer {
 		}
 	}
 	
+	//关闭资源
 	private void closeQuery() {
 		bookDaoImpl.closeQuickly();
 		recordDaoImpl.closeQuickly();
