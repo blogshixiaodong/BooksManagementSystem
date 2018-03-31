@@ -34,14 +34,14 @@ public class BookServerImpl implements IBookServer {
 	}
 
 	@Override
-	public boolean deleteBook(Integer uid) {
+	public boolean deleteBook(Integer bid) {
 		boolean result = false;
 		try {
-			result = dao.deleteBook(uid);
+			//库存置0
+			result = dao.deleteBook(bid);
+	
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			//dao.closeQuickly();
 		}
 		return result;
 	}
