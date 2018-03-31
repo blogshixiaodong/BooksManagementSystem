@@ -2,15 +2,14 @@ package com.bms.controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.bms.bean.Book;
 import com.bms.exception.BookException;
+import com.bms.server.IBookServer;
 import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
@@ -23,7 +22,7 @@ import com.utils.RequestUtil;
 @WebServlet("/BookSearchInfoController")
 public class BookSearchInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private BookServerImpl bookServerImpl = new BookServerImpl(); 
+    private IBookServer bookServer = new BookServerImpl(); 
 	
 	
     public BookSearchInfoController() {
@@ -32,22 +31,20 @@ public class BookSearchInfoController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
 		Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
-		
-		//时间格式异常
+		//存在格式格式异常
 		if(request.getSession().getAttribute("excep") != null) {
 			response.sendRedirect("book/searchBook.jsp");
 			return ;
 		}
 		
 		try {
-			List<Book> booklist = bookServerImpl.getBookByConndition(book);
-			int pageSize = bookServerImpl.getPageSize();
+
+			List<Book> booklist = bookServer.getBookByConndition(book);
+			int pageSize = bookServer.getPageSize();
 			int recordNum = booklist.size();
 			int pageNum = recordNum % pageSize == 0 ? recordNum / pageSize : recordNum / pageSize + 1;
 
@@ -61,7 +58,6 @@ public class BookSearchInfoController extends HttpServlet {
 			request.getSession().setAttribute("excep", e);
 			response.sendRedirect("book/searchBook.jsp");
 			return ;
-			
 		}
 	}
 

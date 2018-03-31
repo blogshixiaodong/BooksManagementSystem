@@ -1,8 +1,10 @@
 package com.bms.listener;
 
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.annotation.WebListener;
+
+import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionBindingEvent;
+import com.bms.server.IRecordServer;
 
 import com.bms.server.impl.RecordServerImpl;
 
@@ -12,33 +14,32 @@ import com.bms.server.impl.RecordServerImpl;
  * 
  */
 @WebListener
-public class UserFreezeListener implements ServletContextAttributeListener {
+public class UserFreezeListener implements HttpSessionAttributeListener {
 
-    
-    public UserFreezeListener() {
-        // TODO Auto-generated constructor stub
-    }
-
-	
-    public void attributeAdded(ServletContextAttributeEvent event)  { 
-         String name = event.getName();
+	@Override
+	public void attributeAdded(HttpSessionBindingEvent event) {
+		 String name = event.getName();
          if("uid".equals(name)) {
         	 Integer uid = (Integer)event.getValue();
-        	 
-        	 RecordServerImpl recordServerImpl = new RecordServerImpl();
-        	//设置超期状态
-        	 recordServerImpl.setUserFreezeStatus(uid);
+        	 IRecordServer recordServer = new RecordServerImpl();
+        	//检查是否应为超期状态
+        	 recordServer.checkUserFreezeStatus(uid);
          }
-    }
+	}
 
-	
-    public void attributeRemoved(ServletContextAttributeEvent arg0)  { 
-         // TODO Auto-generated method stub
-    }
+	@Override
+	public void attributeRemoved(HttpSessionBindingEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	
-    public void attributeReplaced(ServletContextAttributeEvent arg0)  { 
-         // TODO Auto-generated method stub
-    }
+	@Override
+	public void attributeReplaced(HttpSessionBindingEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+    
+   
 	
 }

@@ -1,7 +1,6 @@
 package com.bms.server;
 
 import java.util.List;
-
 import com.bms.bean.Book;
 import com.bms.exception.BookException;
 
@@ -21,7 +20,7 @@ public interface IBookServer {
 
 	Book getBookById(Integer id);
 	
-	List<Integer> getBookIdList();
+	/*List<Integer> getBookIdList();*/
 
 	List<Book> getBookList();
 	

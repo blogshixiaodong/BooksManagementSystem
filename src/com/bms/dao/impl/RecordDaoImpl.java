@@ -27,7 +27,6 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 		return result;
 	}
 	
-	
 	//归还图书， 修改归还时间
 	@Override
 	public boolean updateRecord(Integer rid) throws SQLException {
@@ -62,10 +61,10 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 	
 	//查询用户未归还图书记录
 	@Override
-	public List<Object[]> getRecordByUserId(Integer uid) throws SQLException {
+	public List<Object[]> getRecordByUserId(Integer uid,String flag) throws SQLException {
 		//连接book表和记录表，获取记录
 		String sql = "SELECT RECORD.BID,RID,BNAME,AUTHOR,PRESS,BORROWTIME,TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) DAY FROM RECORD,BOOK"
-					+ " WHERE BOOK.BID = RECORD.BID AND UID = ? AND RETURNTIME IS NULL";
+					+ " WHERE BOOK.BID = RECORD.BID AND UID = ? AND RETURNTIME IS "+ flag +" NULL";
 		pstmt = getConnection().prepareStatement(sql);
 		pstmt.setInt(1, uid);
 		rs = pstmt.executeQuery();
@@ -129,12 +128,12 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 	/*该书是否超期   
 	 * 有超期 返回true
 	 * */
-	public int borrowTime(Integer uid, Integer bid) throws SQLException {
+	public int borrowTime(Integer rid) throws SQLException {
 		Integer result = -1;
-		String sql = "SELECT TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) NUM FROM RECORD WHERE RETURNTIME IS NULL AND UID = ? AND BID = ?";
+		String sql = "SELECT TIMESTAMPDIFF(DAY,BORROWTIME,NOW()) NUM FROM RECORD WHERE RETURNTIME IS NULL AND RID = ?";
 		pstmt = getConnection().prepareStatement(sql);
-		pstmt.setInt(1, uid);
-		pstmt.setInt(2, bid);
+		pstmt.setInt(1, rid);
+		//pstmt.setInt(2, bid);
 		rs = pstmt.executeQuery();
 		if(rs.next()) {
 			result = rs.getInt("NUM");

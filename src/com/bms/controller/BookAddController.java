@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bms.bean.Book;
 import com.bms.exception.BookException;
+import com.bms.server.IBookServer;
 import com.bms.server.impl.BookServerImpl;
 import com.utils.RequestUtil;
 
@@ -19,33 +20,31 @@ import com.utils.RequestUtil;
 @WebServlet("/BookAddController")
 public class BookAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	BookServerImpl bookServerImpl = new BookServerImpl();
+	IBookServer bookServer = new BookServerImpl();
 	
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-				//反射获取表单提交参数
-				Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
+		//反射获取表单提交参数
+		Book book = (Book) RequestUtil.getParamsInjectObj(request, Book.class);
+		//存在格式错误	
+		if(request.getSession().getAttribute("excep") != null) {
+			request.setAttribute("book", book);	
+			request.getRequestDispatcher("book/addBook.jsp").forward(request, response);
+			return ;
+		}
 				
-				if(request.getSession().getAttribute("excep") != null) {
-					request.setAttribute("book", book);	
-					request.getRequestDispatcher("book/addBook.jsp").forward(request, response);
-					//response.sendRedirect(request.getContextPath()+"/book/addBook.jsp");
-					return ;
-				}
-				
-				try {
-					if(bookServerImpl.addBook(book)) {
-						response.sendRedirect(request.getContextPath()+"/BookListController?flag=1");
-					}
-				} catch (BookException e) {
-					request.getSession().setAttribute("excep", e);
-					request.setAttribute("book", book);			
-					request.getRequestDispatcher("book/addBook.jsp").forward(request, response);
-				}
+		try {
+			if(bookServer.addBook(book)) {
+				response.sendRedirect(request.getContextPath()+"/BookListController?flag=1");
+			}
+		} catch (BookException e) {
+			request.getSession().setAttribute("excep", e);
+			request.setAttribute("book", book);			
+			request.getRequestDispatcher("book/addBook.jsp").forward(request, response);
+		}
 	}
 
 	

@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bms.exception.BookException;
+import com.bms.exception.ErrorList;
 
 
 
@@ -57,13 +58,14 @@ public class RequestUtil {
 			}else if(type.equals("class java.lang.Integer") ){
 				field.set(object, Integer.parseInt(value) );
 			}else if(type.equals("class java.lang.Float")){
-				field.set(object, Float.parseFloat(value ) );
+				field.set(object, Float.parseFloat(value ));
 			}else if(type.equals("class java.util.Date")) {
 				
 				field.set(object,DateFormat.stringToDate(value));
 			}
 		}catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
+			throw new BookException(ErrorList.PATTERN_ERROR);
 		}
 	}
 	

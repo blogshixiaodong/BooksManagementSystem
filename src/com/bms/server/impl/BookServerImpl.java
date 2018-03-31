@@ -3,6 +3,7 @@ package com.bms.server.impl;
 import java.sql.SQLException;
 import java.util.List;
 import com.bms.bean.Book;
+import com.bms.dao.IBookDao;
 import com.bms.dao.impl.BookDaoImpl;
 import com.bms.exception.BookException;
 import com.bms.exception.ErrorList;
@@ -16,15 +17,14 @@ import com.utils.SqlUtil;
  * 
  */
 public class BookServerImpl implements IBookServer {
-	private BookDaoImpl bookDaoImpl = new BookDaoImpl();
+	private IBookDao dao = new BookDaoImpl();
 	
 	@Override
 	public boolean addBook(Book book)throws BookException {
 		boolean result = false;
-		
 		try {
 			checkIsNull(book);
-			result =  bookDaoImpl.addBook(book);
+			result =  dao.addBook(book);
 		} catch (BookException e) {
 			throw new BookException(e.getContent());
 		}catch (SQLException e) {
@@ -37,11 +37,11 @@ public class BookServerImpl implements IBookServer {
 	public boolean deleteBook(Integer uid) {
 		boolean result = false;
 		try {
-			result = bookDaoImpl.deleteBook(uid);
+			result = dao.deleteBook(uid);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			bookDaoImpl.closeQuickly();
+			//dao.closeQuickly();
 		}
 		return result;
 	}
@@ -72,12 +72,10 @@ public class BookServerImpl implements IBookServer {
 		boolean result = false;
 		try {
 			checkIsNull(book);
-			result = bookDaoImpl.updateBook(book);
+			result = dao.updateBook(book);
 		}catch (Exception e) {
 			//e.printStackTrace();
 			throw new BookException(ErrorList.NOT_NULL);
-		}finally {
-			bookDaoImpl.closeQuickly();
 		}
 		return result;
 	}
@@ -86,11 +84,9 @@ public class BookServerImpl implements IBookServer {
 	public boolean isExistBook(Integer id) {
 		boolean result = false;
 		try {
-			result = bookDaoImpl.isExistBook(id);
+			result = dao.isExistBook(id);
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			bookDaoImpl.closeQuickly();
 		}
 		return result;
 	}
@@ -99,11 +95,9 @@ public class BookServerImpl implements IBookServer {
 	public Book getBookById(Integer id) {
 		Book book = null;
 		try {
-			book = bookDaoImpl.getBookById(id);
+			book = dao.getBookById(id);
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			bookDaoImpl.closeQuickly();
 		}
 		return book;
 	}
@@ -112,7 +106,7 @@ public class BookServerImpl implements IBookServer {
 	@Override
 	public int getRecordCount() {
 		try {
-			return bookDaoImpl.getRecordCount();
+			return dao.getRecordCount();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -123,11 +117,9 @@ public class BookServerImpl implements IBookServer {
 	public List<Book> getBookListByPageNo(int pageNo) {
 		List<Book> booklist = null;
 		try {
-			booklist = bookDaoImpl.getRecordByPageNo(pageNo);
+			booklist = dao.getRecordByPageNo(pageNo);
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			bookDaoImpl.closeQuickly();
 		}
 		return booklist;
 	}
@@ -136,47 +128,49 @@ public class BookServerImpl implements IBookServer {
 	public List<Book> getBookList() {
 		List<Book> booklist = null;
 		try {
-			booklist = bookDaoImpl.getBookList();
+			booklist = dao.getBookList();
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			bookDaoImpl.closeQuickly();
 		}
 		return booklist;
 	}
 
-	@Override
-	public List<Integer> getBookIdList() {
+	/*@Override*/
+	/*public List<Integer> getBookIdList() {
 		List<Integer> booklist = null;
 		try {
-			booklist = bookDaoImpl.getBookIdList();
+			booklist = dao.getBookIdList();
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			bookDaoImpl.closeQuickly();
 		}
 		return booklist;
-	}
+	}*/
 
 	@Override
 	public List<Book> getBookByConndition(Book book)throws BookException {
 		List<Book> booklist = null;
 		String conndition = SqlUtil.getSql(book);
 		
+		//conndition 为空串
+		if("".equals(conndition)) {
+			throw new BookException(ErrorList.NO_CONDITION);
+		}
+		
 		try {
-			booklist = bookDaoImpl.getBookByConndition(conndition);
+			booklist = dao.getBookByConndition(conndition);
+			//查询无结果
+			if(booklist == null || booklist.size() == 0) {
+				throw new BookException(ErrorList.NO_RECORD);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		if(booklist == null || booklist.size() == 0) {
-			throw new BookException(ErrorList.NO_RECORD);
 		}
 		return booklist;
 	}
 
 	@Override
 	public int getPageSize() {
-		return bookDaoImpl.getPageSize(); 
+		return dao.getPageSize(); 
 	}
 	
 	
